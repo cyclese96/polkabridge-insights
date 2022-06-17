@@ -17,7 +17,7 @@ export default function CoinsTokensSlide() {
                 <table className="table-auto my-4 w-full">
                     <tbody>
                         <tr>
-                            <td>
+                            <td width='20%'>
                                 <img src="Ellipse 80.png"
                                     className="block"
                                     alt="..."
@@ -55,7 +55,7 @@ export default function CoinsTokensSlide() {
                     </tbody>
                 </table>
             </div>
-            
+
             <div className="mx-8 my-8 border border-slate-800 rounded-lg px-4 py-4">
                 <img src="Article_Image.png" />
                 <div className="flex my-4">
@@ -68,7 +68,7 @@ export default function CoinsTokensSlide() {
                 <table className="table-auto my-4 w-full">
                     <tbody>
                         <tr>
-                            <td>
+                            <td width='20%'>
                                 <img src="Ellipse 81.png"
                                     className="block"
                                     alt="..."
@@ -119,7 +119,7 @@ export default function CoinsTokensSlide() {
                 <table className="table-auto my-4 w-full">
                     <tbody>
                         <tr>
-                            <td>
+                            <td width='20%'>
                                 <img src="Ellipse 82.png"
                                     className="block"
                                     alt="..."

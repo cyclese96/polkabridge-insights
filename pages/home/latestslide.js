@@ -4,7 +4,7 @@ import { Carousel } from 'react-responsive-carousel';
 
 export default function LatestSlide() {
     return (
-        <Carousel centerMode={true} centerSlidePercentage={33.33} selectedItem={1} showThumbs={false}>
+        <Carousel centerMode={true} centerSlidePercentage={33.33} selectedItem={1} showThumbs={false} showStatus={false}>
             <div className="mx-8 my-8 border border-slate-800 rounded-lg px-4 py-4">
                 <img src="Rectangle33.png" />
                 <div className="flex my-4">
@@ -17,7 +17,7 @@ export default function LatestSlide() {
                 <table className="table-auto my-4 w-full">
                     <tbody>
                         <tr>
-                            <td>
+                            <td width='20%'>
                                 <img src="Ellipse 80.png"
                                     className="block"
                                     alt="..."
@@ -55,7 +55,7 @@ export default function LatestSlide() {
                     </tbody>
                 </table>
             </div>
-            
+
             <div className="mx-8 my-8 border border-slate-800 rounded-lg px-4 py-4">
                 <img src="Article_Image.png" />
                 <div className="flex my-4">
@@ -68,14 +68,14 @@ export default function LatestSlide() {
                 <table className="table-auto my-4 w-full">
                     <tbody>
                         <tr>
-                            <td>
+                            <td width='20%'>
                                 <img src="Ellipse 81.png"
                                     className="block"
                                     alt="..."
                                 />
                             </td>
                             <td>
-                                <span className="text-white text-sm text-left block">Dasteen</span>
+                                <span className="text-white text-sm text-left block">Kristin Watson</span>
                                 <span className="text-white text-sm text-left block">3 min Read</span>
                             </td>
                             <td align="middle">
@@ -119,14 +119,14 @@ export default function LatestSlide() {
                 <table className="table-auto my-4 w-full">
                     <tbody>
                         <tr>
-                            <td>
+                            <td width='20%'>
                                 <img src="Ellipse 82.png"
                                     className="block"
                                     alt="..."
                                 />
                             </td>
                             <td>
-                                <span className="text-white text-sm text-left block">Dasteen</span>
+                                <span className="text-white text-sm text-left block">Marvin McKinney</span>
                                 <span className="text-white text-sm text-left block">3 min Read</span>
                             </td>
                             <td align="middle">
@@ -170,7 +170,7 @@ export default function LatestSlide() {
                 <table className="table-auto my-4 w-full">
                     <tbody>
                         <tr>
-                            <td>
+                            <td width='20%'>
                                 <img src="Ellipse 83.png"
                                     className="block"
                                     alt="..."
@@ -221,7 +221,7 @@ export default function LatestSlide() {
                 <table className="table-auto my-4 w-full">
                     <tbody>
                         <tr>
-                            <td>
+                            <td width='20%'>
                                 <img src="Ellipse 80.png"
                                     className="block"
                                     alt="..."
@@ -272,7 +272,7 @@ export default function LatestSlide() {
                 <table className="table-auto my-4 w-full">
                     <tbody>
                         <tr>
-                            <td>
+                            <td width='20%'>
                                 <img src="Ellipse 81.png"
                                     className="block"
                                     alt="..."

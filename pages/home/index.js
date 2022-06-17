@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 // import ReactStars from 'react-stars'
 
 import ReactStars from "react-rating-stars-component";
@@ -16,57 +17,33 @@ export default function Home() {
     <div className="gap-6">
       <div className="flex flex-col">
         <div className="flex space-x-4 justify-start">
-          <span className="text-white text-2xl">Today’s News</span>
+          <Link href="/home">
+            <a>
+              <span className="text-white text-2xl">Today’s News</span>
+            </a>
+          </Link>
           <div className="bg-gradient-to-b from-pink-300 to-pink-500 w-0.5 rounded"></div>
-          <span className="text-white text-2xl">Trending Articles</span>
+          <Link href="/home/TrendingArticles">
+            <a>
+              <span className="text-white text-2xl">Trending Articles</span>
+            </a>
+          </Link>
           <div className="bg-gradient-to-b from-pink-300 to-pink-500 w-0.5 rounded"></div>
-          <span className="text-white text-2xl">DEFI BASICS</span>
+          <Link href="/home/DefiBasics">
+            <a>
+              <span className="text-white text-2xl">DEFI BASICS</span>
+            </a>
+          </Link>
           <div className="bg-gradient-to-b from-pink-300 to-pink-500 w-0.5 rounded"></div>
-          <span className="text-white text-2xl">Weekly Top</span>
+          <Link href="/home/WeeklyTop">
+            <a>
+              <span className="text-white text-2xl">Weekly Top</span>
+            </a>
+          </Link>
         </div>
 
         <div className="flex space-x-12 justify-start mt-12">
           <div id="carouselExampleCaptions" className="carousel slide relative w-3/4" data-bs-ride="carousel">
-            <div className="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
-              <button
-                type="button"
-                data-bs-target="#carouselExampleCaptions"
-                data-bs-slide-to="0"
-                className="active"
-                aria-current="true"
-                aria-label="Slide 1"
-              ></button>
-              <button
-                type="button"
-                data-bs-target="#carouselExampleCaptions"
-                data-bs-slide-to="1"
-                aria-label="Slide 2"
-              ></button>
-              <button
-                type="button"
-                data-bs-target="#carouselExampleCaptions"
-                data-bs-slide-to="2"
-                aria-label="Slide 3"
-              ></button>
-              <button
-                type="button"
-                data-bs-target="#carouselExampleCaptions"
-                data-bs-slide-to="3"
-                aria-label="Slide 4"
-              ></button>
-              <button
-                type="button"
-                data-bs-target="#carouselExampleCaptions"
-                data-bs-slide-to="4"
-                aria-label="Slide 5"
-              ></button>
-              <button
-                type="button"
-                data-bs-target="#carouselExampleCaptions"
-                data-bs-slide-to="5"
-                aria-label="Slide 6"
-              ></button>
-            </div>
             <div className="carousel-inner relative w-full overflow-hidden rounded-lg">
               <div className="carousel-item active relative float-left w-full">
                 <img
@@ -287,17 +264,17 @@ export default function Home() {
 
 
         <div className="mx-auto mt-12 w-1/2 space-y-8 flex flex-col items-center">
-            <img
-              src="/image 2 (2).png"
-              className="block border rounded-full w-20 h-20 bg-white"
-              alt="..."
-            />
-            <span className="text-2xl text-white">
-              Subscribe For the lastest updates
-            </span>
-            <span className="text-white">
-              Dolore ea mollit excepteur sint. Esse ut cupidatat excepteur excepteur adipisicing nostrud adipisicing quis dolor adipisicing elit quis commodo.
-            </span>
+          <img
+            src="/image 2 (2).png"
+            className="block border rounded-full w-20 h-20 bg-white"
+            alt="..."
+          />
+          <span className="text-2xl text-white">
+            Subscribe For the lastest updates
+          </span>
+          <span className="text-white">
+            Dolore ea mollit excepteur sint. Esse ut cupidatat excepteur excepteur adipisicing nostrud adipisicing quis dolor adipisicing elit quis commodo.
+          </span>
           <div className="flex space-x-8 w-full px-4">
             <input className="bg-transparent rounded-lg border border-gray-300 px-5 py-3 text-white pl-4 flex-grow w-2/3" type="text" placeholder="Enter your email here...." />
             <button className="bg-gradient-to-r from-pink-300 to-pink-500 px-5 py-3 rounded-xl text-xl font-medium w-1/3">Subscribe</button>
