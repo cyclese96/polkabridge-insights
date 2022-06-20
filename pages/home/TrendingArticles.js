@@ -1,14 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-// import ReactStars from 'react-stars'
-
-import ReactStars from "react-rating-stars-component";
 import 'tw-elements';
-import BeginnerSlide from "./beginnerslide";
-import CoinsTokensSlide from "./coinstokensslide";
 import Divider from "./divider";
-import EcosystemsSlide from "./ecosystemsslide";
-import LatestSlide from "./latestslide";
 
 
 export default function TrendingArticles() {

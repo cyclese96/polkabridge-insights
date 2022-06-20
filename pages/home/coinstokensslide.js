@@ -4,7 +4,7 @@ import { Carousel } from 'react-responsive-carousel';
 
 export default function CoinsTokensSlide() {
     return (
-        <Carousel centerMode={true} centerSlidePercentage={33.33} selectedItem={1} showThumbs={false}>
+        <Carousel centerMode={true} centerSlidePercentage={33.33} selectedItem={1} showThumbs={false} showIndicators={false}>
             <div className="mx-8 my-8 border border-slate-800 rounded-lg px-4 py-4">
                 <img src="Rectangle33.png" />
                 <div className="flex my-4">

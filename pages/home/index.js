@@ -17,7 +17,7 @@ export default function Home() {
     <div className="gap-6">
       <div className="flex flex-col">
         <div className="flex space-x-4 justify-start">
-          <Link href="/home">
+          <Link href="/home/TodaysNews">
             <a>
               <span className="text-white text-2xl">Today’s News</span>
             </a>
@@ -29,7 +29,7 @@ export default function Home() {
             </a>
           </Link>
           <div className="bg-gradient-to-b from-pink-300 to-pink-500 w-0.5 rounded"></div>
-          <Link href="/home/DefiBasics">
+          <Link href="/home/DEFIBasics">
             <a>
               <span className="text-white text-2xl">DEFI BASICS</span>
             </a>
