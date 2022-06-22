@@ -5,7 +5,7 @@ import ReactStars from "react-rating-stars-component";
 import 'tw-elements';
 import BeginnerSlide from "./beginnerslide";
 import CoinsTokensSlide from "./coinstokensslide";
-import Divider from "./divider";
+import Divider from "../../components/divider";
 import EcosystemsSlide from "./ecosystemsslide";
 import LatestSlide from "./latestslide";
 

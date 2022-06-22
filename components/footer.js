@@ -79,13 +79,12 @@ export default function Footer() {
               <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
             </svg>
           </button>
-          <div className="flex flex-grow justify-between items-center mx-8 mb-4">
-
-            <span className="text-white">
+          <div className="flex flex-grow justify-between items-center my-4">
+            <span className="text-gray-400 text-sm">
               © 2022 PolkaBridge
             </span>
-            <span className="text-white text-right">
-              All Right Reserved.
+            <span className="text-gray-400 text-sm text-right">
+              All Right Reserved
             </span>
           </div>
         </div>

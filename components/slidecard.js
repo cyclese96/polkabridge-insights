@@ -4,7 +4,7 @@ import { Carousel } from 'react-responsive-carousel';
 
 export default function SlideCard(props) {
     return (
-        <div className="mx-8 my-8 border border-slate-800 rounded-lg px-4 py-4">
+        <div className="border border-gray-800 rounded-2xl px-8 py-8 max-w-md">
             <img src={props.item.image} />
             <div className="flex my-4">
                 <span className="text-white text-sm mr-8">{props.item.kind.name}</span>

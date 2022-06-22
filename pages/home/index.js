@@ -6,7 +6,7 @@ import ReactStars from "react-rating-stars-component";
 import 'tw-elements';
 import BeginnerSlide from "./beginnerslide";
 import CoinsTokensSlide from "./coinstokensslide";
-import Divider from "./divider";
+import Divider from "../../components/divider";
 import EcosystemsSlide from "./ecosystemsslide";
 import LatestSlide from "./latestslide";
 
@@ -52,7 +52,7 @@ export default function Home() {
           </Link>
         </div>
 
-        <div className="flex space-x-12 justify-start mt-12">
+        <div className="flex space-x-12 justify-start my-12">
           <div id="carouselExampleCaptions" className="carousel slide relative w-3/4" data-bs-ride="carousel">
             <div className="carousel-inner relative w-full overflow-hidden rounded-lg">
               <div className="carousel-item active relative float-left w-full">
@@ -240,31 +240,31 @@ export default function Home() {
           </div>
         </div>
 
-        <div>
-          <div className="justify-start mt-12">
+        <div className="mb-8">
+          <div className="justify-start my-12">
             <span className="text-white text-2xl">Latest</span>
             <Divider />
           </div>
           <LatestSlide items={latestItems}/>
         </div>
 
-        <div>
-          <div className="justify-start mt-12">
+        <div className="mb-8">
+          <div className="justify-start my-12">
             <span className="text-white text-2xl">Beginner</span>
             <Divider />
           </div>
           <BeginnerSlide />
         </div>
 
-        <div>
-          <div className="justify-start mt-12">
+        <div className="mb-8">
+          <div className="justify-start my-12">
             <span className="text-white text-2xl">Coins & Tokens</span>
             <Divider />
           </div>
           <CoinsTokensSlide />
         </div>
 
-        <div>
+        <div className="mb-8">
           <div className="justify-start mt-12">
             <span className="text-white text-2xl">Ecosystems</span>
             <Divider />

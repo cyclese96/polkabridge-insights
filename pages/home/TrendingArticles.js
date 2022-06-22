@@ -1,325 +1,118 @@
 import Image from "next/image";
 import Link from "next/link";
 import 'tw-elements';
-import Divider from "./divider";
+import Divider from "../../components/divider";
+import SlideCard from "../../components/slidecard";
+import React, { useMemo, useEffect, useState } from 'react';
 
+export default function TrendingArticles(props) {
+    const [cardItems, setCardItems] = useState([]);
 
-export default function TrendingArticles() {
+    useMemo(() => {
+        const itemData = [
+            {
+                image: 'Rectangle33.png',
+                kind: {
+                    name: 'Fantasy',
+                    date: 1
+                },
+                title: 'How to make GUI in Java with example example',
+                content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Leo ullamcorper suspendisse at mi nulla volutpat.',
+                author: {
+                    image: 'Ellipse 80.png',
+                    name: 'Dasteen',
+                    time: 3
+                }
+            },
+            {
+                image: 'Article_Image.png',
+                kind: {
+                    name: 'Fantasy',
+                    date: 2
+                },
+                title: 'How to make GUI in Java with example example',
+                content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Leo ullamcorper suspendisse at mi nulla volutpat.',
+                author: {
+                    image: 'Ellipse 81.png',
+                    name: 'Kristin Watson',
+                    time: 3
+                }
+            },
+            {
+                image: 'Rectangle34.png',
+                kind: {
+                    name: 'Fantasy',
+                    date: 2
+                },
+                title: 'How to make GUI in Java with example example',
+                content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Leo ullamcorper suspendisse at mi nulla volutpat.',
+                author: {
+                    image: 'Ellipse 82.png',
+                    name: 'Marvin McKinney',
+                    time: 3
+                }
+            },
+            {
+                image: 'Rectangle33.png',
+                kind: {
+                    name: 'Fantasy',
+                    date: 1
+                },
+                title: 'How to make GUI in Java with example example',
+                content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Leo ullamcorper suspendisse at mi nulla volutpat.',
+                author: {
+                    image: 'Ellipse 80.png',
+                    name: 'Dasteen',
+                    time: 3
+                }
+            },
+            {
+                image: 'Article_Image.png',
+                kind: {
+                    name: 'Fantasy',
+                    date: 2
+                },
+                title: 'How to make GUI in Java with example example',
+                content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Leo ullamcorper suspendisse at mi nulla volutpat.',
+                author: {
+                    image: 'Ellipse 81.png',
+                    name: 'Kristin Watson',
+                    time: 3
+                }
+            },
+            {
+                image: 'Rectangle34.png',
+                kind: {
+                    name: 'Fantasy',
+                    date: 2
+                },
+                title: 'How to make GUI in Java with example example',
+                content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Leo ullamcorper suspendisse at mi nulla volutpat.',
+                author: {
+                    image: 'Ellipse 82.png',
+                    name: 'Marvin McKinney',
+                    time: 3
+                }
+            }
+        ];
+        setCardItems(itemData);
+    }, []);
 
-  return (
-    <div>
-      <div className="justify-start mt-12">
-            <span className="text-white text-2xl">Trending Articles</span>
-            <Divider />
-          </div>
-    <div className="flex">
-            <div className="mx-8 my-8 border border-slate-800 rounded-lg px-4 py-4">
-                <img src="/home/Rectangle33.png" />
-                <div className="flex my-4">
-                    <span className="text-white text-sm mr-8">Fantasy</span>
-                    <span className="text-white text-sm mr-8">·</span>
-                    <span className="text-white text-sm">1 Month Ago </span>
+    const slides = cardItems.map(function (data, idx) {
+        return <SlideCard key={idx} item={data} />
+    });
+    return (
+        <div className="my-12">
+            <div className="justify-start my-12 mx-12">
+                <div className="mb-4">
+                    <span className="text-white text-2xl">Trending Articles</span>
                 </div>
-                <span className="text-white text-left text-2xl inline-block mb-4">How to make GUI in Java with example example</span>
-                <span className="text-white text-left text-sm inline-block">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Leo ullamcorper suspendisse at mi nulla volutpat.</span>
-                <table className="table-auto my-4 w-full">
-                    <tbody>
-                        <tr>
-                            <td width='20%'>
-                                <img src="/home/Ellipse 80.png"
-                                    className="block"
-                                    alt="..."
-                                />
-                            </td>
-                            <td>
-                                <span className="text-white text-sm text-left block">Dasteen</span>
-                                <span className="text-white text-sm text-left block">3 min Read</span>
-                            </td>
-                            <td align="middle">
-                                <span className="text-white text-sm block"></span>
-                                <span className="text-white text-left text-sm block mr-4">∙</span>
-                            </td>
-                            <td className="whitespace-nowrap w-px" align="right">
-                                <div>
-                                    <div className="items-center">
-                                        <div className="flex items-center">
-                                            <span className="text-white text-sm ">
-                                                Read Full
-                                            </span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <div className="grow">
-                                        <span className="text-white text-sm text-right">See More Info</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <Divider />
             </div>
-
-            <div className="mx-8 my-8 border border-slate-800 rounded-lg px-4 py-4">
-                <img src="/home/Article_Image.png" />
-                <div className="flex my-4">
-                    <span className="text-white text-sm mr-8">Fantasy</span>
-                    <span className="text-white text-sm mr-8">·</span>
-                    <span className="text-white text-sm">1 Month Ago </span>
-                </div>
-                <span className="text-white text-left text-2xl inline-block mb-4">How to make GUI in Java with example example</span>
-                <span className="text-white text-left text-sm inline-block">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Leo ullamcorper suspendisse at mi nulla volutpat.</span>
-                <table className="table-auto my-4 w-full">
-                    <tbody>
-                        <tr>
-                            <td width='20%'>
-                                <img src="/home/Ellipse 81.png"
-                                    className="block"
-                                    alt="..."
-                                />
-                            </td>
-                            <td>
-                                <span className="text-white text-sm text-left block">Kristin Watson</span>
-                                <span className="text-white text-sm text-left block">3 min Read</span>
-                            </td>
-                            <td align="middle">
-                                <span className="text-white text-sm block"></span>
-                                <span className="text-white text-left text-sm block mr-4">∙</span>
-                            </td>
-                            <td className="whitespace-nowrap w-px" align="right">
-                                <div>
-                                    <div className="items-center">
-                                        <div className="flex items-center">
-                                            <span className="text-white text-sm ">
-                                                Read Full
-                                            </span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <div className="grow">
-                                        <span className="text-white text-sm text-right">See More Info</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div className="flex flex-wrap justify-center gap-8 mt-8">
+                {slides}
             </div>
+        </div>
 
-            <div className="mx-8 my-8 border border-slate-800 rounded-lg px-4 py-4">
-                <img src="/home/Rectangle34.png" />
-                <div className="flex my-4">
-                    <span className="text-white text-sm mr-8">Fantasy</span>
-                    <span className="text-white text-sm mr-8">·</span>
-                    <span className="text-white text-sm">1 Month Ago </span>
-                </div>
-                <span className="text-white text-left text-2xl inline-block mb-4">How to make GUI in Java with example example</span>
-                <span className="text-white text-left text-sm inline-block">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Leo ullamcorper suspendisse at mi nulla volutpat.</span>
-                <table className="table-auto my-4 w-full">
-                    <tbody>
-                        <tr>
-                            <td width='20%'>
-                                <img src="/home/Ellipse 82.png"
-                                    className="block"
-                                    alt="..."
-                                />
-                            </td>
-                            <td>
-                                <span className="text-white text-sm text-left block">Marvin McKinney</span>
-                                <span className="text-white text-sm text-left block">3 min Read</span>
-                            </td>
-                            <td align="middle">
-                                <span className="text-white text-sm block"></span>
-                                <span className="text-white text-left text-sm block mr-4">∙</span>
-                            </td>
-                            <td className="whitespace-nowrap w-px" align="right">
-                                <div>
-                                    <div className="items-center">
-                                        <div className="flex items-center">
-                                            <span className="text-white text-sm ">
-                                                Read Full
-                                            </span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <div className="grow">
-                                        <span className="text-white text-sm text-right">See More Info</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-    </div>
-    <div className="flex">
-            <div className="mx-8 my-8 border border-slate-800 rounded-lg px-4 py-4">
-                <img src="/home/Rectangle33.png" />
-                <div className="flex my-4">
-                    <span className="text-white text-sm mr-8">Fantasy</span>
-                    <span className="text-white text-sm mr-8">·</span>
-                    <span className="text-white text-sm">1 Month Ago </span>
-                </div>
-                <span className="text-white text-left text-2xl inline-block mb-4">How to make GUI in Java with example example</span>
-                <span className="text-white text-left text-sm inline-block">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Leo ullamcorper suspendisse at mi nulla volutpat.</span>
-                <table className="table-auto my-4 w-full">
-                    <tbody>
-                        <tr>
-                            <td width='20%'>
-                                <img src="/home/Ellipse 80.png"
-                                    className="block"
-                                    alt="..."
-                                />
-                            </td>
-                            <td>
-                                <span className="text-white text-sm text-left block">Dasteen</span>
-                                <span className="text-white text-sm text-left block">3 min Read</span>
-                            </td>
-                            <td align="middle">
-                                <span className="text-white text-sm block"></span>
-                                <span className="text-white text-left text-sm block mr-4">∙</span>
-                            </td>
-                            <td className="whitespace-nowrap w-px" align="right">
-                                <div>
-                                    <div className="items-center">
-                                        <div className="flex items-center">
-                                            <span className="text-white text-sm ">
-                                                Read Full
-                                            </span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <div className="grow">
-                                        <span className="text-white text-sm text-right">See More Info</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div className="mx-8 my-8 border border-slate-800 rounded-lg px-4 py-4">
-                <img src="/home/Article_Image.png" />
-                <div className="flex my-4">
-                    <span className="text-white text-sm mr-8">Fantasy</span>
-                    <span className="text-white text-sm mr-8">·</span>
-                    <span className="text-white text-sm">1 Month Ago </span>
-                </div>
-                <span className="text-white text-left text-2xl inline-block mb-4">How to make GUI in Java with example example</span>
-                <span className="text-white text-left text-sm inline-block">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Leo ullamcorper suspendisse at mi nulla volutpat.</span>
-                <table className="table-auto my-4 w-full">
-                    <tbody>
-                        <tr>
-                            <td width='20%'>
-                                <img src="/home/Ellipse 81.png"
-                                    className="block"
-                                    alt="..."
-                                />
-                            </td>
-                            <td>
-                                <span className="text-white text-sm text-left block">Kristin Watson</span>
-                                <span className="text-white text-sm text-left block">3 min Read</span>
-                            </td>
-                            <td align="middle">
-                                <span className="text-white text-sm block"></span>
-                                <span className="text-white text-left text-sm block mr-4">∙</span>
-                            </td>
-                            <td className="whitespace-nowrap w-px" align="right">
-                                <div>
-                                    <div className="items-center">
-                                        <div className="flex items-center">
-                                            <span className="text-white text-sm ">
-                                                Read Full
-                                            </span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <div className="grow">
-                                        <span className="text-white text-sm text-right">See More Info</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div className="mx-8 my-8 border border-slate-800 rounded-lg px-4 py-4">
-                <img src="/home/Rectangle34.png" />
-                <div className="flex my-4">
-                    <span className="text-white text-sm mr-8">Fantasy</span>
-                    <span className="text-white text-sm mr-8">·</span>
-                    <span className="text-white text-sm">1 Month Ago </span>
-                </div>
-                <span className="text-white text-left text-2xl inline-block mb-4">How to make GUI in Java with example example</span>
-                <span className="text-white text-left text-sm inline-block">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Leo ullamcorper suspendisse at mi nulla volutpat.</span>
-                <table className="table-auto my-4 w-full">
-                    <tbody>
-                        <tr>
-                            <td width='20%'>
-                                <img src="/home/Ellipse 82.png"
-                                    className="block"
-                                    alt="..."
-                                />
-                            </td>
-                            <td>
-                                <span className="text-white text-sm text-left block">Marvin McKinney</span>
-                                <span className="text-white text-sm text-left block">3 min Read</span>
-                            </td>
-                            <td align="middle">
-                                <span className="text-white text-sm block"></span>
-                                <span className="text-white text-left text-sm block mr-4">∙</span>
-                            </td>
-                            <td className="whitespace-nowrap w-px" align="right">
-                                <div>
-                                    <div className="items-center">
-                                        <div className="flex items-center">
-                                            <span className="text-white text-sm ">
-                                                Read Full
-                                            </span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <div className="grow">
-                                        <span className="text-white text-sm text-right">See More Info</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-    </div>
-    </div>
-  );
-}         
+    );
+}
