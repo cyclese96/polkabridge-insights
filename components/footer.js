@@ -10,7 +10,7 @@ export default function Footer() {
     <footer>
       <div className="mx-8">
         <div className="flex flex-wrap items-center lg:container px-4 py-6 mx-auto md:flex-no-wrap md:px-6">
-          <div className="flex flex-grow space-x-24">
+          <div className="flex flex-grow space-x-24 items-start">
             <div className="grid gap-4 flex-grow">
               <img
                 src="/Logo.png"
@@ -18,7 +18,7 @@ export default function Footer() {
                 width={120}
                 alt="logo"
               />
-              <span className="block text-white">Connect With PolkaBridge</span>
+              <span className="block text-gray-400 text-sm">Connect With PolkaBridge</span>
               <div className="flex space-x-8">
                 <svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M23 1.03813C22.0424 1.71361 20.9821 2.23024 19.86 2.56813C19.2577 1.87564 18.4573 1.38482 17.567 1.16206C16.6767 0.939292 15.7395 0.995328 14.8821 1.32259C14.0247 1.64984 13.2884 2.23253 12.773 2.99185C12.2575 3.75116 11.9877 4.65047 12 5.56813V6.56813C10.2426 6.6137 8.50127 6.22394 6.93101 5.43358C5.36074 4.64321 4.01032 3.47677 3 2.03813C3 2.03813 -1 11.0381 8 15.0381C5.94053 16.4361 3.48716 17.1371 1 17.0381C10 22.0381 21 17.0381 21 5.53813C20.9991 5.25959 20.9723 4.98173 20.92 4.70813C21.9406 3.70163 22.6608 2.43084 23 1.03813V1.03813Z" stroke="#DCDCDC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -38,29 +38,29 @@ export default function Footer() {
 
             <div className="grid gap-4">
               <span className="text-white text-xl block">Category</span>
-              <span className="text-white block">PolkaBridge Finance</span>
-              <span className="text-white block">Crypto Basics</span>
-              <span className="text-white block">Ecosystem</span>
-              <span className="text-white block">Crypto Knowledge</span>
-              <span className="text-white">More Category</span>
+              <span className="text-gray-400 text-sm block">PolkaBridge Finance</span>
+              <span className="text-gray-400 text-sm block">Crypto Basics</span>
+              <span className="text-gray-400 text-sm block">Ecosystem</span>
+              <span className="text-gray-400 text-sm block">Crypto Knowledge</span>
+              <span className="text-gray-400 text-sm">More Category</span>
             </div>
             <div className="grid gap-4">
               <span className="text-white text-xl block">About Me</span>
-              <span className="text-white block">About Me</span>
-              <span className="text-white block">Projects</span>
-              <span className="text-white block">Achievement</span>
+              <span className="text-gray-400 text-sm block">About Me</span>
+              <span className="text-gray-400 text-sm block">Projects</span>
+              <span className="text-gray-400 text-sm block">Achievement</span>
             </div>
             <div className="grid gap-4">
               <span className="text-white text-xl block">Get in touch</span>
-              <span className="text-white block">+62-8XXX-XXX-XX</span>
-              <span className="text-white block">demo@gmail.com</span>
+              <span className="text-gray-400 text-sm block">+62-8XXX-XXX-XX</span>
+              <span className="text-gray-400 text-sm block">demo@gmail.com</span>
             </div>
             <div className="grid gap-4">
               <span className="text-white text-xl block">Follow Us</span>
-              <span className="text-white block">Medium</span>
-              <span className="text-white block">Instagram</span>
-              <span className="text-white block">Twitter</span>
-              <span className="text-white block">Facebook</span>
+              <span className="text-gray-400 text-sm block">Medium</span>
+              <span className="text-gray-400 text-sm block">Instagram</span>
+              <span className="text-gray-400 text-sm block">Twitter</span>
+              <span className="text-gray-400 text-sm">Facebook</span>
             </div>
           </div>
           <div className="mt-4 w-full">
@@ -79,19 +79,17 @@ export default function Footer() {
               <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
             </svg>
           </button>
-        </div>
-        <div className="flex justify-between items-center mx-8 mb-4">
-          <div>
+          <div className="flex flex-grow justify-between items-center mx-8 mb-4">
+
             <span className="text-white">
               © 2022 PolkaBridge
             </span>
-          </div>
-          <div>
             <span className="text-white text-right">
               All Right Reserved.
             </span>
           </div>
         </div>
+
       </div>
     </footer>
   );

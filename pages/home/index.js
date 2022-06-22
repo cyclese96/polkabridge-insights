@@ -11,8 +11,18 @@ import EcosystemsSlide from "./ecosystemsslide";
 import LatestSlide from "./latestslide";
 
 
-export default function Home() {
+var latestItems = [
+  {
+    name:'Fantasy',
+    score: 5
+  },
+  {
+    name:'Fantasy',
+    score: 3
+  }  
+]
 
+export default function Home() {
   return (
     <div className="gap-6">
       <div className="flex flex-col">
@@ -235,7 +245,7 @@ export default function Home() {
             <span className="text-white text-2xl">Latest</span>
             <Divider />
           </div>
-          <LatestSlide />
+          <LatestSlide items={latestItems}/>
         </div>
 
         <div>
@@ -272,7 +282,7 @@ export default function Home() {
           <span className="text-2xl text-white">
             Subscribe For the lastest updates
           </span>
-          <span className="text-white">
+          <span className="text-gray-400">
             Dolore ea mollit excepteur sint. Esse ut cupidatat excepteur excepteur adipisicing nostrud adipisicing quis dolor adipisicing elit quis commodo.
           </span>
           <div className="flex space-x-8 w-full px-4">

@@ -13,7 +13,7 @@ export default function BeginnerSlide() {
                     <span className="text-white text-sm">1 Month Ago </span>
                 </div>
                 <span className="text-white text-left text-2xl inline-block mb-4">How to make GUI in Java with example example</span>
-                <span className="text-white text-left text-sm inline-block">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Leo ullamcorper suspendisse at mi nulla volutpat.</span>
+                <span className="text-gray-400 text-left text-sm inline-block">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Leo ullamcorper suspendisse at mi nulla volutpat.</span>
                 <table className="table-auto my-4 w-full">
                     <tbody>
                         <tr>
@@ -64,7 +64,7 @@ export default function BeginnerSlide() {
                     <span className="text-white text-sm">1 Month Ago </span>
                 </div>
                 <span className="text-white text-left text-2xl inline-block mb-4">How to make GUI in Java with example example</span>
-                <span className="text-white text-left text-sm inline-block">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Leo ullamcorper suspendisse at mi nulla volutpat.</span>
+                <span className="text-gray-400 text-left text-sm inline-block">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Leo ullamcorper suspendisse at mi nulla volutpat.</span>
                 <table className="table-auto my-4 w-full">
                     <tbody>
                         <tr>
@@ -115,7 +115,7 @@ export default function BeginnerSlide() {
                     <span className="text-white text-sm">1 Month Ago </span>
                 </div>
                 <span className="text-white text-left text-2xl inline-block mb-4">How to make GUI in Java with example example</span>
-                <span className="text-white text-left text-sm inline-block">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Leo ullamcorper suspendisse at mi nulla volutpat.</span>
+                <span className="text-gray-400 text-left text-sm inline-block">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Leo ullamcorper suspendisse at mi nulla volutpat.</span>
                 <table className="table-auto my-4 w-full">
                     <tbody>
                         <tr>
