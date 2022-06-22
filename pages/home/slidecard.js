@@ -5,26 +5,26 @@ import { Carousel } from 'react-responsive-carousel';
 export default function SlideCard(props) {
     return (
         <div className="mx-8 my-8 border border-slate-800 rounded-lg px-4 py-4">
-            <img src="Article_Image.png" />
+            <img src={props.item.image} />
             <div className="flex my-4">
-                <span className="text-white text-sm mr-8">Fantasy</span>
+                <span className="text-white text-sm mr-8">{props.item.kind.name}</span>
                 <span className="text-white text-sm mr-8">·</span>
-                <span className="text-gray-400 text-sm">1 Month Ago </span>
+                <span className="text-gray-400 text-sm">{props.item.kind.date} Month Ago </span>
             </div>
-            <span className="text-white text-left text-2xl inline-block mb-4">How to make GUI in Java with example example</span>
-            <span className="text-gray-400 text-left text-sm inline-block">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Leo ullamcorper suspendisse at mi nulla volutpat.</span>
+            <span className="text-white text-left text-2xl inline-block mb-4">{props.item.title}</span>
+            <span className="text-gray-400 text-left text-sm inline-block">{props.item.content}</span>
             <table className="table-auto my-4 w-full">
                 <tbody>
                     <tr>
                         <td width='20%'>
-                            <img src="Ellipse 81.png"
+                            <img src={props.item.author.image}
                                 className="block"
                                 alt="..."
                             />
                         </td>
                         <td>
-                            <span className="text-white text-sm text-left block">Kristin Watson</span>
-                            <span className="text-white text-sm text-left block">3 min Read</span>
+                            <span className="text-white text-sm text-left block">{props.item.author.name}</span>
+                            <span className="text-white text-sm text-left block">{props.item.author.time} min Read</span>
                         </td>
                         <td align="middle">
                             <span className="text-white text-sm block"></span>
