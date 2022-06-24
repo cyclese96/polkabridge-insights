@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://polaInsight:zKZ.kFu*Q3drVJ4@cluster0.yabm7vu.mongodb.net/?retryWrites=true&w=majority",
+  "jwtSecret": "mytokensecret"
+}

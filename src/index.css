@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins');
+body {
+  margin: 0;
+  font-family: 'Poppins';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: black;
+  background: #171717;
+
+}
