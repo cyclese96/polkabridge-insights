@@ -11,10 +11,10 @@ app.use(express.json({ extended: false }));
 app.get("/", (req, res) => res.send("API running"));
 
 //Routes
-app.use("/api/users", require("./Routes/Users"));
-app.use("/api/profile", require("./Routes/Profile"));
-app.use("/api/post", require("./Routes/Post"));
-app.use("/api/auth", require("./Routes/AuthRoutes"));
+app.use("/api/users", require("./Routes/users"));
+app.use("/api/profile", require("./Routes/profile"));
+app.use("/api/post", require("./Routes/post"));
+app.use("/api/auth", require("./Routes/auth"));
 
 // Middle ware
 const PORT = process.env.PORT || 5000;
