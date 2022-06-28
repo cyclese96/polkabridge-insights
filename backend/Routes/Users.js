@@ -86,20 +86,21 @@ router.post(
   }
 );
 
-router.get("/", auth, async (req, res) => {
-  try {
-    const userId = req.user.id;
-    let user = await User.findById(userId);
+//get users by pagination
 
-    if (!user) {
-      return res
-        .status(400)
-        .json({ errors: [{ msg: "User does not exists" }] });
-    }
-    return res.status(200).json(user);
+router.get("/getusers/:page_number", auth, async (req, res) => {
+  try {
+    const page = req.params.page_number ? req.params.page_number : 1;
+    const Users = await User.find()
+      .populate("user")
+      .sort({ date: -1 })
+      .limit((page - 1) * 10 + 10)
+      .skip((page - 1) * 10)
+    res.json(Users);
+    
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server error");
+    res.status(500).send("Server Error");
   }
 });
 
