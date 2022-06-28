@@ -45,12 +45,18 @@ router.post(
 );
 
 // @route    GET api/posts
-// @desc     Get all posts
+// @desc     Get all posts by page
 // @access   Private
-router.get("/getpost", auth, async (req, res) => {
+router.get("/getpost/:page_number", auth, async (req, res) => {
   try {
-    const posts = await Post.find().populate("user").sort({ date: -1 });
+    const page = req.params.page_number ? req.params.page_number : 1;
+    const posts = await Post.find()
+      .populate("user")
+      .sort({ date: -1 })
+      .limit((page - 1) * 10 + 10)
+      .skip((page - 1) * 10)
     res.json(posts);
+    
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
