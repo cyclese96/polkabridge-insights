@@ -6,7 +6,6 @@ const auth = require("../middleware/auth");
 const Post = require("../Models/Posts");
 const User = require("../Models/User");
 const checkObjectId = require("../middleware/checkObjectId");
-const Posts = require("../Models/Posts");
 
 // @route    POST api/posts
 // @desc     Create a post
@@ -14,7 +13,7 @@ const Posts = require("../Models/Posts");
 
 // post a new blog
 router.post(
-  "/createpost",
+  "/",
   auth,
   check("title", "Text is required").notEmpty(),
   check("tags", "Text is required").notEmpty(),
@@ -47,16 +46,15 @@ router.post(
 // @route    GET api/posts
 // @desc     Get all posts by page
 // @access   Private
-router.get("/getpost/:page_number", auth, async (req, res) => {
+router.get("/post_list/:page_number", auth, async (req, res) => {
   try {
     const page = req.params.page_number ? req.params.page_number : 1;
     const posts = await Post.find()
       .populate("user")
       .sort({ date: -1 })
       .limit((page - 1) * 10 + 10)
-      .skip((page - 1) * 10)
+      .skip((page - 1) * 10);
     res.json(posts);
-    
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
@@ -68,7 +66,7 @@ router.get("/getpost/:page_number", auth, async (req, res) => {
 // @access   Private
 
 //Get a post by Post id
-router.get("/postid/:id", auth, checkObjectId("id"), async (req, res) => {
+router.get("/post/:id", auth, checkObjectId("id"), async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
 
