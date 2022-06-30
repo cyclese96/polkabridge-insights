@@ -3,7 +3,7 @@ const auth = require("../middleware/auth");
 const User = require("../Models/User");
 const router = express.Router();
 
-// @route   GET api/profile/test
+// @route   GET api/profile/test   tested
 // @desc    Tests profile route
 // @access  Public
 router.get("/", auth, async (req, res) => {

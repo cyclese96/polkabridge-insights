@@ -11,7 +11,7 @@ const checkObjectId = require("../middleware/checkObjectId");
 // @desc     Create a post
 // @access   Private
 
-// post a new blog
+// post a new blog tested
 router.post(
   "/",
   auth,
@@ -45,7 +45,7 @@ router.post(
 
 // @route    GET api/posts
 // @desc     Get all posts by page
-// @access   Private
+// @access   Private  tested
 router.get("/post_list/:page_number", auth, async (req, res) => {
   try {
     const page = req.params.page_number ? req.params.page_number : 1;
@@ -82,7 +82,7 @@ router.get("/post/:id", auth, checkObjectId("id"), async (req, res) => {
   }
 });
 
-// @route    DELETE api/posts/:id
+// @route    DELETE api/posts/:id  tested
 // @desc     Delete a post
 // @access   Private
 router.delete("/:id", [auth, checkObjectId("id")], async (req, res) => {
