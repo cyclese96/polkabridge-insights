@@ -6,7 +6,7 @@ const router = express.Router();
 // @route   GET api/profile/test   tested
 // @desc    Tests profile route
 // @access  Public
-router.get("/", auth, async (req, res) => {
+router.get("/user", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
     res.json(user);

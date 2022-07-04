@@ -31,6 +31,7 @@ router.post(
         user: req.user.id,
         category: req.body.category,
         image: "",
+  
       });
 
       const post = await newPost.save();
@@ -108,7 +109,7 @@ router.delete("/:id", [auth, checkObjectId("id")], async (req, res) => {
   }
 });
 
-// @route    PUT api/posts/like/:id
+// @route    PUT api/posts/like/:id tested
 // @desc     Like a post
 // @access   Private
 router.put("/like/:id", auth, checkObjectId("id"), async (req, res) => {
@@ -130,8 +131,8 @@ router.put("/like/:id", auth, checkObjectId("id"), async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
-
-// @route    PUT api/posts/unlike/:id
+ 
+// @route    PUT api/posts/unlike/:id   tested
 // @desc     Unlike a post
 // @access   Private
 router.put("/unlike/:id", auth, checkObjectId("id"), async (req, res) => {
@@ -179,7 +180,7 @@ router.post(
         text: req.body.text,
         name: user.name,
         avatar: user.avatar,
-        user: req.user.id,
+        user: req.user.id,n
       };
 
       post.comments.unshift(newComment);
