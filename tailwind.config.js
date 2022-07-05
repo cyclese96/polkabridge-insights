@@ -1,8 +1,8 @@
 module.exports = {
-  purge: ["./components/**/*.js", "./pages/**/*.js", './node_modules/tw-elements/dist/js/**/*.js'],
+  purge: ["./components/**/*.js", "./pages/**/*.js", './node_modules/tw-elements-baron/dist/js/**/*.js'],
   // content: ['./src/**/*.{html,js}', './node_modules/tw-elements/dist/js/**/*.js'],
   plugins: [
-    require('tw-elements/dist/plugin')
+    require('tw-elements-baron/dist/plugin')
   ],
   theme: {
     extend: {
