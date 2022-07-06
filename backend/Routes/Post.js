@@ -10,7 +10,6 @@ const checkObjectId = require("../middleware/checkObjectId");
 // @route    POST api/posts
 // @desc     Create a post
 // @access   Private
-
 // post a new blog tested
 router.post(
   "/",
@@ -22,15 +21,15 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-
     try {
       const newPost = new Post({
         title: req.body.title,
-        description: req.body.description,
+        content: req.body.content,
         tags: req.body.tags,
         user: req.user.id,
         category: req.body.category,
         image: "",
+
   
       });
 
@@ -47,8 +46,9 @@ router.post(
 // @route    GET api/posts
 // @desc     Get all posts by page
 // @access   Private  tested
-router.get("/post_list/:page_number", auth, async (req, res) => {
+router.get("/posts/:page_number", auth, async (req, res) => {
   try {
+    console.log('req' , req.params.page_number)
     const page = req.params.page_number ? req.params.page_number : 1;
     const posts = await Post.find()
       .populate("user")
@@ -66,10 +66,11 @@ router.get("/post_list/:page_number", auth, async (req, res) => {
 // @desc     Get post by ID
 // @access   Private
 
-//Get a post by Post id
+//Get a post by Post id tested
 router.get("/post/:id", auth, checkObjectId("id"), async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id);
+
+    const post = await Post.findById(req.params.id).populate("user");
 
     if (!post) {
       return res.status(404).json({ msg: "Post not found" });
