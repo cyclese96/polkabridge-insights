@@ -12,30 +12,30 @@ import Intro from "./intro";
 
 export default function Home() {
   return (
-    <div className="gap-6 w-full">
+    <div className="gap-2 md:gap-6 w-full">
       <div className="flex flex-col">
-        <div className="flex space-x-4 justify-start">
+        <div className="flex space-x-2 md:space-x-4 justify-start">
           <Link href="/home/TodaysNews">
             <a>
-              <span className="text-white text-2xl">Today’s News</span>
+              <span className="text-white text-base md:text-2xl">Today’s News</span>
             </a>
           </Link>
           <div className="bg-gradient-to-b from-pink-300 to-pink-500 w-0.5 rounded"></div>
           <Link href="/home/TrendingArticles">
             <a>
-              <span className="text-white text-2xl">Trending Articles</span>
+              <span className="text-white text-base md:text-2xl">Trending Articles</span>
             </a>
           </Link>
           <div className="bg-gradient-to-b from-pink-300 to-pink-500 w-0.5 rounded"></div>
           <Link href="/home/DEFIBasics">
             <a>
-              <span className="text-white text-2xl">DEFI BASICS</span>
+              <span className="text-white text-base md:text-2xl">DEFI BASICS</span>
             </a>
           </Link>
           <div className="bg-gradient-to-b from-pink-300 to-pink-500 w-0.5 rounded"></div>
           <Link href="/home/WeeklyTop">
             <a>
-              <span className="text-white text-2xl">Weekly Top</span>
+              <span className="text-white text-base md:text-2xl">Weekly Top</span>
             </a>
           </Link>
         </div>
@@ -89,7 +89,7 @@ export default function Home() {
           </span>
           <div className="flex space-x-8 w-full px-4">
             <input className="bg-transparent rounded-lg border border-gray-300 px-5 py-3 text-white pl-4 flex-grow w-2/3" type="text" placeholder="Enter your email here...." />
-            <button className="bg-gradient-to-r from-pink-300 to-pink-500 px-5 py-3 rounded-xl text-xl font-medium w-1/3">Subscribe</button>
+            <button className="bg-gradient-to-r from-pink-300 to-pink-500 px-5 py-3 rounded-xl text-base font-medium w-1/3">Subscribe</button>
           </div>
         </div>
 
