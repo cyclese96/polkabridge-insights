@@ -12,7 +12,7 @@ import Intro from "./intro";
 
 export default function Home() {
   return (
-    <div className="gap-6">
+    <div className="gap-6 w-full">
       <div className="flex flex-col">
         <div className="flex space-x-4 justify-start">
           <Link href="/home/TodaysNews">

@@ -10,7 +10,7 @@ export default function Footer() {
     <footer>
       <div className="mx-8">
         <div className="flex flex-wrap items-center lg:container px-4 py-6 mx-auto md:flex-no-wrap md:px-6">
-          <div className="flex flex-grow space-x-24 items-start">
+          <div className="flex flex-col md:flex-row md:items-start flex-grow space-x-24 items-center">
             <div className="grid gap-4 flex-grow">
               <img
                 src="/Logo.png"

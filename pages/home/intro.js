@@ -5,11 +5,10 @@ import 'tw-elements-baron';
 import Divider from "../../components/divider";
 
 export default function Intro() {
-    return (
-        
-            <div className="flex flex-col">
-                <div className="flex space-x-12 justify-start my-12">
-                    <div id="carouselExampleCaptions" className="carousel slide relative w-3/4" data-bs-ride="carousel">
+    return (        
+            <div className="flex flex-col">                
+                <div className="flex flex-col md:flex-row gap-12 justify-start my-12 md:items-start">
+                    <div id="carouselIntro" className="carousel slide relative w-full md:w-3/4" data-bs-ride="carousel">
                         <div className="carousel-inner relative w-full overflow-hidden rounded-lg">
                             <div className="carousel-item active relative float-left w-full">
                                 <img
@@ -80,7 +79,7 @@ export default function Intro() {
                         <button
                             className="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
                             type="button"
-                            data-bs-target="#carouselExampleCaptions"
+                            data-bs-target="#carouselIntro"
                             data-bs-slide="prev"
                         >
                             <div className='bg-gray-600 w-12 h-12 rounded-full flex justify-center items-center'>
@@ -91,7 +90,7 @@ export default function Intro() {
                         <button
                             className="carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
                             type="button"
-                            data-bs-target="#carouselExampleCaptions"
+                            data-bs-target="#carouselIntro"
                             data-bs-slide="next"
                         >
                             <div className='bg-gray-600 w-12 h-12 rounded-full flex justify-center items-center'>
@@ -101,7 +100,7 @@ export default function Intro() {
                         </button>
                     </div>
 
-                    <div className="bg-gray-200 bg-opacity-5 px-4 py-4 rounded-lg w-1/4">
+                    <div className="bg-gray-200 bg-opacity-5 px-4 py-4 rounded-lg w-full md:w-1/4">
                         <span className="text-white">
                             Top Users
                         </span>
