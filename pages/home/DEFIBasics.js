@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import 'tw-elements';
+import 'tw-elements-baron';
 import Divider from "../../components/divider";
 import SlideCard from "../../components/slidecard";
 import React, { useMemo, useEffect, useState } from 'react';

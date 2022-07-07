@@ -1,129 +1,41 @@
 import Image from "next/image";
-// import ReactStars from 'react-stars'
-
 import ReactStars from "react-rating-stars-component";
-import 'tw-elements';
-import BeginnerSlide from "./beginnerslide";
-import CoinsTokensSlide from "./coinstokensslide";
+import Link from "next/link";
+import 'tw-elements-baron';
 import Divider from "../../components/divider";
-import EcosystemsSlide from "./ecosystemsslide";
-import LatestSlide from "./latestslide";
+import SlideCard from "../../components/slidecard";
+import React, { useMemo, useEffect, useState } from 'react';
 
-
-export default function TrendingArticlesDetail() {
+export default function TrendingArticlesDetail(props) {
+  const [cardItems, setCardItems] = useState([]);
+  const itemData = {
+    image: 'Rectangle33.png',
+    kind: {
+      name: 'Fantasy',
+      date: 1
+    },
+    title: 'How to make GI in Java with example goes here with other coins.',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis congue nisl ipsum nunc, nullam. Ornare cursus etiam euismod sit. Sit dui non ipsum venenatis elit sagittis morbi ullamcorper. Turpis ornare adipiscing nisi, risus erat nisi egestas vestibulum, at. Ut justo, suspendisse velit, tincidunt viverra ornare egestas neque felis. Adipiscing enim sit massa tristique velit. Lacus, viverra adipiscing habitant scelerisque id vel enim habitasse sit. Eu at pharetra nibh platea scelerisque risus iaculis. Elit amet non tristique pretium mi quis cras. Mattis ut nibh rhoncus, sed quis cras. Feugiat proin a aliquet facilisis pretium tempus aliquam cursus pellentesque. Non enim dui integer sollicitudin cursus nibh enim vel nunc. Orci, vestibulum rutrum pretium amet. Tellus dignissim arcu interdum massa fames curabitur et.',
+    author: {
+      image: 'Ellipse 80.png',
+      name: 'Dasteen',
+      time: 3
+    }
+  }
+  useMemo(() => {
+    setCardItems(itemData);
+  }, []);
 
   return (
-    <div className="gap-6">
-      <div className="flex flex-col">
-        <div className="flex space-x-4 justify-start">
-          <span className="text-white text-2xl">Today’s News</span>
-          <div className="bg-gradient-to-b from-pink-300 to-pink-500 w-0.5 rounded"></div>
-          <span className="text-white text-2xl">Trending Articles</span>
-          <div className="bg-gradient-to-b from-pink-300 to-pink-500 w-0.5 rounded"></div>
-          <span className="text-white text-2xl">DEFI BASICS</span>
-          <div className="bg-gradient-to-b from-pink-300 to-pink-500 w-0.5 rounded"></div>
-          <span className="text-white text-2xl">Weekly Top</span>
-        </div>
-
-        <div className="flex space-x-12 justify-start mt-12">
-          <div id="carouselExampleCaptions" className="carousel slide relative w-3/4" data-bs-ride="carousel">            
-            <div className="carousel-inner relative w-full overflow-hidden rounded-lg">
-              <div className="carousel-item active relative float-left w-full">
-                <img
-                  src="/Article1.png"
-                  className="block w-full"
-                  alt="..."
-                />
-                <div className="carousel-caption hidden md:block absolute text-center">
-                  <h5 className="text-xl">World’s Most Dangerous Technology Ever Made.</h5>
-                </div>
-              </div>
-              <div className="carousel-item relative float-left w-full">
-                <img
-                  src="/Article2.png"
-                  className="block w-full"
-                  alt="..."
-                />
-                <div className="carousel-caption hidden md:block absolute text-center">
-                  <h5 className="text-xl">Second slide label</h5>
-                  <p>Some representative placeholder content for the second slide.</p>
-                </div>
-              </div>
-              <div className="carousel-item relative float-left w-full">
-                <img
-                  src="/Article3.png"
-                  className="block w-full"
-                  alt="..."
-                />
-                <div className="carousel-caption hidden md:block absolute text-center">
-                  <h5 className="text-xl">Third slide label</h5>
-                  <p>Some representative placeholder content for the third slide.</p>
-                </div>
-              </div>
-              <div className="carousel-item relative float-left w-full">
-                <img
-                  src="/Article3.png"
-                  className="block w-full"
-                  alt="..."
-                />
-                <div className="carousel-caption hidden md:block absolute text-center">
-                  <h5 className="text-xl">4th slide label</h5>
-                  <p>Some representative placeholder content for the third slide.</p>
-                </div>
-              </div>
-              <div className="carousel-item relative float-left w-full">
-                <img
-                  src="/Article3.png"
-                  className="block w-full"
-                  alt="..."
-                />
-                <div className="carousel-caption hidden md:block absolute text-center">
-                  <h5 className="text-xl">5th slide label</h5>
-                  <p>Some representative placeholder content for the third slide.</p>
-                </div>
-              </div>
-              <div className="carousel-item relative float-left w-full">
-                <img
-                  src="/Article3.png"
-                  className="block w-full"
-                  alt="..."
-                />
-                <div className="carousel-caption hidden md:block absolute text-center">
-                  <h5 className="text-xl">6th slide label</h5>
-                  <p>Some representative placeholder content for the third slide.</p>
-                </div>
-              </div>
-            </div>
-            <button
-              className="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
-              type="button"
-              data-bs-target="#carouselExampleCaptions"
-              data-bs-slide="prev"
-            >
-              <div className='bg-gray-600 w-12 h-12 rounded-full flex justify-center items-center'>
-                <span className="carousel-control-prev-icon inline-block bg-no-repeat" aria-hidden="true"></span>
-                <span className="visually-hidden">Previous</span>
-              </div>
-            </button>
-            <button
-              className="carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
-              type="button"
-              data-bs-target="#carouselExampleCaptions"
-              data-bs-slide="next"
-            >
-              <div className='bg-gray-600 w-12 h-12 rounded-full flex justify-center items-center'>
-                <span className="carousel-control-next-icon inline-block bg-no-repeat" aria-hidden="true"></span>
-                <span className="visually-hidden">Next</span>
-              </div>
-            </button>
-          </div>
-
-
-
-
+    <div className="my-12">
+      {/* <div className="flex flex-wrap justify-center gap-8 mt-8"> */}
+      <div className="rounded-2xl space-y-8 py-8">
+        <span className="text-white text-justify text-4xl mb-4">{itemData.title}</span>
+        <div className="flex space-x-8 justify-start">
+          <img src={itemData.image} className="object-fill w-3/5 h-96" />
           <div className="bg-gray-200 bg-opacity-5 px-4 py-4 rounded-lg w-1/4">
             <span className="text-white">
-              Top Users
+              Trending
             </span>
             <Divider />
             <table className="table-auto border-separate border-spacing w-full mt-4" >
@@ -211,62 +123,92 @@ export default function TrendingArticlesDetail() {
               </tbody>
             </table>
           </div>
+
         </div>
+        <span className="text-white text-left text-lg inline-block">{itemData.content}</span>
+        <table className="table-auto my-4 w-full">
+          <tbody>
+            <tr>
+              <td>
+                <div className="flex space-x-8">
+                <img src={itemData.author.image}
+                  className="scale-150"
+                  alt="..."
+                />
+              <div>
+                <span className="text-white text-xl text-left block">{itemData.author.name}</span>
+                <span className="text-white text-xl text-left block">See More Info</span>
+                </div>
+                </div>
+              </td>
+              <td className="" align="right">
+                <div>
+                  <div className="items-center">
+                    <div className="flex items-center space-x-4">
+                      <img src="TrendingArticlesDetail/Vector (2).png"
+                        className="scale-75 bg-gradient-to-r from-pink-500 to-pink-300 py-1 px-1"
+                        alt="..."
+                      />
+                      <img src="TrendingArticlesDetail/Vector (3).png"
+                        className="scale-75 bg-gradient-to-r from-pink-500 to-pink-300 py-1 px-1"
+                        alt="..."
+                      />
+                      <img src="TrendingArticlesDetail/Rectangle 316.png"
+                        className="scale-75 bg-gradient-to-r from-pink-500 to-pink-300 py-1 px-1"
+                        alt="..."
+                      />
+                    </div>
+                  </div>
+                  <div className="flex">
+                    <span className="text-white text-xl text-pink-500 text-right">Share: </span>
+                    <img src="TrendingArticlesDetail/Vector (4).png"
+                      className="scale-50"
+                      alt="..."
+                    />
+                    <img src="TrendingArticlesDetail/Vector-1.png"
+                      className="scale-50"
+                      alt="..."
+                    />
+                    <img src="TrendingArticlesDetail/Vector (5).png"
+                      className="scale-50"
+                      alt="..."
+                    />
+                    <img src="TrendingArticlesDetail/Vector (6).png"
+                      className="scale-50"
+                      alt="..."
+                    />
+                    <img src="TrendingArticlesDetail/Vector (7).png"
+                      className="scale-50"
+                      alt="..."
+                    />
+                    <img src="TrendingArticlesDetail/Vector (8).png"
+                      className="scale-50"
+                      alt="..."
+                    />
+                    <img src="TrendingArticlesDetail/Vector (9).png"
+                      className="scale-50"
+                      alt="..."
+                    />
+                    <img src="TrendingArticlesDetail/Vector (10).png"
+                      className="scale-50"
+                      alt="..."
+                    />
+                    <img src="TrendingArticlesDetail/Vector (11).png"
+                      className="scale-50"
+                      alt="..."
+                    />
+                  </div>
+                </div>
+              </td>
+              <td>
 
-        <div>
-          <div className="justify-start mt-12">
-            <span className="text-white text-2xl">Latest</span>
-            <Divider />
-          </div>
-          <LatestSlide />
-        </div>
-
-        <div>
-          <div className="justify-start mt-12">
-            <span className="text-white text-2xl">Beginner</span>
-            <Divider />
-          </div>
-          <BeginnerSlide />
-        </div>
-
-        <div>
-          <div className="justify-start mt-12">
-            <span className="text-white text-2xl">Coins & Tokens</span>
-            <Divider />
-          </div>
-          <CoinsTokensSlide />
-        </div>
-
-        <div>
-          <div className="justify-start mt-12">
-            <span className="text-white text-2xl">Ecosystems</span>
-            <Divider />
-          </div>
-          <EcosystemsSlide />
-        </div>
-
-
-        <div className="mx-auto mt-12 w-1/2 space-y-8 flex flex-col items-center">
-            <img
-              src="/image 2 (2).png"
-              className="block border rounded-full w-20 h-20 bg-white"
-              alt="..."
-            />
-            <span className="text-2xl text-white">
-              Subscribe For the lastest updates
-            </span>
-            <span className="text-white">
-              Dolore ea mollit excepteur sint. Esse ut cupidatat excepteur excepteur adipisicing nostrud adipisicing quis dolor adipisicing elit quis commodo.
-            </span>
-          <div className="flex space-x-8 w-full px-4">
-            <input className="bg-transparent rounded-lg border border-gray-300 px-5 py-3 text-white pl-4 flex-grow w-2/3" type="text" placeholder="Enter your email here...." />
-            <button className="bg-gradient-to-r from-pink-300 to-pink-500 px-5 py-3 rounded-xl text-xl font-medium w-1/3">Subscribe</button>
-          </div>
-        </div>
-
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-
-
+      {/* </div> */}
     </div>
+
   );
 }
