@@ -105,7 +105,7 @@ export default function WeeklyTop(props) {
         <div className="my-12">
             <div className="justify-start mt-12 mx-12">
                 <div className="mb-4">
-                    <span className="text-white text-2xl">Today's News</span>
+                    <span className="text-white text-2xl">Weekly Top</span>
                 </div>
                 <Divider />
             </div>
