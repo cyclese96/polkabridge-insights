@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function SlideCard(props) {
     return (
-        <div className="border border-gray-800 rounded-2xl px-8 py-8 max-w-md">
+        <div className="border border-gray-800 rounded-2xl px-8 py-8 max-w-md mx-auto">
             <img src={props.item.image} />
             <div className="flex my-4">
                 <span className="text-white text-sm mr-8">{props.item.kind.name}</span>
