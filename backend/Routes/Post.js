@@ -74,6 +74,26 @@ router.get("/posts/:page_number", auth, async (req, res) => {
   }
 });
 
+
+// @route    GET api/posts
+// @desc     Get all posts by page
+// @access   public  tested
+router.get("/posts/public/:page_number", async (req, res) => {
+  try {
+    console.log("req", req.params.page_number);
+    const page = req.params.page_number ? req.params.page_number : 1;
+    const posts = await Post.find()
+      .populate("user")
+      .sort({ date: -1 })
+      .limit((page - 1) * 10 + 10)
+      .skip((page - 1) * 10);
+    res.json(posts);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 // @route    GET api/posts/:id
 // @desc     Get post by ID
 // @access   Private
@@ -94,6 +114,8 @@ router.get("/post/:id", auth, checkObjectId("id"), async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
+
 
 // @route    DELETE api/posts/:id  tested
 // @desc     Delete a post
@@ -193,7 +215,6 @@ router.post(
         name: user.name,
         avatar: user.avatar,
         user: req.user.id,
-        n,
       };
 
       post.comments.unshift(newComment);
@@ -237,6 +258,33 @@ router.delete("/comment/:id/:comment_id", auth, async (req, res) => {
   } catch (err) {
     console.error(err.message);
     return res.status(500).send("Server Error");
+  }
+});
+
+
+//Trending Item (Get recent Item)
+router.get("/recent/", async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const data = await itemDao.getItemByDate();
+    return res.status(200).send(data);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).send("error");
+  }
+});
+
+//Trending 3 Item (Get recent Item)
+router.get("/top/", async (req, res) => {
+  const category = req.params.category;
+
+  try {
+    const data = await itemDao.getRecentItem();
+    return res.status(200).send(data);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).send("error");
   }
 });
 module.exports = router;

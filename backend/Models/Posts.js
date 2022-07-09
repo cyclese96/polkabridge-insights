@@ -13,9 +13,6 @@ const PostSchema = new Schema({
   content: {
     type: String,
   },
-  category:{
-    type: String,
-  },
   tags: {
     type: String,
   },
@@ -50,9 +47,15 @@ const PostSchema = new Schema({
       },
     },
   ],
-  date: {
+  category: {
+    type: String,
+    required: true,
+  },
+
+  createdDate: {
     type: Date,
-    default: Date.now,
+    required: true,
+    default: new Date(),
   },
 });
 
