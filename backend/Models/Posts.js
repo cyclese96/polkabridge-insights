@@ -51,6 +51,10 @@ const PostSchema = new Schema({
     type: String,
     required: true,
   },
+  readTime: {
+    type: String,
+    required: true,
+  },
 
   createdDate: {
     type: Date,
@@ -59,4 +63,4 @@ const PostSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("posts",PostSchema);
+module.exports = mongoose.model("posts", PostSchema);

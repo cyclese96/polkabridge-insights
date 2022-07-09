@@ -43,6 +43,7 @@ router.post("/post/", auth, upload.single("image"), async (req, res) => {
       user: req.user.id,
       category: req.body.category,
       image: uploadedImagePath,
+      readTime: req.body.readTime,
     });
 
     const post = await newPost.save();
