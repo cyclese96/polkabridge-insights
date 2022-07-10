@@ -24,15 +24,17 @@ router.post("/post/", auth, upload.single("image"), async (req, res) => {
       secretAccessKey: process.env.AWS_S3_SECRET_ACCESS_KEY,
     });
 
+    // console.log("req ", req.file);
     const uploadedImage = await s3
       .upload({
         Bucket: process.env.AWS_S3_BUCKET_NAME,
         Key: req.file.originalname,
         Body: req.file?.buffer,
+        ContentType: req?.file?.mimetype,
       })
       .promise();
 
-    console.log("uploaded image ", uploadedImage);
+    // console.log("uploaded image ", uploadedImage);
 
     const uploadedImagePath = uploadedImage?.Location;
 
@@ -75,19 +77,19 @@ router.get("/posts/:page_number", auth, async (req, res) => {
   }
 });
 
-
 // @route    GET api/posts
 // @desc     Get all posts by page
 // @access   public  tested
 router.get("/posts/public/:page_number", async (req, res) => {
   try {
-    console.log("req", req.params.page_number);
+    // console.log("req", req.params.page_number);
     const page = req.params.page_number ? req.params.page_number : 1;
     const posts = await Post.find()
       .populate("user")
       .sort({ date: -1 })
       .limit((page - 1) * 10 + 10)
       .skip((page - 1) * 10);
+
     res.json(posts);
   } catch (err) {
     console.error(err.message);
@@ -115,8 +117,6 @@ router.get("/post/:id", auth, checkObjectId("id"), async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
-
-
 
 // @route    DELETE api/posts/:id  tested
 // @desc     Delete a post
@@ -261,7 +261,6 @@ router.delete("/comment/:id/:comment_id", auth, async (req, res) => {
     return res.status(500).send("Server Error");
   }
 });
-
 
 //Trending Item (Get recent Item)
 router.get("/recent/", async (req, res) => {
