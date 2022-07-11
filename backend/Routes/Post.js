@@ -97,6 +97,26 @@ router.get("/posts/public/:page_number", async (req, res) => {
   }
 });
 
+// @route    GET api/posts
+// @desc     Get all posts by page
+// @access   public  tested
+router.get("/posts/public/weekly/:page_number", async (req, res) => {
+  try {
+    // console.log("req", req.params.page_number);
+    const page = req.params.page_number ? req.params.page_number : 1;
+    const posts = await Post.find()
+      .populate("user")
+      .sort({ week: -1 })
+      .limit((page - 1) * 10 + 10)
+      .skip((page - 1) * 10);
+
+    res.json(posts);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 // @route    GET api/posts/:id
 // @desc     Get post by ID
 // @access   Private
