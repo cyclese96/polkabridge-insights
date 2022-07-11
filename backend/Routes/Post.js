@@ -287,7 +287,7 @@ router.get("/recent/", async (req, res) => {
   const id = req.params.id;
 
   try {
-    const data = await itemDao.getItemByDate();
+    const data = await getItemByDate();
     return res.status(200).send(data);
   } catch (error) {
     console.log(error);
