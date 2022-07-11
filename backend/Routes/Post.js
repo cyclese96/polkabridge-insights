@@ -300,7 +300,7 @@ router.get("/top/", async (req, res) => {
   const category = req.params.category;
 
   try {
-    const data = await itemDao.getRecentItem();
+    const data = await getRecentItem();
     return res.status(200).send(data);
   } catch (error) {
     console.log(error);
