@@ -27,7 +27,7 @@ const items = [
     {
         image: 'Rectangle33.png',
         kind: {
-            name: 'Fantasy',
+            name: 'Fantasy1',
             date: 1
         },
         title: 'How to make GUI in Java with example example',
@@ -41,7 +41,7 @@ const items = [
     {
         image: 'Article_Image.png',
         kind: {
-            name: 'Fantasy',
+            name: 'Fantasy2',
             date: 2
         },
         title: 'How to make GUI in Java with example example',
@@ -55,7 +55,7 @@ const items = [
     {
         image: 'Rectangle34.png',
         kind: {
-            name: 'Fantasy',
+            name: 'Fantasy3',
             date: 2
         },
         title: 'How to make GUI in Java with example example',
@@ -69,7 +69,7 @@ const items = [
     {
         image: 'Rectangle33.png',
         kind: {
-            name: 'Fantasy',
+            name: 'Fantasy4',
             date: 1
         },
         title: 'How to make GUI in Java with example example',
@@ -83,7 +83,7 @@ const items = [
     {
         image: 'Article_Image.png',
         kind: {
-            name: 'Fantasy',
+            name: 'Fantasy5',
             date: 2
         },
         title: 'How to make GUI in Java with example example',
@@ -97,7 +97,7 @@ const items = [
     {
         image: 'Rectangle34.png',
         kind: {
-            name: 'Fantasy',
+            name: 'Fantasy6',
             date: 2
         },
         title: 'How to make GUI in Java with example example',
@@ -125,10 +125,12 @@ const LatestSlide = () => {
     const [carouselItems, setCarouselItems] = useState(items);
 
     useEffect(() => {
+        console.log("=================", 'useEffect');
         document.documentElement.style.setProperty('--num', carouselItems.length);
     }, [carouselItems])
 
     const handleAnimationEnd = () => {
+        console.log("=================", 'handleAnimationEnd');
         if (moveClass === 'prev') {
             shiftNext([...carouselItems]);
         } else if (moveClass === 'next') {
@@ -138,12 +140,14 @@ const LatestSlide = () => {
     }
 
     const shiftPrev = (copy) => {
+        console.log("=================", 'shiftPrev');
         let lastcard = copy.pop();
         copy.splice(0, 0, lastcard);
         setCarouselItems(copy);
     }
 
     const shiftNext = (copy) => {
+        console.log("=================", 'shiftNext');
         let firstcard = copy.shift();
         copy.splice(copy.length, 0, firstcard);
         setCarouselItems(copy);
