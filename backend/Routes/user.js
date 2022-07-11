@@ -160,6 +160,22 @@ router.get("/users/:page_number", auth, async (req, res) => {
   }
 });
 
+//get top 4  users by pagination tested
+router.get("/users/top_user/:page_number", auth, async (req, res) => {
+  try {
+    const page = req.params.page_number ? req.params.page_number : 1;
+    const Users = await User.find()
+      .sort({ date: -1 })
+      .limit((page - 1) * 4 + 4)
+      .skip((page - 1) * 4);
+    res.json(Users);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+
 //get user by id tested
 
 router.get("/users/user/:user_id", auth, async (req, res) => {

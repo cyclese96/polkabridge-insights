@@ -80,17 +80,31 @@ router.get("/posts/:page_number", auth, async (req, res) => {
 // @route    GET api/posts
 // @desc     Get all posts by page
 // @access   public  tested
-router.get("/posts/public/:page_number", async (req, res) => {
+router.get("/posts/public/:category/:page_number", async (req, res) => {
   try {
-    // console.log("req", req.params.page_number);
+
+
     const page = req.params.page_number ? req.params.page_number : 1;
-    const posts = await Post.find()
+    if(req.params.category==='all'){
+      const posts = await Post.find()
       .populate("user")
       .sort({ date: -1 })
       .limit((page - 1) * 10 + 10)
       .skip((page - 1) * 10);
 
     res.json(posts);
+
+    }else{
+      const posts = await Post.find({category:req.params.category})
+      .populate("user")
+      .sort({ date: -1 })
+      .limit((page - 1) * 10 + 10)
+      .skip((page - 1) * 10);
+
+    res.json(posts);
+    }
+   
+  
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
@@ -103,12 +117,16 @@ router.get("/posts/public/:page_number", async (req, res) => {
 router.get("/posts/public/weekly/:page_number", async (req, res) => {
   try {
     // console.log("req", req.params.page_number);
+    
     const page = req.params.page_number ? req.params.page_number : 1;
-    const posts = await Post.find()
+    var week_1 = new Date();
+    var pastDate = week_1.getDate() - 7;
+    week_1.setDate(pastDate);
+    const posts = await Post.find().week_1
       .populate("user")
       .sort({ week: -1 })
-      .limit((page - 1) * 10 + 10)
-      .skip((page - 1) * 10);
+      .limit((page - 1) * 6 + 6)
+      .skip((page - 1) * 6);
 
     res.json(posts);
   } catch (err) {
@@ -116,6 +134,8 @@ router.get("/posts/public/weekly/:page_number", async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
+
 
 // @route    GET api/posts/:id
 // @desc     Get post by ID
@@ -282,12 +302,12 @@ router.delete("/comment/:id/:comment_id", auth, async (req, res) => {
   }
 });
 
-//Trending Item (Get recent Item)
+//Recent Post (Get recent Item)
 router.get("/recent/", async (req, res) => {
   const id = req.params.id;
 
   try {
-    const data = await getItemByDate();
+    const data = await Post.find().sort({ _id: -1 }).limit(3);
     return res.status(200).send(data);
   } catch (error) {
     console.log(error);
@@ -295,12 +315,25 @@ router.get("/recent/", async (req, res) => {
   }
 });
 
-//Trending 3 Item (Get recent Item)
+//(Get recent Item)
 router.get("/top/", async (req, res) => {
   const category = req.params.category;
 
   try {
-    const data = await getRecentItem();
+    const data = await Post.find().sort({ createdDate: -1 }).limit(6);
+    return res.status(200).send(data);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).send("error");
+  }
+});
+
+//(Get recent Item)
+router.get("/today/", async (req, res) => {
+  const category = req.params.category;
+
+  try {
+    const data = await Post.find().sort({ createdDate: 1}).limit(10);
     return res.status(200).send(data);
   } catch (error) {
     console.log(error);
