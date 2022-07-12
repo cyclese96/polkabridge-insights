@@ -49,11 +49,9 @@ router.post("/post/", auth, upload.single("image"), async (req, res) => {
       category: req.body.category,
       image: uploadedImagePath,
       readTime: req.body.readTime,
-      username: req.body.username,
+      creator_name: req.body.creator_name,
       poster_name: req.body.poster_name,
-      
-     
- 
+      avatar: req.user.avatar,
     });
 
     const post = await newPost.save();
@@ -114,29 +112,7 @@ router.get("/posts/public/:category/:page_number", async (req, res) => {
   }
 });
 
-// // @route    GET api/posts
-// // @desc     Get all posts by page
-// // @access   public  tested
-// router.get("/posts/public/weekly/:page_number", async (req, res) => {
-//   try {
-//     // console.log("req", req.params.page_number);
 
-//     const page = req.params.page_number ? req.params.page_number : 1;
-//     var week_1 = new Date();
-//     var pastDate = week_1.getDate() - 7;
-//     week_1.setDate(pastDate);
-//     const posts = await Post.find()
-//       .week_1.populate("user")
-//       .sort({ week: -1 })
-//       .limit((page - 1) * 6 + 6)
-//       .skip((page - 1) * 6);
-
-//     res.json(posts);
-//   } catch (err) {
-//     console.error(err.message);
-//     res.status(500).send("Server Error");
-//   }
-// });
 
 // @route    GET api/posts/:id
 // @desc     Get post by ID

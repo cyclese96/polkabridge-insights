@@ -6,7 +6,7 @@ const PostSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "users",
   },
-  username: {
+  creator_name: {
     type: String,
   },
   title: {
