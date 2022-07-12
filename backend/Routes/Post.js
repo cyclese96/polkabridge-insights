@@ -8,6 +8,8 @@ const User = require("../Models/User");
 const checkObjectId = require("../middleware/checkObjectId");
 const AWS = require("aws-sdk");
 const { upload } = require("../middleware/upload");
+const normalize = require('normalize-url');
+const gravatar = require('gravatar');
 
 // @route    POST api/posts
 // @desc     Create a post
@@ -36,6 +38,7 @@ router.post("/post/", auth, upload.single("image"), async (req, res) => {
 
     // console.log("uploaded image ", uploadedImage);
 
+
     const uploadedImagePath = uploadedImage?.Location;
 
     const newPost = new Post({
@@ -46,6 +49,11 @@ router.post("/post/", auth, upload.single("image"), async (req, res) => {
       category: req.body.category,
       image: uploadedImagePath,
       readTime: req.body.readTime,
+      username: req.body.username,
+      poster_name: req.body.poster_name,
+      
+     
+ 
     });
 
     const post = await newPost.save();
