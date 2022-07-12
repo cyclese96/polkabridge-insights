@@ -38,7 +38,7 @@ router.post("/post/", auth, upload.single("image"), async (req, res) => {
 
     // console.log("uploaded image ", uploadedImage);
 
-
+    
     const uploadedImagePath = uploadedImage?.Location;
 
     const newPost = new Post({
@@ -51,7 +51,6 @@ router.post("/post/", auth, upload.single("image"), async (req, res) => {
       readTime: req.body.readTime,
       creator_name: req.body.creator_name,
       poster_name: req.body.poster_name,
-      avatar: req.user.avatar,
     });
 
     const post = await newPost.save();
