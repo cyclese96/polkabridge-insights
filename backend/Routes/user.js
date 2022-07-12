@@ -6,9 +6,9 @@ const jwt = require("jsonwebtoken");
 const config = require("config");
 const { check, validationResult } = require("express-validator");
 const auth = require("../middleware/auth");
-const normalize = require('normalize-url');
-const gravatar = require('gravatar');
 const User = require("../Models/User");
+const { upload } = require("../middleware/upload");
+const uploadSingleObject = require("../s3Service");
 
 // @route    POST api/users tested
 // @desc     Register user
@@ -26,7 +26,7 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const { name, email, password} = req.body;
+    const { name, email, password } = req.body;
 
     try {
       let user = await User.findOne({ email });
@@ -37,21 +37,13 @@ router.post(
           .json({ errors: [{ msg: "User already exists" }] });
       }
 
-      const avatar = normalize(
-        gravatar.url(email, {
-          s: '200',
-          r: 'pg',
-          d: 'mm'
-        }),
-        { forceHttps: true }
-      );
-
+      const default_avatar =
+        "https://polkabridge-insight.s3.amazonaws.com/default_avatar.png";
       user = new User({
         name: name,
         email: email,
         password: password,
-        avatar: avatar,
-        
+        avatar: default_avatar,
       });
 
       const salt = await bcrypt.genSalt(10);
@@ -175,9 +167,21 @@ router.get("/users/top_user/:page_number", auth, async (req, res) => {
   }
 });
 
+// get user by auth token
+router.get("/current_user", auth, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const user = await User.findById(userId);
+
+    console.log("user", user);
+    res.status(200).json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 //get user by id tested
-
 router.get("/users/user/:user_id", auth, async (req, res) => {
   try {
     const userId = req.params.user_id;
@@ -189,5 +193,32 @@ router.get("/users/user/:user_id", auth, async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
+// update user profile photo
+
+router.put(
+  "/update_avatar/",
+  auth,
+  upload.single("avatar"),
+  async (req, res) => {
+    try {
+      const userId = req.user.id;
+
+      const uploadedImagePath =
+        "https://polkabridge-insight.s3.amazonaws.com/Screenshot%202022-07-07%20at%2010.46.28%20AM.png"; //await uploadSingleObject(req);
+
+      console.log("updated pic ", uploadedImagePath);
+      await User.findByIdAndUpdate(userId, {
+        $set: { avatar: uploadedImagePath?.toString() },
+      });
+
+      const updatedUser = await User.findById(userId);
+      res.status(200).json(updatedUser);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+  }
+);
 
 module.exports = router;

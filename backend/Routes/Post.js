@@ -8,8 +8,6 @@ const User = require("../Models/User");
 const checkObjectId = require("../middleware/checkObjectId");
 const AWS = require("aws-sdk");
 const { upload } = require("../middleware/upload");
-const normalize = require('normalize-url');
-const gravatar = require('gravatar');
 
 // @route    POST api/posts
 // @desc     Create a post
@@ -38,7 +36,6 @@ router.post("/post/", auth, upload.single("image"), async (req, res) => {
 
     // console.log("uploaded image ", uploadedImage);
 
-    
     const uploadedImagePath = uploadedImage?.Location;
 
     const newPost = new Post({
@@ -110,8 +107,6 @@ router.get("/posts/public/:category/:page_number", async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
-
-
 
 // @route    GET api/posts/:id
 // @desc     Get post by ID
