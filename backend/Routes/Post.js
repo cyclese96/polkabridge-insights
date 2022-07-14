@@ -278,7 +278,7 @@ router.get("/recent/", async (req, res) => {
   const id = req.params.id;
 
   try {
-    const data = await Post.find().sort({ _id: -1 }).limit(3);
+    const data = await Post.find().sort({ _id: -1 }).limit(3).populate("user");
     return res.status(200).send(data);
   } catch (error) {
     console.log(error);
@@ -293,7 +293,7 @@ router.get("/top/", async (req, res) => {
   filter.tag = { $regex: tag };
 
   try {
-    const data = await Post.find(filter).sort({ createdDate: -1 }).limit(6);
+    const data = await Post.find(filter).sort({ createdDate: -1 }).limit(6).populate("user");
     return res.status(200).send(data);
   } catch (error) {
     console.log(error);
@@ -304,7 +304,7 @@ router.get("/top/", async (req, res) => {
 //(Get recent Item)
 router.get("/today/", async (req, res) => {
   try {
-    const data = await Post.find().sort({ createdDate: -1 }).limit(10);
+    const data = await Post.find().sort({ createdDate: -1 }).limit(10).populate("user");
     return res.status(200).send(data);
   } catch (error) {
     console.log(error);
@@ -319,7 +319,7 @@ router.get("/trending/", async (req, res) => {
   filter.tags = { $regex: tag };
 
   try {
-    const data = await Post.find(filter).sort({ createdDate: 1 }).limit(10);
+    const data = await Post.find(filter).sort({ createdDate: 1 }).limit(10).populate("user");
     return res.status(200).send(data);
   } catch (error) {
     console.log(error);
@@ -334,7 +334,7 @@ router.get("/weekly_top/", async (req, res) => {
   filter.tags = { $regex: tag };
 
   try {
-    const data = await Post.find(filter).sort({ createdDate: 1 }).limit(10);
+    const data = await Post.find(filter).sort({ createdDate: 1 }).limit(10).populate("user");
     return res.status(200).send(data);
   } catch (error) {
     console.log(error);
