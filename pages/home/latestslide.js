@@ -121,10 +121,10 @@ const LatestSlide = () => {
             // data.push(data[0]);
             setCarouselItems(data);
 
-            console.log(response.data);
+            // console.log(response.data);
 
-            console.log('response.data.length: ', response.data.length, response.data);
-            console.log('carouselItems: ', carouselItems.length, carouselItems);            
+            // console.log('response.data.length: ', response.data.length, response.data);
+            // console.log('carouselItems: ', carouselItems.length, carouselItems);            
             document.documentElement.style.setProperty('--num', carouselItems.length);
         });
         // }
