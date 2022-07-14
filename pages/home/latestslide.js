@@ -1,27 +1,8 @@
+import axios from "axios";
 import React, { useState, useEffect } from "react";
 import SlideCard from "../../components/slidecard";
+import { API_URL } from "../../config"
 
-// const items = [
-//     {
-//         icon: "face",
-//         copy: '01. Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-//     }, {
-//         icon: "pets",
-//         copy: '02. Sed do eiusmod tempor incididunt ut labore.'
-//     }, {
-//         icon: "stars",
-//         copy: '03. Consectetur adipiscing elit.'
-//     }, {
-//         icon: "invert_colors",
-//         copy: '04. Ut enim ad minim veniam, quis nostrud exercitation.'
-//     }, {
-//         icon: "psychology",
-//         copy: '05. Llamco nisi ut aliquip ex ea commodo consequat.'
-//     }, {
-//         icon: "brightness_7",
-//         copy: '06. Misi ut aliquip ex ea commodo consequat.'
-//     }
-// ];
 
 const items = [
     {
@@ -110,6 +91,7 @@ const items = [
     }
 ];
 
+
 const Card = (props) => {
     return (
         <li className="card">
@@ -121,16 +103,34 @@ const Card = (props) => {
 }
 
 const LatestSlide = () => {
+
     const [moveClass, setMoveClass] = useState('');
-    const [carouselItems, setCarouselItems] = useState(items);
+    const [carouselItems, setCarouselItems] = useState([]);//items);
 
     useEffect(() => {
-        console.log("=================", 'useEffect');
-        document.documentElement.style.setProperty('--num', carouselItems.length);
-    }, [carouselItems])
+        // if (carouselItems.length === 0) {
+        axios.get(
+            API_URL+'/post_apis/recent',
+            {
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                }
+            }
+        ).then(response => {
+            let data = response.data;
+            // data.push(data[0]);
+            setCarouselItems(data);
+
+            console.log(response.data);
+
+            console.log('response.data.length: ', response.data.length, response.data);
+            console.log('carouselItems: ', carouselItems.length, carouselItems);            
+            document.documentElement.style.setProperty('--num', carouselItems.length);
+        });
+        // }
+    }, [])
 
     const handleAnimationEnd = () => {
-        console.log("=================", 'handleAnimationEnd');
         if (moveClass === 'prev') {
             shiftNext([...carouselItems]);
         } else if (moveClass === 'next') {
@@ -140,36 +140,36 @@ const LatestSlide = () => {
     }
 
     const shiftPrev = (copy) => {
-        console.log("=================", 'shiftPrev');
         let lastcard = copy.pop();
         copy.splice(0, 0, lastcard);
         setCarouselItems(copy);
     }
 
     const shiftNext = (copy) => {
-        console.log("=================", 'shiftNext');
         let firstcard = copy.shift();
         copy.splice(copy.length, 0, firstcard);
         setCarouselItems(copy);
     }
 
-
-
     return (
         <div className="carousellwrapper module-wrapper">
-            <div className="ui">
-                <button onClick={() => setMoveClass('next')} className="prev">
-                    <span className="material-icons">chevron_left</span>
-                </button>
-                <button onClick={() => setMoveClass('prev')} className="next">
-                    <span className="material-icons">chevron_right</span>
-                </button>
-            </div>
+
+                <div className="ui">
+                    <button onClick={() => setMoveClass('next')} className="prev">
+                        <span className="material-icons">chevron_left</span>
+                    </button>
+                    <button onClick={() => setMoveClass('prev')} className="next">
+                        <span className="material-icons">chevron_right</span>
+                    </button>
+                </div>
+            
+            {carouselItems.length > 0 &&
             <ul onAnimationEnd={handleAnimationEnd} className={`${moveClass} carousell`}>
                 {carouselItems.map((data, idx) =>
-                    <Card key={idx} item={data}/>
+                    <Card key={idx} item={data} />
                 )}
             </ul>
+            }
         </div>
     )
 }

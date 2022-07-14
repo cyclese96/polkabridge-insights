@@ -7,9 +7,9 @@ export default function SlideCard(props) {
         <div className="border border-gray-800 rounded-2xl px-8 py-8 max-w-md mx-auto">
             <img src={props.item.image} />
             <div className="flex my-4">
-                <span className="text-white text-sm mr-8">{props.item.kind.name}</span>
+                <span className="text-white text-sm mr-8">{props.item.poster_name}</span>
                 <span className="text-white text-sm mr-8">·</span>
-                <span className="text-gray-400 text-sm">{props.item.kind.date} Month Ago </span>
+                <span className="text-gray-400 text-sm">{props.item.createdDate} Month Ago </span>
             </div>
             <span className="text-white text-left text-2xl inline-block mb-4">{props.item.title}</span>
             <span className="text-gray-400 text-left text-sm inline-block">{props.item.content}</span>
@@ -17,14 +17,14 @@ export default function SlideCard(props) {
                 <tbody>
                     <tr>
                         <td width='20%'>
-                            <img src={props.item.author.image}
+                            <img src={props.image}
                                 className="block"
                                 alt="..."
                             />
                         </td>
                         <td>
-                            <span className="text-white text-sm text-left block">{props.item.author.name}</span>
-                            <span className="text-white text-sm text-left block">{props.item.author.time} min Read</span>
+                            <span className="text-white text-sm text-left block">{props.item.user}</span>
+                            <span className="text-white text-sm text-left block">{props.item.readTime} min Read</span>
                         </td>
                         <td align="middle">
                             <span className="text-white text-sm block"></span>
