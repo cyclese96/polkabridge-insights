@@ -278,7 +278,7 @@ router.get("/recent/", async (req, res) => {
   const id = req.params.id;
 
   try {
-    const data = await Post.find().sort({ _id: -1 }).limit(3).populate("user");
+    const data = await Post.find().sort({ _id: -1 }).limit(6).populate("user");
     return res.status(200).send(data);
   } catch (error) {
     console.log(error);
