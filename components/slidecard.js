@@ -3,6 +3,7 @@ import Link from "next/link";
 
 
 export default function SlideCard(props) {
+    console.log("Detail =================", props);
     return (
         <div className="border border-gray-800 rounded-2xl px-8 py-8 max-w-md mx-auto">
             <img src={props.item.image} />
@@ -34,7 +35,7 @@ export default function SlideCard(props) {
                             <div>
                                 <div className="items-center">
                                     <div className="flex items-center">
-                                        <Link href="/home/TrendingArticlesDetail">
+                                        <Link href="/home/TrendingArticlesDetail/?abc=123">
                                             <a>
                                                 <span className="text-white text-sm ">
                                                     Read Full

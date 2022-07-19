@@ -33,6 +33,7 @@ const LatestSlide = () => {
                 data[i].user_avatar = data[i].user.avatar;
                 data[i].user = data[i].user.name;
             }
+            console.log(data);
             setCarouselItems(data);
             document.documentElement.style.setProperty('--num', data.length);
         };
@@ -76,7 +77,7 @@ const LatestSlide = () => {
             {carouselItems &&
                 <ul onAnimationEnd={handleAnimationEnd} className={`${moveClass} carousell`}>
                     {carouselItems.map((data, idx) =>
-                        <Card key={idx} item={data} />
+                        <Card key={idx} id={idx} item={data} />
                     )}
                 </ul>
             }
