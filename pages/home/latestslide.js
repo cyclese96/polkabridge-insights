@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect, useMemo } from "react";
 import SlideCard from "../../components/slidecard";
 import { API_URL } from "../../config"
+import { SLIDE_LIMIT } from "../../config"
 
 const Card = (props) => {
     return (
@@ -29,6 +30,7 @@ const LatestSlide = () => {
                 }
             )
             const data = response.data;
+            data.length = data.length > SLIDE_LIMIT ? SLIDE_LIMIT: data.length;
             for (let i = 0; i < data.length; i++) {
                 data[i].user_avatar = data[i].user.avatar;
                 data[i].user = data[i].user.name;

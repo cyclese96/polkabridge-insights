@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 export default function TrendingArticlesDetail(props) {
   const router = useRouter();
   const { item } = router.query;
+  console.log("item", item);
   const [itemObj, setItemObj] = useState(JSON.parse(item));
 
   const [cardItems, setCardItems] = useState([]);

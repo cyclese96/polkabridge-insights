@@ -1,114 +1,8 @@
-import React, { useState, useEffect } from "react";
+import axios from "axios";
+import React, { useState, useEffect, useMemo } from "react";
 import SlideCard from "../../components/slidecard";
-
-// const items = [
-//     {
-//         icon: "face",
-//         copy: '01. Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-//     }, {
-//         icon: "pets",
-//         copy: '02. Sed do eiusmod tempor incididunt ut labore.'
-//     }, {
-//         icon: "stars",
-//         copy: '03. Consectetur adipiscing elit.'
-//     }, {
-//         icon: "invert_colors",
-//         copy: '04. Ut enim ad minim veniam, quis nostrud exercitation.'
-//     }, {
-//         icon: "psychology",
-//         copy: '05. Llamco nisi ut aliquip ex ea commodo consequat.'
-//     }, {
-//         icon: "brightness_7",
-//         copy: '06. Misi ut aliquip ex ea commodo consequat.'
-//     }
-// ];
-
-const items = [
-    {
-        image: 'Rectangle33.png',
-        kind: {
-            name: 'Fantasy',
-            date: 1
-        },
-        title: 'How to make GUI in Java with example example',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Leo ullamcorper suspendisse at mi nulla volutpat.',
-        author: {
-            image: 'Ellipse 80.png',
-            name: 'Dasteen',
-            time: 3
-        }
-    },
-    {
-        image: 'Article_Image.png',
-        kind: {
-            name: 'Fantasy',
-            date: 2
-        },
-        title: 'How to make GUI in Java with example example',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Leo ullamcorper suspendisse at mi nulla volutpat.',
-        author: {
-            image: 'Ellipse 81.png',
-            name: 'Kristin Watson',
-            time: 3
-        }
-    },
-    {
-        image: 'Rectangle34.png',
-        kind: {
-            name: 'Fantasy',
-            date: 2
-        },
-        title: 'How to make GUI in Java with example example',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Leo ullamcorper suspendisse at mi nulla volutpat.',
-        author: {
-            image: 'Ellipse 82.png',
-            name: 'Marvin McKinney',
-            time: 3
-        }
-    },
-    {
-        image: 'Rectangle33.png',
-        kind: {
-            name: 'Fantasy',
-            date: 1
-        },
-        title: 'How to make GUI in Java with example example',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Leo ullamcorper suspendisse at mi nulla volutpat.',
-        author: {
-            image: 'Ellipse 80.png',
-            name: 'Dasteen',
-            time: 3
-        }
-    },
-    {
-        image: 'Article_Image.png',
-        kind: {
-            name: 'Fantasy',
-            date: 2
-        },
-        title: 'How to make GUI in Java with example example',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Leo ullamcorper suspendisse at mi nulla volutpat.',
-        author: {
-            image: 'Ellipse 81.png',
-            name: 'Kristin Watson',
-            time: 3
-        }
-    },
-    {
-        image: 'Rectangle34.png',
-        kind: {
-            name: 'Fantasy',
-            date: 2
-        },
-        title: 'How to make GUI in Java with example example',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Leo ullamcorper suspendisse at mi nulla volutpat.',
-        author: {
-            image: 'Ellipse 82.png',
-            name: 'Marvin McKinney',
-            time: 3
-        }
-    }
-];
+import { API_URL } from "../../config"
+import { SLIDE_LIMIT } from "../../config"
 
 const Card = (props) => {
     return (
@@ -121,12 +15,33 @@ const Card = (props) => {
 }
 
 const CoinsTokensSlide = () => {
+
     const [moveClass, setMoveClass] = useState('');
-    const [carouselItems, setCarouselItems] = useState(items);
+    const [carouselItems, setCarouselItems] = useState(null);
 
     useEffect(() => {
-        document.documentElement.style.setProperty('--num', carouselItems.length);
-    }, [carouselItems])
+        const fetchData = async () => {
+            const response = await axios.get(
+                API_URL + '/post_apis/posts/public/Coin&Tokens/1',
+                {
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                    }
+                }
+            )
+            const data = response.data;            
+            data.length = data.length > SLIDE_LIMIT ? SLIDE_LIMIT: data.length;
+            for (let i = 0; i < data.length; i++) {
+                data[i].user_avatar = data[i].user.avatar;
+                data[i].user = data[i].user.name;
+                data[i].monthAgo = 0;
+            }
+            setCarouselItems(data);
+            document.documentElement.style.setProperty('--num', data.length);
+        };
+        fetchData();
+    }, [])
+
 
     const handleAnimationEnd = () => {
         if (moveClass === 'prev') {
@@ -149,10 +64,9 @@ const CoinsTokensSlide = () => {
         setCarouselItems(copy);
     }
 
-
-
     return (
         <div className="carousellwrapper module-wrapper">
+
             <div className="ui">
                 <button onClick={() => setMoveClass('next')} className="prev">
                     <span className="material-icons">chevron_left</span>
@@ -161,11 +75,14 @@ const CoinsTokensSlide = () => {
                     <span className="material-icons">chevron_right</span>
                 </button>
             </div>
-            <ul onAnimationEnd={handleAnimationEnd} className={`${moveClass} carousell`}>
-                {carouselItems.map((data, idx) =>
-                    <Card key={idx} item={data} />
-                )}
-            </ul>
+
+            {carouselItems &&
+                <ul onAnimationEnd={handleAnimationEnd} className={`${moveClass} carousell`}>
+                    {carouselItems.map((data, idx) =>
+                        <Card key={idx} id={idx} item={data} />
+                    )}
+                </ul>
+            }
         </div>
     )
 }

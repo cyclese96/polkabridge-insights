@@ -3,6 +3,8 @@ import Link from "next/link";
 
 
 export default function SlideCard(props) {
+    if(props.item.category === 'Coin&Tokens')
+        props.item.category = 'Coins and Tokens';
     return (
         <div className="border border-gray-800 rounded-2xl px-8 py-8 max-w-md mx-auto">
             <img src={props.item.image} />
