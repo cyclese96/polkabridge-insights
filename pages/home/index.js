@@ -1,7 +1,5 @@
 import Link from "next/link";
-// import ReactStars from 'react-stars'
 
-import ReactStars from "react-rating-stars-component";
 import 'tw-elements-baron';
 import BeginnerSlide from "./beginnerslide";
 import CoinsTokensSlide from "./coinstokensslide";

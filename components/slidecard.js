@@ -3,14 +3,13 @@ import Link from "next/link";
 
 
 export default function SlideCard(props) {
-    console.log("Detail =================", props);
     return (
         <div className="border border-gray-800 rounded-2xl px-8 py-8 max-w-md mx-auto">
             <img src={props.item.image} />
             <div className="flex my-4">
                 <span className="text-white text-sm mr-8">{props.item.category}</span>
                 <span className="text-white text-sm mr-8">·</span>
-                <span className="text-gray-400 text-sm">{props.item.createdDate} Month Ago </span>
+                <span className="text-gray-400 text-sm">{props.item.monthAgo} Month Ago </span>
             </div>
             <span className="text-white text-left text-2xl inline-block mb-4">{props.item.title}</span>
             <span className="text-gray-400 text-left text-sm inline-block">{props.item.content}</span>
@@ -35,7 +34,7 @@ export default function SlideCard(props) {
                             <div>
                                 <div className="items-center">
                                     <div className="flex items-center">
-                                        <Link href="/home/TrendingArticlesDetail/?abc=123">
+                                        <Link href={"/home/TrendingArticlesDetail?item="+JSON.stringify(props.item)}>
                                             <a>
                                                 <span className="text-white text-sm ">
                                                     Read Full

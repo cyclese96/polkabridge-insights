@@ -3,23 +3,27 @@ import ReactStars from "react-rating-stars-component";
 import Link from "next/link";
 import 'tw-elements-baron';
 import Divider from "../../components/divider";
-import SlideCard from "../../components/slidecard";
 import React, { useMemo, useEffect, useState } from 'react';
+import { useRouter } from "next/router";
 
 export default function TrendingArticlesDetail(props) {
+  const router = useRouter();
+  const { item } = router.query;
+  const [itemObj, setItemObj] = useState(JSON.parse(item));
+
   const [cardItems, setCardItems] = useState([]);
   const itemData = {
-    image: 'Rectangle33.png',
+    image: itemObj.image,
     kind: {
-      name: 'Fantasy',
-      date: 1
+      name: itemObj.category,
+      date: itemObj.readTime
     },
-    title: 'How to make GI in Java with example goes here with other coins.',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis congue nisl ipsum nunc, nullam. Ornare cursus etiam euismod sit. Sit dui non ipsum venenatis elit sagittis morbi ullamcorper. Turpis ornare adipiscing nisi, risus erat nisi egestas vestibulum, at. Ut justo, suspendisse velit, tincidunt viverra ornare egestas neque felis. Adipiscing enim sit massa tristique velit. Lacus, viverra adipiscing habitant scelerisque id vel enim habitasse sit. Eu at pharetra nibh platea scelerisque risus iaculis. Elit amet non tristique pretium mi quis cras. Mattis ut nibh rhoncus, sed quis cras. Feugiat proin a aliquet facilisis pretium tempus aliquam cursus pellentesque. Non enim dui integer sollicitudin cursus nibh enim vel nunc. Orci, vestibulum rutrum pretium amet. Tellus dignissim arcu interdum massa fames curabitur et.',
+    title: itemObj.title,
+    content: itemObj.content,
     author: {
-      image: 'Ellipse 80.png',
-      name: 'Dasteen',
-      time: 3
+      image: 'Ellipse 80.png', //itemObj.user_avatar,
+      name: itemObj.user,
+      time: itemObj.createdDate
     }
   }
   useMemo(() => {
@@ -31,9 +35,9 @@ export default function TrendingArticlesDetail(props) {
       {/* <div className="flex flex-wrap justify-center gap-8 mt-8"> */}
       <div className="rounded-2xl space-y-8 py-8">
         <span className="text-white text-justify text-4xl mb-4">{itemData.title}</span>
-        <div className="flex space-x-8 justify-start">
-          <img src={itemData.image} className="object-fill w-3/5 h-96" />
-          <div className="bg-gray-200 bg-opacity-5 px-4 py-4 rounded-lg w-1/4">
+        <div className="flex flex-col md:flex-row md:space-x-8 justify-start">
+          <img src={itemData.image} className="object-fill md:w-3/5 h-96 w-full" />
+          <div className="bg-gray-200 bg-opacity-5 px-4 py-4 rounded-lg w-full md:w-1/4 mt-4 md:mt-0">
             <span className="text-white">
               Trending
             </span>
@@ -131,14 +135,14 @@ export default function TrendingArticlesDetail(props) {
             <tr>
               <td>
                 <div className="flex space-x-8">
-                <img src={itemData.author.image}
-                  className="scale-150"
-                  alt="..."
-                />
-              <div>
-                <span className="text-white text-xl text-left block">{itemData.author.name}</span>
-                <span className="text-white text-xl text-left block">See More Info</span>
-                </div>
+                  <img src={itemData.author.image}
+                    className="block"
+                    alt="..."
+                  />
+                  <div>
+                    <span className="text-white text-xl text-left block">{itemData.author.name}</span>
+                    <span className="text-white text-xl text-left block">See More Info</span>
+                  </div>
                 </div>
               </td>
               <td className="" align="right">

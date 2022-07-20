@@ -33,7 +33,6 @@ const LatestSlide = () => {
                 data[i].user_avatar = data[i].user.avatar;
                 data[i].user = data[i].user.name;
             }
-            console.log(data);
             setCarouselItems(data);
             document.documentElement.style.setProperty('--num', data.length);
         };
