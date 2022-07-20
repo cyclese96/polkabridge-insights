@@ -10,10 +10,13 @@ import PendingPost from "./pages/Reader/PendingPost";
 import Profile from "./pages/Reader/Profile";
 import TrendingArticles from "./pages/Reader/TrendingArticles";
 import SuperAdminDashboard from "./pages/Admin/Dashboard/SuperAdminDashboard";
-
+import { Provider } from "react-redux";
+import store from "./store";
 function App() {
   return (
+    
     <div className="App">
+      <Provider store={store}>
       <Fragment>
         <Router>
           <Routes>
@@ -29,6 +32,8 @@ function App() {
           </Routes>
         </Router>
       </Fragment>
+
+      </Provider>
     </div>
   );
 }
