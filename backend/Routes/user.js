@@ -153,7 +153,7 @@ router.get("/users/:page_number", auth, async (req, res) => {
 });
 
 //get top 4  users by pagination tested
-router.get("/users/top_user/:page_number", auth, async (req, res) => {
+router.get("/users/top_user/:page_number", async (req, res) => {
   try {
     const page = req.params.page_number ? req.params.page_number : 1;
     const Users = await User.find()
