@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@mui/styles";
 import logo from "../../../assets/Logo.png";
 import ArticleCard from "./ArticleCard";
 import LeftBar from "../../../common/TopBar";
 import SideBar from "../../../common/SideBar";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserPost } from "../../../actions/newsActions";
 
 const useStyles = makeStyles((theme) => ({
   logo: {
@@ -51,6 +53,12 @@ const useStyles = makeStyles((theme) => ({
 
 function Dashboard() {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const {news} = useSelector(store=> store.news);
+
+  useEffect(async() => {
+await dispatch(getUserPost())
+  }, [])
   return (
     <div className="row mt-4">
       <div className="col-md-2">
@@ -59,9 +67,12 @@ function Dashboard() {
       <div className="col-md-10">
         <LeftBar />
         <h2 style={{ color: "#E13D7E", textAlign: "left" }}> My Post</h2>
-        <ArticleCard />
-        <ArticleCard />
-        <ArticleCard />
+        <div className='row'>
+        {news.map((singleNews)=>{
+            return  <ArticleCard news={singleNews}/>
+          })}
+ </div>
+     
       </div>
     </div>
   );

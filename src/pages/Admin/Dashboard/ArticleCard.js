@@ -98,7 +98,7 @@ function ArticleCard({news}) {
             <div className="row">
               <div className="col-md-12 mr-1">
                 <div className="d-flex justify-content-between">
-                  <div className={classes.details}>Dasteen</div>
+                  <div className={classes.details}>{news.creator_name}</div>
                   <div className={classes.details}>Read Full</div>
                 </div>
               </div>
@@ -106,7 +106,7 @@ function ArticleCard({news}) {
             <div className="row">
               <div className="col-md-12 mt-2 mr-1">
                 <div className="d-flex justify-content-between">
-                  <div className={classes.info}>3 Min Read</div>
+                  <div className={classes.info}>{news.readTime}</div>
                   <div className={classes.info}>See More Info</div>
                 </div>
               </div>

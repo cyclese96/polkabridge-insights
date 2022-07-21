@@ -63,7 +63,7 @@ router.post("/post/", auth, upload.single("image"), async (req, res) => {
 // @route    GET api/posts
 // @desc     Get all posts by page
 // @access   Private  tested
-router.get("/posts/:page_number", auth, async (req, res) => {
+router.get("/posts/:page_number", async (req, res) => {
   try {
     console.log("req", req.params.page_number);
     const page = req.params.page_number ? req.params.page_number : 1;
@@ -113,7 +113,7 @@ router.get("/posts/public/:category/:page_number", async (req, res) => {
 // @access   Private
 
 //Get a post by Post id tested
-router.get("/post/:id", auth, checkObjectId("id"), async (req, res) => {
+router.get("/post/:id",  checkObjectId("id"), async (req, res) => {
   try {
     const post = await Post.findById(req.params.id).populate("user");
 
