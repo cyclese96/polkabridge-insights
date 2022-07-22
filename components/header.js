@@ -10,12 +10,16 @@ export default function Header() {
     <header>
       <div className="flex flex-wrap items-center lg:container px-4 py-6 mx-auto md:flex-no-wrap md:px-6">
         <div className="flex items-center flex-grow">
-          <Image
-            src="/Logo.png"
-            height={40}
-            width={120}            
-            alt="logo"
-          />
+          <Link href='/home'>
+            <a className="block">
+              <Image
+                src="/Logo.png"
+                height={40}
+                width={120}
+                alt="logo"
+              />
+            </a>
+          </Link>
         </div>
 
         <button
