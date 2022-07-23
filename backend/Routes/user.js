@@ -9,6 +9,7 @@ const auth = require("../middleware/auth");
 const User = require("../Models/User");
 const { upload } = require("../middleware/upload");
 const uploadSingleObject = require("../s3Service");
+const Posts = require("../Models/Posts");
 
 // @route    POST api/users tested
 // @desc     Register user
@@ -156,11 +157,32 @@ router.get("/users/:page_number", auth, async (req, res) => {
 router.get("/users/top_user/:page_number", async (req, res) => {
   try {
     const page = req.params.page_number ? req.params.page_number : 1;
-    const Users = await User.find()
-      .sort({ date: -1 })
-      .limit((page - 1) * 4 + 4)
-      .skip((page - 1) * 4);
-    res.json(Users);
+
+    const result = await Posts.aggregate([
+     {
+      $group: {
+        _id: '$user',
+        count: { $count: {}},
+      },
+      
+    },
+    ])
+
+    const sortedItems = result?.sort( (a, b) => {
+      return b.count - a.count;
+    } );
+    const userIds = sortedItems?.map(item => item?._id);
+    const users = await User.find({ id: { $in : userIds } })
+
+    const finalResult = sortedItems.map((item,index) => {
+      return { count: item?.count, user: users?.[index] }
+    } );
+
+
+    console.log('result', finalResult)
+    
+    res.status(200).json(finalResult);
+
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
