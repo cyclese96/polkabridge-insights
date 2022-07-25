@@ -8,8 +8,8 @@ import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   logo: {
-    width: 915,
-    height: 837,
+    width: 'fit-content',
+    height: '837px',
   },
   login: {
     color: " #E13D7E",
@@ -153,9 +153,9 @@ function LogIn() {
             <button className={classes.buttonLogin}>Log in </button>
           </div>
         </div>
-        <div className="col-md-6 mt-3">
+        {/* <div className="col-md-6 mt-3">
           <img className={classes.logo} src={polkabridge} alt="image-logo" />
-        </div>
+        </div> */}
       </div>
     </>
   );

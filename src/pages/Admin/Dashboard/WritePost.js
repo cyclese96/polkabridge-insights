@@ -107,9 +107,9 @@ function WritePost() {
             </div>
             <div>
               <div
-                className="card "
+                className="card jusitfy-content-center "
                 style={{
-                  width: "80%",
+                  width: "90%",
                   backgroundColor: "#1B1B17",
                   border: "1px solid #353535",
                   borderRadius: 20,
@@ -163,11 +163,25 @@ function WritePost() {
                 </div>
               </div>
             </div>
-            <div className="d-flex justify-content-start mt-4 ml-2">
-              <h4 className={classes.blogText}>
-                Write about you blog and information you want to share
-              </h4>
+
+            <div className=" d-flex justify-content-start mt-4">
+              <textarea
+               type="textarea" 
+               name="textValue"
+                className="p-2"
+                style={{
+                  backgroundColor: "#1B1B1B",
+                  border: "2px solid #353535",
+                  borderRadius: 10,
+                  width: "90%",
+                  height:'100px',
+                  color: "#DCDCDC",
+                }}
+                
+                placeholder="Write about you blog and information you want to share"
+              />
             </div>
+
             <div className="d-flex justify-content-start mt-4">
               <input
                 className="p-2"
@@ -175,7 +189,7 @@ function WritePost() {
                   backgroundColor: "#1B1B1B",
                   border: "2px solid #353535",
                   borderRadius: 10,
-                  width: "80%",
+                  width: "90%",
                   display: "flex",
                   justifyContent: "center",
                   color: "#DCDCDC",
