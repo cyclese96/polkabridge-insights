@@ -3,8 +3,8 @@ import TopBar from "../../../common/TopBar";
 import SideBar from "../../../common/SideBar";
 import { makeStyles } from "@mui/styles";
 import upload from "../../../assets/upload.png";
-import propTypes from 'prop-types';
-import {connect} from 'react-redux'
+import propTypes from "prop-types";
+import { connect } from "react-redux";
 import { ADD_POSTS } from "../../../actions/types";
 import { addPost } from "../../../actions/newsActions";
 
@@ -91,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function WritePost() {
+function WritePost({ addPost }) {
   const classes = useStyles();
   return (
     <>
@@ -120,28 +120,41 @@ function WritePost() {
                   borderRadius: 20,
                 }}
               >
-                <div className="d-flex justify-content-between">
-                  <h6 className={classes.writeTitle}>Title goes here</h6>
-                  <div className={classes.dropdown}>
-                    <h6 className={classes.writeTitle}>Catagory:</h6>
-                    <select
-                      className="form-control"
-                      style={{
-                        width: "100%",
-                        height: "40px",
-                        border: "2px solid #353535",
-                        backgroundColor: "transparent",
-                        marginRight: 10,
-                        color: "white",
-                      }}
-                    >
-                      <option value="beginner">select</option>
-                      <option value="beginner">Tokens</option>
-                      <option value="moderator">PBR</option>
-                      <option value="fluent">PWAR</option>
-                    </select>
+                <div className="d-flex justify-content-center my-4">
+                  <input
+                    className="card mb-"
+                    style={{
+                      width: "60%",
+                      backgroundColor: "#1B1B17",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                    type="text"
+                    placeholder="Title goes here"
+                  />
+                  <div className="d-flex justify-content-between">
+                    <div className={classes.dropdown}>
+                      <h6 className={classes.writeTitle}>Catagory:</h6>
+                      <select
+                        className="form-control"
+                        style={{
+                          height: "40px",
+                          border: "2px solid #353535",
+                          backgroundColor: "transparent",
+                          marginRight: 10,
+                          color: "white",
+                        }}
+                      >
+                        <option value="beginner">select</option>
+                        <option value="beginner">Tokens</option>
+                        <option value="moderator">PBR</option>
+                        <option value="fluent">PWAR</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
+
                 <div className="d-flex justify-content-center">
                   <div
                     className="card mb-3"
@@ -160,6 +173,15 @@ function WritePost() {
                       src={upload}
                       alt="image-logo"
                     />
+                    <form>
+                      <input
+                        className="fileInput"
+                        label="upload file"
+                        type="file"
+                      />
+                      <div id="upload-msg"></div>
+                    </form>
+
                     <h6 className={classes.dragText}>
                       Drag and drop an image,
                       <span style={{ color: "#E13D7E" }}> or Browse</span>
@@ -171,18 +193,17 @@ function WritePost() {
 
             <div className=" d-flex justify-content-start mt-4">
               <textarea
-               type="textarea" 
-               name="textValue"
+                type="textarea"
+                name="textValue"
                 className="p-2"
                 style={{
                   backgroundColor: "#1B1B1B",
                   border: "2px solid #353535",
                   borderRadius: 10,
                   width: "90%",
-                  height:'100px',
+                  height: "100px",
                   color: "#DCDCDC",
                 }}
-                
                 placeholder="Write about you blog and information you want to share"
               />
             </div>
@@ -212,9 +233,9 @@ function WritePost() {
     </>
   );
 }
- 
-WritePost.propTypes = {
-  addPost : propTypes.func.isRequired
-}
 
-export default connect(null, {addPost})(WritePost);
+WritePost.propTypes = {
+  addPost: propTypes.func.isRequired,
+};
+
+export default connect(null, { addPost })(WritePost);
