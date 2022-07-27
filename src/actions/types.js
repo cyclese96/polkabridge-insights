@@ -10,4 +10,8 @@ export const GET_SINGLE_NEWS = "GET_SINGLE_NEWS";
 export const GET_USERS_NEWS = "GET_USERS_NEWS";
 
 
+//Post reducers
+export const ADD_POSTS = "ADD_POSTS";
+
+
 

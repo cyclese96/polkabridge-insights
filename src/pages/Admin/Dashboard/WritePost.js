@@ -3,6 +3,11 @@ import TopBar from "../../../common/TopBar";
 import SideBar from "../../../common/SideBar";
 import { makeStyles } from "@mui/styles";
 import upload from "../../../assets/upload.png";
+import propTypes from 'prop-types';
+import {connect} from 'react-redux'
+import { ADD_POSTS } from "../../../actions/types";
+import { addPost } from "../../../actions/newsActions";
+
 const useStyles = makeStyles((theme) => ({
   logo: {
     width: 915,
@@ -207,5 +212,9 @@ function WritePost() {
     </>
   );
 }
+ 
+WritePost.propTypes = {
+  addPost : propTypes.func.isRequired
+}
 
-export default WritePost;
+export default connect(null, {addPost})(WritePost);
