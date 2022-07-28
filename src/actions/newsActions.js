@@ -58,8 +58,7 @@ export const getUserPost = (id) => async (dispatch) => {
 
 
 
-export const addPost = (iformDatad) => async (dispatch) => {
-
+export const addPost = (id) => async (dispatch) => {
   let response = await axios
     .post(`${baseUrl}/post_apis/post`)
     .then((res) => {

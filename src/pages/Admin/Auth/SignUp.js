@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
 import Navbar from "../../../common/Navbar";
 import polkabridge from "../../../assets/PolkaBridge.png";
 import Person from "../../../assets/person.png";
 import Key from "../../../assets/key.png";
 import Mail from "../../../assets/mail.png";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { setAlert } from "../../../actions/alert";
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { signUp } from '../../../../src/actions/auth';
 
 const useStyles = makeStyles((theme) => ({
   logo: {
@@ -98,8 +102,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SignUp() {
+const SignUp = ({ setAlert, signUp, isAuthenticated }) => {
   const classes = useStyles();
+
+  const [formData, setFormData] = useState({
+    name: '',
+    username:'',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
+
+  const { name, email, password, confirmPassword } = formData;
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      setAlert('Passwords do not match', 'danger');
+    } else {
+      signUp({ name, email, password });
+    }
+  };
+  if (isAuthenticated) {
+    return <Navigate to="/" />;
+  }
+  const onChange = (e) =>
+  setFormData({ ...formData, [e.target.name]: e.target.value });
+
   return (
     <>
       <div>
@@ -116,6 +145,7 @@ function SignUp() {
               Sign up
             </h5>
           </div>
+          <form className="form" onSubmit={onSubmit}>
           <div className={classes.inputWrapper}>
             <div className={classes.para}>
               <img src={Person} className={classes.userIcon} alt="" />
@@ -123,6 +153,9 @@ function SignUp() {
                 className={classes.inputField}
                 type="text"
                 placeholder="UserName"
+                name="name"
+                value={name}
+                onChange={onChange}
               />
             </div>
             <div className={classes.para} style={{ marginTop: 10 }}>
@@ -139,6 +172,9 @@ function SignUp() {
                 className={classes.inputField}
                 type="text"
                 placeholder="Email"
+                name="email"
+                value={email}
+                onChange={onChange}
               />
             </div>
             <div className={classes.para} style={{ marginTop: 10 }}>
@@ -147,6 +183,9 @@ function SignUp() {
                 className={classes.inputField}
                 type="text"
                 placeholder="Password"
+                name="password"
+                value={password}
+                onChange={onChange}
               />
             </div>
             <div className={classes.para} style={{ marginTop: 10 }}>
@@ -155,13 +194,20 @@ function SignUp() {
                 className={classes.inputField}
                 type="text"
                 placeholder="Confirm Password"
+                name="confirmPassword"
+                value={confirmPassword}
+                onChange={onChange}
               />
             </div>
           </div>
 
           <div className="mt-5">
-            <button className={classes.buttonLogin}>Sign Up </button>
+            <button className={classes.buttonLogin} 
+            type="submit" value="SignUp" 
+            >Sign Up </button>
+             {/* <input type="submit" className="btn btn-primary" value="SignUp" /> */}
           </div>
+          </form>
         </div>
         <div className="col-md-6 mt-3">
           <img className={classes.logo} src={polkabridge} alt="image-logo" />
@@ -170,5 +216,14 @@ function SignUp() {
     </>
   );
 }
+SignUp.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  signUp: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
+};
 
-export default SignUp;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, { setAlert, signUp })(SignUp);

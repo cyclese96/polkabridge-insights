@@ -122,9 +122,10 @@ function WritePost({ addPost }) {
               >
                 <div className="d-flex justify-content-center my-4">
                   <input
-                    className="card mb-"
+                    className="card"
                     style={{
                       width: "60%",
+                      height:'50px',
                       backgroundColor: "#1B1B17",
                       display: "flex",
                       justifyContent: "center",

@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
 import Navbar from "../../../common/Navbar";
 import polkabridge from "../../../assets/PolkaBridge.png";
 import Person from "../../../assets/person.png";
 import Key from "../../../assets/key.png";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { login } from '../../../actions/auth';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles((theme) => ({
   logo: {
-    width: 'fit-content',
-    height: '837px',
+    width: "fit-content",
+    height: "837px",
   },
   login: {
     color: " #E13D7E",
@@ -98,8 +101,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function LogIn() {
+const Login = ({ login, isAuthenticated }) => {
   const classes = useStyles();
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
+
+  const { email, password } = formData;
+
+  const onChange = (e) =>
+  setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    login(email, password);
+  };
+
+
+  if (isAuthenticated) {
+    return <Navigate to="/WritePost" />;
+  }
   return (
     <>
       <div>
@@ -120,13 +142,17 @@ function LogIn() {
           <p className={classes.subTitle}>
             Sign in to get the most out of Insights.
           </p>
+          <form className="form" onSubmit={onSubmit}>
           <div className={classes.inputWrapper}>
             <div className={classes.para}>
               <img src={Person} className={classes.userIcon} alt="" />
               <input
                 className={classes.inputField}
                 type="text"
-                placeholder="UserName"
+                placeholder="Email"
+                name="email"
+                value={email}
+                onChange={onChange}
               />
             </div>
             <div className={classes.para} style={{ marginTop: 10 }}>
@@ -135,6 +161,10 @@ function LogIn() {
                 className={classes.inputField}
                 type="text"
                 placeholder="Password"
+                name="password"
+                value={password}
+                onChange={onChange}
+                minLength="6"
               />
             </div>
           </div>
@@ -150,8 +180,9 @@ function LogIn() {
             </div>
           </div>
           <div className="mt-4">
-            <button className={classes.buttonLogin}>Log in </button>
+            <button className={classes.buttonLogin} type="submit" value="Login">Log in </button>
           </div>
+            </form>
         </div>
         {/* <div className="col-md-6 mt-3">
           <img className={classes.logo} src={polkabridge} alt="image-logo" />
@@ -160,5 +191,13 @@ function LogIn() {
     </>
   );
 }
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
+};
 
-export default LogIn;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, { login })(Login);

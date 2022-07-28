@@ -11,6 +11,15 @@ app.use(express.json({ extended: false }));
 
 app.get("/", (req, res) => res.send("API running"));
 
+const cors=require("cors");
+const corsOptions ={
+   origin:'*', 
+   credentials:true,            //access-control-allow-credentials:true
+   optionSuccessStatus:200,
+}
+
+app.use(cors(corsOptions)) 
+
 //Routes
 app.use("/user_apis/", require("./Routes/user"));
 app.use("/post_apis/", require("./Routes/post"));
