@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
   logo: {
     height: 35,
+    cursor: "pointer",
   },
   topBar: {
     display: "flex",

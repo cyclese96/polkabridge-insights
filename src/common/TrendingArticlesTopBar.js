@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@mui/styles";
 import logo from "../assets/Logo.png";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   profileImage: {
@@ -49,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 40,
     marginTop: 20,
     marginLeft: 50,
+    cursor: "pointer",
   },
   divider: {
     width: 30,
@@ -71,7 +73,9 @@ function TrendingArticlesTopBar() {
           <div className={classes.topHome}>Home</div>
           <span className={classes.divider} />
           <div className={classes.navText}>Connect</div>
+          <Link to="/writepost" style={{ textDecoration: "none" }}>
           <button className={classes.buttonEarn}>Write and Earn</button>
+          </Link>
         </div>
       </div>
     </div>

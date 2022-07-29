@@ -21,14 +21,14 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<LogIn />} />
-            <Route path="/Signup" element={<SignUp />} />
-            <Route path="/Dashboard" element={<Dashboard />} />
-            <Route path="/Writepost" element={<WritePost />} />
-            <Route path="/Livepost" element={<LivePost />} />
-            <Route path="/Pendingpost" element={<PendingPost />} />
-            <Route path="/Profile" element={<Profile />} />
-            <Route path="/AdminDashboard" element={<SuperAdminDashboard />} />
-            <Route path="/Trending/Article" element={<TrendingArticles />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/writepost" element={<WritePost />} />
+            <Route path="/livepost" element={<LivePost />} />
+            <Route path="/pendingpost" element={<PendingPost />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/admin/Dashboard" element={<SuperAdminDashboard />} />
+            <Route path="/trending/article" element={<TrendingArticles />} />
           </Routes>
         </Router>
       </Fragment>

@@ -27,7 +27,7 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const { name, email, password } = req.body;
+    const { name, email, password, username } = req.body;
 
     try {
       let user = await User.findOne({ email });
@@ -44,6 +44,7 @@ router.post(
         name: name,
         email: email,
         password: password,
+        username: username,
         avatar: default_avatar,
       });
 
@@ -159,30 +160,27 @@ router.get("/users/top_user/:page_number", async (req, res) => {
     const page = req.params.page_number ? req.params.page_number : 1;
 
     const result = await Posts.aggregate([
-     {
-      $group: {
-        _id: '$user',
-        count: { $count: {}},
+      {
+        $group: {
+          _id: "$user",
+          count: { $count: {} },
+        },
       },
-      
-    },
-    ])
+    ]);
 
-    const sortedItems = result?.sort( (a, b) => {
+    const sortedItems = result?.sort((a, b) => {
       return b.count - a.count;
-    } );
-    const userIds = sortedItems?.map(item => item?._id);
-    const users = await User.find({ id: { $in : userIds } })
+    });
+    const userIds = sortedItems?.map((item) => item?._id);
+    const users = await User.find({ id: { $in: userIds } });
 
-    const finalResult = sortedItems.map((item,index) => {
-      return { count: item?.count, user: users?.[index] }
-    } );
+    const finalResult = sortedItems.map((item, index) => {
+      return { count: item?.count, user: users?.[index] };
+    });
 
+    console.log("result", finalResult);
 
-    console.log('result', finalResult)
-    
     res.status(200).json(finalResult);
-
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

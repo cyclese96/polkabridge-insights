@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
     height: 35,
     marginBottom: 40,
     marginTop: 20,
+    cursor: "pointer",
   },
   profileImage: {
     height: 80,

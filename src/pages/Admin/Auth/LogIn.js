@@ -5,9 +5,9 @@ import polkabridge from "../../../assets/PolkaBridge.png";
 import Person from "../../../assets/person.png";
 import Key from "../../../assets/key.png";
 import { Link, Navigate } from "react-router-dom";
-import { login } from '../../../actions/auth';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { login } from "../../../actions/auth";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
   logo: {
@@ -104,20 +104,19 @@ const useStyles = makeStyles((theme) => ({
 const Login = ({ login, isAuthenticated }) => {
   const classes = useStyles();
   const [formData, setFormData] = useState({
-    email: '',
-    password: ''
+    email: "",
+    password: "",
   });
 
   const { email, password } = formData;
 
   const onChange = (e) =>
-  setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     e.preventDefault();
     login(email, password);
   };
-
 
   if (isAuthenticated) {
     return <Navigate to="/WritePost" />;
@@ -143,46 +142,56 @@ const Login = ({ login, isAuthenticated }) => {
             Sign in to get the most out of Insights.
           </p>
           <form className="form" onSubmit={onSubmit}>
-          <div className={classes.inputWrapper}>
-            <div className={classes.para}>
-              <img src={Person} className={classes.userIcon} alt="" />
-              <input
-                className={classes.inputField}
-                type="text"
-                placeholder="Email"
-                name="email"
-                value={email}
-                onChange={onChange}
-              />
+            <div className={classes.inputWrapper}>
+              <div className={classes.para}>
+                <img src={Person} className={classes.userIcon} alt="" />
+                <input
+                  className={classes.inputField}
+                  type="text"
+                  placeholder="Email"
+                  name="email"
+                  value={email}
+                  onChange={onChange}
+                />
+              </div>
+              <div className={classes.para} style={{ marginTop: 10 }}>
+                <img src={Key} className={classes.keyIcon} alt="" />
+                <input
+                  className={classes.inputField}
+                  type="text"
+                  placeholder="Password"
+                  name="password"
+                  value={password}
+                  onChange={onChange}
+                  minLength="6"
+                />
+              </div>
             </div>
-            <div className={classes.para} style={{ marginTop: 10 }}>
-              <img src={Key} className={classes.keyIcon} alt="" />
-              <input
-                className={classes.inputField}
-                type="text"
-                placeholder="Password"
-                name="password"
-                value={password}
-                onChange={onChange}
-                minLength="6"
-              />
+            <div className="d-flex justify-content-evenly mt-3">
+              <div style={{ marginLeft: 40 }}>
+                <label class="container" style={{ color: "white" }}>
+                  <input
+                    type="checkbox"
+                    checked=""
+                    style={{ marginRight: 10 }}
+                  />
+                  Remember Me
+                </label>
+              </div>
+              <div style={{ color: "white", marginRight: 60 }}>
+                Forgot Password?
+              </div>
             </div>
-          </div>
-          <div className="d-flex justify-content-evenly mt-3">
-            <div style={{ marginLeft: 40 }}>
-              <label class="container" style={{ color: "white" }}>
-                <input type="checkbox" checked="" style={{ marginRight: 10 }} />
-                Remember Me
-              </label>
+            <div className="mt-4">
+              <button
+                className={classes.buttonLogin}
+                type="submit"
+                value="Login"
+              >
+                Log in{" "}
+              </button>
             </div>
-            <div style={{ color: "white", marginRight: 60 }}>
-              Forgot Password?
-            </div>
-          </div>
-          <div className="mt-4">
-            <button className={classes.buttonLogin} type="submit" value="Login">Log in </button>
-          </div>
-            </form>
+          </form>
         </div>
         {/* <div className="col-md-6 mt-3">
           <img className={classes.logo} src={polkabridge} alt="image-logo" />
@@ -190,14 +199,14 @@ const Login = ({ login, isAuthenticated }) => {
       </div>
     </>
   );
-}
+};
 Login.propTypes = {
   login: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool
+  isAuthenticated: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { login })(Login);
