@@ -70,7 +70,7 @@ function SideBar() {
       }}
     >
       <div className={classes.lines}>
-        <Link to="/Livepost" style={{ textDecoration: "none" }}>
+        <Link to="/trending/article" style={{ textDecoration: "none" }}>
           <img className={classes.logo} src={logo} alt="image-logo" />
         </Link>
         <br />
