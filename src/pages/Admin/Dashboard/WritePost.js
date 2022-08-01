@@ -1,5 +1,4 @@
-import React from "react";
-import TopBar from "../../../common/TopBar";
+import React, { useState } from "react";
 import SideBar from "../../../common/SideBar";
 import { makeStyles } from "@mui/styles";
 import upload from "../../../assets/upload.png";
@@ -7,6 +6,8 @@ import propTypes from "prop-types";
 import { connect } from "react-redux";
 import { ADD_POSTS } from "../../../actions/types";
 import { addPost } from "../../../actions/newsActions";
+import { useNavigate } from "react-router-dom";
+import Navbar from "../../../common/Navbar";
 
 const useStyles = makeStyles((theme) => ({
   logo: {
@@ -89,19 +90,76 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 12,
     fontWeight: 300,
   },
+  inputTitle: {
+    width: "60%",
+    height: "50px",
+    backgroundColor: "#1B1B17",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    border: "none",
+    color:"#FFFFFF"
+  },
+  textArea: {
+    backgroundColor: "#1B1B1B",
+    border: "2px solid #353535",
+    borderRadius: 10,
+    width: "90%",
+    height: "100px",
+    color: "#DCDCDC",
+    paddingLeft: "5px",
+    paddingTop: "5px",
+  },
+  inputTags: {
+    backgroundColor: "#1B1B1B",
+    border: "2px solid #353535",
+    borderRadius: 10,
+    width: "90%",
+    height: "50px",
+    display: "flex",
+    justifyContent: "center",
+    color: "#DCDCDC",
+    paddingLeft: "5px",
+  },
 }));
 
 function WritePost({ addPost }) {
   const classes = useStyles();
+  const [text, setText] = useState("");
+  const [formData, setFormData] = useState("");
+
+const {
+ title,
+ description,
+ tags,
+  } = formData;
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    addPost(formData, navigate, addPost ? true : false);
+  };
+
+  const navigate = useNavigate();
+
+  const onChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   return (
     <>
+    <form className="form" onSubmit={onSubmit}>
       <div className="row">
         <div className="col-md-2">
           <SideBar />
         </div>
-        <div className="col-md-10">
-          <TopBar />
 
+        <div
+          className="col-md-10"
+          onSubmit={(e) => {
+            e.preventDefault();
+            addPost({ text });
+            setText("");
+          }}
+        >
+         <Navbar />
           <div className="row">
             <div className="d-flex justify-content-start mx-4 my-4">
               <h5 className={classes.myPost}>My Post</h5>
@@ -122,17 +180,12 @@ function WritePost({ addPost }) {
               >
                 <div className="d-flex justify-content-center my-4">
                   <input
-                    className="card"
-                    style={{
-                      width: "60%",
-                      height:'50px',
-                      backgroundColor: "#1B1B17",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
+                    className={classes.inputTitle}
                     type="text"
                     placeholder="Title goes here"
+                    value={title}
+                    onChange={onChange}
+                    name="title"
                   />
                   <div className="d-flex justify-content-between">
                     <div className={classes.dropdown}>
@@ -195,42 +248,36 @@ function WritePost({ addPost }) {
             <div className=" d-flex justify-content-start mt-4">
               <textarea
                 type="textarea"
-                name="textValue"
-                className="p-2"
-                style={{
-                  backgroundColor: "#1B1B1B",
-                  border: "2px solid #353535",
-                  borderRadius: 10,
-                  width: "90%",
-                  height: "100px",
-                  color: "#DCDCDC",
-                }}
+                className={classes.textArea}
+                style={{}}
                 placeholder="Write about you blog and information you want to share"
+                name="description"
+                value={description}
+                onChange={onChange}
               />
             </div>
-
             <div className="d-flex justify-content-start mt-4">
               <input
-                className="p-2"
-                style={{
-                  backgroundColor: "#1B1B1B",
-                  border: "2px solid #353535",
-                  borderRadius: 10,
-                  width: "90%",
-                  display: "flex",
-                  justifyContent: "center",
-                  color: "#DCDCDC",
-                }}
-                type="text"
+                className={classes.inputTags}
+                name="tags"
+                value={tags}
+                onChange={onChange}
                 placeholder="add atleast 5 tags"
               />
             </div>
           </div>
-        </div>
-        <div className="d-flex justify-content-center mt-4">
-          <button className={classes.buttonPublish}>Publish</button>
+          <div className="d-flex justify-content-center mt-4">
+            <button
+              className={classes.buttonPublish}
+              type="submit"
+              value="Submit"
+            >
+              Publish
+            </button>
+          </div>
         </div>
       </div>
+      </form>
     </>
   );
 }

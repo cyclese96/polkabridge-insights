@@ -2,8 +2,8 @@ import React from "react";
 import { makeStyles } from "@mui/styles";
 import logo from "../../../assets/Logo.png";
 import ArticleCard from "./ArticleCard";
-import LeftBar from "../../../common/TopBar";
 import PostSideBar from "../../../common/PostSideBar";
+import Navbar from "../../../common/Navbar";
 
 const useStyles = makeStyles((theme) => ({
   logo: {
@@ -61,7 +61,7 @@ function LivePost() {
         <PostSideBar />
       </div>
       <div className="col-md-10">
-        <LeftBar />
+        <Navbar />
         <div className=" d-flex justify-content-between mt-4">
           <div>
             <h2

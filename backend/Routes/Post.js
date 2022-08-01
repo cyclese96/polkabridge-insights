@@ -8,6 +8,52 @@ const User = require("../Models/User");
 const checkObjectId = require("../middleware/checkObjectId");
 const AWS = require("aws-sdk");
 const { upload } = require("../middleware/upload");
+const PostDao =require("../Dao/postDao")
+
+
+// GET - 9 recent news
+router.get("/recent/", async (req, res) => {
+  try {
+    const data=await PostDao.getRecentNews();
+    return res.status(200).send(data);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).send("error");
+  }
+});
+
+// GET - All news by category and page no
+router.get("/posts/:category/:page_number", async (req, res) => {
+  try {
+    const pageNo = req.params.page_number ? req.params.page_number : 1;
+    let posts;
+    if (req.params.category === "all") {
+      posts= await PostDao.getNewsByPageNo(pageNo);
+    } else {
+      posts= await PostDao.getNewsByCategoryByPageNo(req.params.category,pageNo)
+    }
+    res.status(200).json(posts);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send(err.message);
+  }
+});
+
+// GET - Post by id
+router.get("/post/:id",  checkObjectId("id"), async (req, res) => {
+  try {
+    const post = await PostDao.getNewsById(req.params.id);
+    if (!post) {
+      return res.status(404).json({ msg: "Post not found" });
+    }
+    res.status(200).json(post);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send(err.message);
+  }
+});
+
+
 
 // @route    POST api/posts
 // @desc     Create a post
@@ -60,74 +106,8 @@ router.post("/post/", auth, upload.single("image"), async (req, res) => {
   }
 });
 
-// @route    GET api/posts
-// @desc     Get all posts by page
-// @access   Private  tested
-router.get("/posts/:page_number", async (req, res) => {
-  try {
-    console.log("req", req.params.page_number);
-    const page = req.params.page_number ? req.params.page_number : 1;
-    const posts = await Post.find()
-      .populate("user")
-      .sort({ date: -1 })
-      .limit((page - 1) * 10 + 10)
-      .skip((page - 1) * 10);
-    res.json(posts);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
-  }
-});
 
-// @route    GET api/posts
-// @desc     Get all posts by page
-// @access   public  tested
-router.get("/posts/public/:category/:page_number", async (req, res) => {
-  try {
-    const page = req.params.page_number ? req.params.page_number : 1;
-    if (req.params.category === "all") {
-      const posts = await Post.find()
-        .populate("user")
-        .sort({ date: -1 })
-        .limit((page - 1) * 10 + 10)
-        .skip((page - 1) * 10);
 
-      res.json(posts);
-    } else {
-      const posts = await Post.find({ category: req.params.category })
-        .populate("user")
-        .sort({ date: -1 })
-        .limit((page - 1) * 10 + 10)
-        .skip((page - 1) * 10);
-
-      res.json(posts);
-    }
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
-  }
-});
-
-// @route    GET api/posts/:id
-// @desc     Get post by ID
-// @access   Private
-
-//Get a post by Post id tested
-router.get("/post/:id",  checkObjectId("id"), async (req, res) => {
-  try {
-    const post = await Post.findById(req.params.id).populate("user");
-
-    if (!post) {
-      return res.status(404).json({ msg: "Post not found" });
-    }
-
-    res.json(post);
-  } catch (err) {
-    console.error(err.message);
-
-    res.status(500).send("Server Error");
-  }
-});
 
 // @route    DELETE api/posts/:id  tested
 // @desc     Delete a post
@@ -273,72 +253,5 @@ router.delete("/comment/:id/:comment_id", auth, async (req, res) => {
   }
 });
 
-//Recent Post (Get recent Item)
-router.get("/recent/", async (req, res) => {
-  const id = req.params.id;
 
-  try {
-    const data = await Post.find().sort({ _id: -1 }).limit(6).populate("user");
-    return res.status(200).send(data);
-  } catch (error) {
-    console.log(error);
-    return res.status(400).send("error");
-  }
-});
-
-//(Get recent Item)
-router.get("/top/", async (req, res) => {
-  const tag = "top";
-  const filter = {};
-  filter.tag = { $regex: tag };
-
-  try {
-    const data = await Post.find(filter).sort({ createdDate: -1 }).limit(6).populate("user");
-    return res.status(200).send(data);
-  } catch (error) {
-    console.log(error);
-    return res.status(400).send("error");
-  }
-});
-
-//(Get recent Item)
-router.get("/today/", async (req, res) => {
-  try {
-    const data = await Post.find().sort({ createdDate: -1 }).limit(10).populate("user");
-    return res.status(200).send(data);
-  } catch (error) {
-    console.log(error);
-    return res.status(400).send("error");
-  }
-});
-
-//(Get recent Item)
-router.get("/trending/", async (req, res) => {
-  const tag = "trending";
-  const filter = {};
-  filter.tags = { $regex: tag };
-
-  try {
-    const data = await Post.find(filter).sort({ createdDate: 1 }).limit(10).populate("user");
-    return res.status(200).send(data);
-  } catch (error) {
-    console.log(error);
-    return res.status(400).send("error");
-  }
-});
-
-//(Get recent Item)
-router.get("/weekly_top/", async (req, res) => {
-  const tag = "weekly_top";
-  const filter = {};
-  filter.tags = { $regex: tag };
-
-  try {
-    const data = await Post.find(filter).sort({ createdDate: 1 }).limit(10).populate("user");
-    return res.status(200).send(data);
-  } catch (error) {
-    console.log(error);
-    return res.status(400).send("error");
-  }
-});
 module.exports = router;

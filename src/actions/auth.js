@@ -1,3 +1,4 @@
+import axios from 'axios';
 import api from '../utils/api';
 import { setAlert } from './alert';
 import {
@@ -6,7 +7,6 @@ import {
   USER_LOADED,
   AUTH_ERROR,
   LOGIN_SUCCESS,
-  LOGIN_FAIL,
   LOGOUT
 } from './types';
 
@@ -17,10 +17,40 @@ import {
  JSON.stringify or JSON.parse
 */
 
+
+
 // Load User
-export const loadUser = () => async (dispatch) => {
+export const checkUserAuthenticated = () => async (dispatch) => {
   try {
-    const res = await api.get('/auth');
+    
+let localToken=localStorage.getItem('token');
+if(localToken){
+  dispatch(loadUser(localToken));
+}
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR
+    });
+  }
+};
+
+// Load User
+export const loadUser = (token) => async (dispatch) => {
+  try {
+    // const res = await api.get('/user_apis/users/current_user',token);
+   
+
+    const config = {
+       headers: {
+        'Content-Type': 'application/json',
+        'x-auth-token':token
+      }
+    };
+
+    const baseURL= "http://localhost:5001/user_apis/current_user";
+ const res = await axios.get(baseURL,config);
+
+ console.log(res);
 
     dispatch({
       type: USER_LOADED,
@@ -56,28 +86,21 @@ export const signUp = (formData) => async (dispatch) => {
 };
 
 // Login User
-export const login = (email, password) => async (dispatch) => {
+export const loginUser = (email, password) => async (dispatch) => {
   const body = { email, password };
 
   try {
-    const res = await api.post('/user_apis/login', body);
-
+    const res = await api.post('/user_apis/login', body); 
+    localStorage.setItem('token',res.data.token);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data
     });
-
-    dispatch(loadUser());
+     dispatch(loadUser(res.data.token));
   } catch (err) {
-    const errors = err.response.data.errors;
+    console.log(err);
+   
 
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-    }
-
-    dispatch({
-      type: LOGIN_FAIL
-    });
   }
 };
 

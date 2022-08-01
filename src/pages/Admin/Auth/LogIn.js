@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
 import Navbar from "../../../common/Navbar";
-import polkabridge from "../../../assets/PolkaBridge.png";
 import Person from "../../../assets/person.png";
 import Key from "../../../assets/key.png";
 import { Link, Navigate } from "react-router-dom";
-import { login } from "../../../actions/auth";
+import { loginUser } from "../../../actions/auth";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
   logo: {
@@ -101,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = ({ login, isAuthenticated }) => {
+const Login = ({ loginUser, isAuthenticated }) => {
   const classes = useStyles();
   const [formData, setFormData] = useState({
     email: "",
@@ -115,11 +113,11 @@ const Login = ({ login, isAuthenticated }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    login(email, password);
+    loginUser(email, password);
   };
 
   if (isAuthenticated) {
-    return <Navigate to="/WritePost" />;
+    return <Navigate to="/" />;
   }
   return (
     <>
@@ -200,13 +198,10 @@ const Login = ({ login, isAuthenticated }) => {
     </>
   );
 };
-Login.propTypes = {
-  login: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
-};
+
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { loginUser })(Login);

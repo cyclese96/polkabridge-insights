@@ -4,10 +4,11 @@ import logo from "../../assets/Logo.png";
 import Twitter from "../../assets/twitter.png";
 import Instagram from "../../assets/instagram.png";
 import Linkedin from "../../assets/linkedin.png";
-import TrendingArticlesTopBar from "../../common/TrendingArticlesTopBar";
+
 import ArticleCard from "../../pages/Admin/Dashboard/ArticleCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllNews } from "../../actions/newsActions";
+import Navbar from "../../common/Navbar";
 
 const useStyles = makeStyles((theme) => ({
   profileImage: {
@@ -144,26 +145,24 @@ const useStyles = makeStyles((theme) => ({
 function TrendingArticles() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const {news} = useSelector(store=> store.news);
+  const { news } = useSelector((store) => store.news);
 
-  useEffect(async() => {
-await dispatch(getAllNews())
-  }, [])
-  
+  useEffect(async () => {
+    await dispatch(getAllNews());
+  }, []);
+
   return (
     <>
-      <TrendingArticlesTopBar />
-     { console.log(news)}
+      <Navbar />
+      {console.log(news)}
       <h2 className={classes.heading}>Trending Article</h2>
       <hr className={classes.hrLine} />
       <div className={classes.cardsArticle}>
-        <div className='row'>
-          {news.map((singleNews)=>{
-            return  <ArticleCard news={singleNews}/>
+        <div className="row mt-4">
+          {news.map((singleNews) => {
+            return <ArticleCard news={singleNews} />;
           })}
         </div>
-     
-    
       </div>
       <div className="row">
         <div className="col-md-6">

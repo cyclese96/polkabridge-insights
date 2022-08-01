@@ -58,10 +58,8 @@ function Navbar() {
   const classes = useStyles();
   return (
     <div className="row p-4">
-      <div className="d-flex justify-content-between">
-        <Link to="/" style={{ textDecoration: "none" }}>
-          <img className={classes.logo} src={logo} alt="image-logo" />
-        </Link>
+      <div className="d-flex justify-content-end">
+       
         <div className={classes.navWrapper}>
           <div className={classes.topBar}>
             <div className="d-flex row justify-content-center">
@@ -79,7 +77,7 @@ function Navbar() {
               </div>
             </Link>
           </div>
-          <Link to="/writepost" style={{ textDecoration: "none" }}>
+          <Link to="/" style={{ textDecoration: "none" }}>
           <div className="d-flex row justify-content-center">
             <button className={classes.buttonEarn}>Write and Earn</button>
             <span className={classes.divder} />

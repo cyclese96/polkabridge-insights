@@ -2,10 +2,14 @@ import React, { useEffect } from "react";
 import { makeStyles } from "@mui/styles";
 import logo from "../../../assets/Logo.png";
 import ArticleCard from "./ArticleCard";
-import LeftBar from "../../../common/TopBar";
 import SideBar from "../../../common/SideBar";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserPost } from "../../../actions/newsActions";
+import { connect } from "react-redux";
+import { Navigate } from "react-router-dom";
+import Navbar from "../../../common/Navbar";
+import { checkUserAuthenticated } from "../../../actions/auth";
+
 
 const useStyles = makeStyles((theme) => ({
   logo: {
@@ -51,21 +55,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Dashboard() {
+function Dashboard({isAuthenticated}) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const {news} = useSelector(store=> store.news);
 
   useEffect(async() => {
-await dispatch(getUserPost())
+    await dispatch(checkUserAuthenticated())
+ }, [isAuthenticated])
+
+  useEffect(async() => {
+     await dispatch(getUserPost())
   }, [])
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
   return (
     <div className="row mt-4">
       <div className="col-md-2">
         <SideBar />
       </div>
       <div className="col-md-10">
-        <LeftBar />
+        <Navbar />
         <h2 style={{ color: "#E13D7E", textAlign: "left" }}> My Post</h2>
         <div className='row'>
         {news.map((singleNews)=>{
@@ -78,4 +90,10 @@ await dispatch(getUserPost())
   );
 }
 
-export default Dashboard;
+
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, {  checkUserAuthenticated})(Dashboard);

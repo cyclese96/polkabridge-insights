@@ -20,9 +20,14 @@ function App() {
       <Fragment>
         <Router>
           <Routes>
-            <Route path="/" element={<LogIn />} />
+          <Route path="/" element={<Dashboard />} />
+       
+            <Route path="/login" element={<LogIn />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+
+
+
+
             <Route path="/writepost" element={<WritePost />} />
             <Route path="/livepost" element={<LivePost />} />
             <Route path="/pendingpost" element={<PendingPost />} />

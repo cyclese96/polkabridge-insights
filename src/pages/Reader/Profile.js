@@ -1,8 +1,8 @@
 import React from "react";
 import SideBar from "../../common/SideBar";
-import TopBar from "../../common/TopBar";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
+import Navbar from "../../common/Navbar";
 
 const useStyles = makeStyles((theme) => ({
   profileImage: {
@@ -109,7 +109,7 @@ function Profile() {
           <SideBar />
         </div>
         <div className="col-md-10 mt-4">
-          <TopBar />
+          <Navbar />
           <h2
             className="d-flex justify-content-start"
             style={{

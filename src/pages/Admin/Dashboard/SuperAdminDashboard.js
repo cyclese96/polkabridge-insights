@@ -1,13 +1,13 @@
 import { ClassNames } from "@emotion/react";
 import React from "react";
 import PostSideBar from "../../../common/PostSideBar";
-import TopBar from "../../../common/TopBar";
 import { makeStyles } from "@mui/styles";
 import hotspot from "../../../assets/Live.png";
 import pending from "../../../assets/Pending.png";
 import user from "../../../assets/User.png";
 import { CChart } from "@coreui/react-chartjs";
 import { AreaChart, Area } from "recharts";
+import Navbar from "../../../common/Navbar";
 
 const data = [
   {
@@ -111,7 +111,7 @@ function SuperAdminDashboard() {
           <PostSideBar />
         </div>
         <div className="col-md-10">
-          <TopBar />
+          <Navbar />
           <h4 className={classes.title}>Dashboard</h4>
           <div className="row">
             <div className="col-md-4">

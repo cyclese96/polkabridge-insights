@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@mui/styles";
 import upload from "../../assets/upload.png";
 import PostSideBar from "../../common/PostSideBar";
-import TopBar from "../../common/TopBar";
+import Navbar from "../../common/Navbar";
 const useStyles = makeStyles((theme) => ({
   logo: {
     width: 915,
@@ -98,7 +98,7 @@ function PendingPost() {
           <PostSideBar />
         </div>
         <div className="col-md-10">
-          <TopBar />
+        <Navbar />
           <div className="row">
             <div className="d-flex justify-content-start mx-4 my-4">
               <h5 className={classes.myPost}>Pending Post</h5>
