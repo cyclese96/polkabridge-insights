@@ -98,7 +98,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     border: "none",
-    color:"#FFFFFF"
+    color: "#FFFFFF",
   },
   textArea: {
     backgroundColor: "#1B1B1B",
@@ -126,157 +126,156 @@ const useStyles = makeStyles((theme) => ({
 function WritePost({ addPost }) {
   const classes = useStyles();
   const [text, setText] = useState("");
-  const [formData, setFormData] = useState("");
+  const [formData, setFormData] = useState({
+    title:'',
+    description:'',
+    tags:'',
+  });
 
-const {
- title,
- description,
- tags,
-  } = formData;
+  const { title, description, tags } = formData;
 
   const onSubmit = (e) => {
     e.preventDefault();
-    addPost(formData, navigate, addPost ? true : false);
+    addPost(formData);
   };
 
-  const navigate = useNavigate();
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
   return (
     <>
-    <form className="form" onSubmit={onSubmit}>
-      <div className="row">
-        <div className="col-md-2">
-          <SideBar />
-        </div>
+      <form className="form" onSubmit={onSubmit}>
+        <div className="row">
+          <div className="col-md-2">
+            <SideBar />
+          </div>
 
-        <div
-          className="col-md-10"
-          onSubmit={(e) => {
-            e.preventDefault();
-            addPost({ text });
-            setText("");
-          }}
-        >
-         <Navbar />
-          <div className="row">
-            <div className="d-flex justify-content-start mx-4 my-4">
-              <h5 className={classes.myPost}>My Post</h5>
-              <div className={classes.line}></div>
-              <h5 className={classes.writePost} style={{ marginLeft: 20 }}>
-                Write New Post
-              </h5>
-            </div>
-            <div>
-              <div
-                className="card jusitfy-content-center "
-                style={{
-                  width: "90%",
-                  backgroundColor: "#1B1B17",
-                  border: "1px solid #353535",
-                  borderRadius: 20,
-                }}
-              >
-                <div className="d-flex justify-content-center my-4">
-                  <input
-                    className={classes.inputTitle}
-                    type="text"
-                    placeholder="Title goes here"
-                    value={title}
-                    onChange={onChange}
-                    name="title"
-                  />
-                  <div className="d-flex justify-content-between">
-                    <div className={classes.dropdown}>
-                      <h6 className={classes.writeTitle}>Catagory:</h6>
-                      <select
-                        className="form-control"
-                        style={{
-                          height: "40px",
-                          border: "2px solid #353535",
-                          backgroundColor: "transparent",
-                          marginRight: 10,
-                          color: "white",
-                        }}
-                      >
-                        <option value="beginner">select</option>
-                        <option value="beginner">Tokens</option>
-                        <option value="moderator">PBR</option>
-                        <option value="fluent">PWAR</option>
-                      </select>
+          <div
+            className="col-md-10"
+            onSubmit={(e) => {
+              e.preventDefault();
+              addPost({ text });
+              setText("");
+            }}
+          >
+            <Navbar />
+            <div className="row">
+              <div className="d-flex justify-content-start mx-4 my-4">
+                <h5 className={classes.myPost}>My Post</h5>
+                <div className={classes.line}></div>
+                <h5 className={classes.writePost} style={{ marginLeft: 20 }}>
+                  Write New Post
+                </h5>
+              </div>
+              <div>
+                <div
+                  className="card jusitfy-content-center "
+                  style={{
+                    width: "90%",
+                    backgroundColor: "#1B1B17",
+                    border: "1px solid #353535",
+                    borderRadius: 20,
+                  }}
+                >
+                  <div className="d-flex justify-content-center my-4">
+                    <input
+                      className={classes.inputTitle}
+                      type="text"
+                      placeholder="Title goes here"
+                      value={title}
+                      onChange={onChange}
+                      name="title"
+                    />
+                    <div className="d-flex justify-content-between">
+                      <div className={classes.dropdown}>
+                        <h6 className={classes.writeTitle}>Catagory:</h6>
+                        <select
+                          className="form-control"
+                          style={{
+                            height: "40px",
+                            border: "2px solid #353535",
+                            backgroundColor: "transparent",
+                            marginRight: 10,
+                            color: "white",
+                          }}
+                        >
+                          <option value="beginner">select</option>
+                          <option value="beginner">Tokens</option>
+                          <option value="moderator">PBR</option>
+                          <option value="fluent">PWAR</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="d-flex justify-content-center">
+                    <div
+                      className="card mb-3"
+                      style={{
+                        width: "80%",
+                        backgroundColor: "#1B1B17",
+                        border: "1px dotted #FFFFFF",
+                        borderRadius: 20,
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <img
+                        className={classes.uploadImage}
+                        src={upload}
+                        alt="image-logo"
+                      />
+                      <form>
+                        <input
+                          className="fileInput"
+                          label="upload file"
+                          type="file"
+                        />
+                        <div id="upload-msg"></div>
+                      </form>
+
+                      <h6 className={classes.dragText}>
+                        Drag and drop an image,
+                        <span style={{ color: "#E13D7E" }}> or Browse</span>
+                      </h6>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <div className="d-flex justify-content-center">
-                  <div
-                    className="card mb-3"
-                    style={{
-                      width: "80%",
-                      backgroundColor: "#1B1B17",
-                      border: "1px dotted #FFFFFF",
-                      borderRadius: 20,
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <img
-                      className={classes.uploadImage}
-                      src={upload}
-                      alt="image-logo"
-                    />
-                    <form>
-                      <input
-                        className="fileInput"
-                        label="upload file"
-                        type="file"
-                      />
-                      <div id="upload-msg"></div>
-                    </form>
-
-                    <h6 className={classes.dragText}>
-                      Drag and drop an image,
-                      <span style={{ color: "#E13D7E" }}> or Browse</span>
-                    </h6>
-                  </div>
-                </div>
+              <div className=" d-flex justify-content-start mt-4">
+                <textarea
+                  type="textarea"
+                  className={classes.textArea}
+                  style={{}}
+                  placeholder="Write about you blog and information you want to share"
+                  name="description"
+                  value={description}
+                  onChange={onChange}
+                />
+              </div>
+              <div className="d-flex justify-content-start mt-4">
+                <input
+                  className={classes.inputTags}
+                  name="tags"
+                  value={tags}
+                  onChange={onChange}
+                  placeholder="add atleast 5 tags"
+                />
               </div>
             </div>
-
-            <div className=" d-flex justify-content-start mt-4">
-              <textarea
-                type="textarea"
-                className={classes.textArea}
-                style={{}}
-                placeholder="Write about you blog and information you want to share"
-                name="description"
-                value={description}
-                onChange={onChange}
-              />
+            <div className="d-flex justify-content-center mt-4">
+              <button
+                className={classes.buttonPublish}
+                type="submit"
+                value="Submit"
+              >
+                Publish
+              </button>
             </div>
-            <div className="d-flex justify-content-start mt-4">
-              <input
-                className={classes.inputTags}
-                name="tags"
-                value={tags}
-                onChange={onChange}
-                placeholder="add atleast 5 tags"
-              />
-            </div>
-          </div>
-          <div className="d-flex justify-content-center mt-4">
-            <button
-              className={classes.buttonPublish}
-              type="submit"
-              value="Submit"
-            >
-              Publish
-            </button>
           </div>
         </div>
-      </div>
       </form>
     </>
   );

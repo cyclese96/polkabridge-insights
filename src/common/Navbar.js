@@ -59,7 +59,6 @@ function Navbar() {
   return (
     <div className="row p-4">
       <div className="d-flex justify-content-end">
-       
         <div className={classes.navWrapper}>
           <div className={classes.topBar}>
             <div className="d-flex row justify-content-center">
@@ -77,7 +76,7 @@ function Navbar() {
               </div>
             </Link>
           </div>
-          <Link to="/" style={{ textDecoration: "none" }}>
+          <Link to="/writepost" style={{ textDecoration: "none" }}>
           <div className="d-flex row justify-content-center">
             <button className={classes.buttonEarn}>Write and Earn</button>
             <span className={classes.divder} />
