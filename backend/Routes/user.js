@@ -10,6 +10,7 @@ const User = require("../Models/User");
 const { upload } = require("../middleware/upload");
 const uploadSingleObject = require("../s3Service");
 const Posts = require("../Models/Posts");
+const { getToken } = require("../config/password-service");
 
 // @route    POST api/users tested
 // @desc     Register user
@@ -24,15 +25,18 @@ router.post(
   ).isLength({ min: 6 }),
   async (req, res) => {
     const errors = validationResult(req);
+    console.log("error ", errors);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const { name, email, password, username, bio, location  } = req.body;
+    const { name, email, password, username, bio, location } = req.body;
 
+    console.log("body ", req.body);
     try {
       let user = await User.findOne({ email });
 
       if (user) {
+        console.log("user exists");
         return res
           .status(400)
           .json({ errors: [{ msg: "User already exists" }] });
@@ -47,7 +51,7 @@ router.post(
         username: username,
         avatar: default_avatar,
         bio: bio,
-        location:location,
+        location: location,
       });
 
       const salt = await bcrypt.genSalt(10);
@@ -62,15 +66,9 @@ router.post(
         },
       };
 
-      jwt.sign(
-        payload,
-        process.env.JWT_SECRET,
-        { expiresIn: "5 days" },
-        (err, token) => {
-          if (err) throw err;
-          res.json({ token });
-        }
-      );
+      const token = await getToken(payload);
+
+      res.status(201).json({ success: true, token: token });
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server error");
@@ -125,15 +123,9 @@ router.post(
         },
       };
 
-      jwt.sign(
-        payload,
-        process.env.JWT_SECRET,
-        { expiresIn: "5 days" },
-        (err, token) => {
-          if (err) throw err;
-          res.status(201).json({ message: "Login success", token: token });
-        }
-      );
+      const token = await getToken(payload);
+      console.log("token ", token);
+      res.status(201).json({ success: true, token: token });
     } catch (err) {
       res.status(500).send("Server Error");
     }

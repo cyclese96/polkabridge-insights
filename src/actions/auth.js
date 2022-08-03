@@ -1,14 +1,14 @@
-import axios from 'axios';
-import api from '../utils/api';
-import { setAlert } from './alert';
+import axios from "axios";
+import api from "../utils/api";
+import { setAlert } from "./alert";
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   USER_LOADED,
   AUTH_ERROR,
   LOGIN_SUCCESS,
-  LOGOUT
-} from './types';
+  LOGOUT,
+} from "./types";
 
 /*
   NOTE: we don't need a config object for axios as the
@@ -17,19 +17,16 @@ import {
  JSON.stringify or JSON.parse
 */
 
-
-
 // Load User
 export const checkUserAuthenticated = () => async (dispatch) => {
   try {
-    
-let localToken=localStorage.getItem('token');
-if(localToken){
-  dispatch(loadUser(localToken));
-}
+    let localToken = localStorage.getItem("token");
+    if (localToken) {
+      dispatch(loadUser(localToken));
+    }
   } catch (err) {
     dispatch({
-      type: AUTH_ERROR
+      type: AUTH_ERROR,
     });
   }
 };
@@ -38,27 +35,26 @@ if(localToken){
 export const loadUser = (token) => async (dispatch) => {
   try {
     // const res = await api.get('/user_apis/users/current_user',token);
-   
 
     const config = {
-       headers: {
-        'Content-Type': 'application/json',
-        'x-auth-token':token
-      }
+      headers: {
+        "Content-Type": "application/json",
+        "x-auth-token": token,
+      },
     };
 
-    const baseURL= "http://localhost:5001/user_apis/current_user";
- const res = await axios.get(baseURL,config);
+    const baseURL = "http://localhost:5001/user_apis/current_user";
+    const res = await axios.get(baseURL, config);
 
- console.log(res);
+    console.log(res);
 
     dispatch({
       type: USER_LOADED,
-      payload: res.data
+      payload: res.data,
     });
   } catch (err) {
     dispatch({
-      type: AUTH_ERROR
+      type: AUTH_ERROR,
     });
   }
 };
@@ -66,21 +62,23 @@ export const loadUser = (token) => async (dispatch) => {
 // Register User
 export const signUp = (formData) => async (dispatch) => {
   try {
-    const res = await api.post('user_apis/user', formData);
+    const res = await api.post("user_apis/user", formData);
+
+    console.log("singup res", res);
     dispatch({
       type: REGISTER_SUCCESS,
-      payload: res.data
+      payload: res.data,
     });
     dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
-
+    console.log("signup error ", err);
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
     }
 
     dispatch({
-      type: REGISTER_FAIL
+      type: REGISTER_FAIL,
     });
   }
 };
@@ -90,17 +88,17 @@ export const loginUser = (email, password) => async (dispatch) => {
   const body = { email, password };
 
   try {
-    const res = await api.post('/user_apis/login', body); 
-    localStorage.setItem('token',res.data.token);
+    const res = await api.post("/user_apis/login", body);
+    localStorage.setItem("token", res.data.token);
+
+    console.log("login res ", res.data);
     dispatch({
       type: LOGIN_SUCCESS,
-      payload: res.data
+      payload: res.data,
     });
-     dispatch(loadUser(res.data.token));
+    dispatch(loadUser(res.data.token));
   } catch (err) {
     console.log(err);
-   
-
   }
 };
 
