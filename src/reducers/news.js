@@ -28,7 +28,6 @@ import {
             ...state,
            posts : action.payload
           };
-  
 
       default:
         return state;

@@ -6,7 +6,7 @@ import propTypes from "prop-types";
 import { connect } from "react-redux";
 import { ADD_POSTS } from "../../../actions/types";
 import { addPost } from "../../../actions/newsActions";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../../common/Navbar";
 
 const useStyles = makeStyles((theme) => ({
@@ -128,11 +128,12 @@ function WritePost({ addPost }) {
   const [text, setText] = useState("");
   const [formData, setFormData] = useState({
     title:'',
-    description:'',
+    content:'',
     tags:'',
+    image:'',
   });
 
-  const { title, description, tags } = formData;
+  const { title, content, tags, image } = formData;
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -142,6 +143,7 @@ function WritePost({ addPost }) {
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    console.log(onChange)
   return (
     <>
       <form className="form" onSubmit={onSubmit}>
@@ -161,7 +163,9 @@ function WritePost({ addPost }) {
             <Navbar />
             <div className="row">
               <div className="d-flex justify-content-start mx-4 my-4">
+                <Link to="/" style={{textDecoration:'none'}}>
                 <h5 className={classes.myPost}>My Post</h5>
+                </Link>
                 <div className={classes.line}></div>
                 <h5 className={classes.writePost} style={{ marginLeft: 20 }}>
                   Write New Post
@@ -231,6 +235,9 @@ function WritePost({ addPost }) {
                           className="fileInput"
                           label="upload file"
                           type="file"
+                          name="image"
+                          value={image}
+                          onChange={onChange}
                         />
                         <div id="upload-msg"></div>
                       </form>
@@ -250,8 +257,8 @@ function WritePost({ addPost }) {
                   className={classes.textArea}
                   style={{}}
                   placeholder="Write about you blog and information you want to share"
-                  name="description"
-                  value={description}
+                  name="content"
+                  value={content}
                   onChange={onChange}
                 />
               </div>

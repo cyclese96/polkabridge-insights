@@ -16,6 +16,8 @@ const uploadSingleObject = async (req) => {
     })
     .promise();
 
+
+
   // console.log("uploaded image ", uploadedImage);
 
   const uploadedImagePath = uploadedImage?.Location;

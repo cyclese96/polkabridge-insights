@@ -1,4 +1,5 @@
 import axios from "axios";
+import { setAlert } from "./alert";
 
 import {
   GET_ALL_NEWS,
@@ -7,6 +8,12 @@ import {
   GET_USERS_NEWS,
   ADD_POSTS,
 } from "./types";
+
+
+export const globalHeaders = {
+  "Content-Type": "application/json;charset=UTF-8",
+  "Access-Control-Allow-Origin": "*",
+};
 
 
 const baseUrl = "http://localhost:5001"
@@ -58,9 +65,10 @@ export const getUserPost = (id) => async (dispatch) => {
 
 
 
-export const addPost = (id) => async (dispatch) => {
+export const addPost = (formData) => async (dispatch) => {
+  const header = { headers: { ...globalHeaders, "x-auth-token": localStorage.getItem('token') } }
   let response = await axios
-    .post(`${baseUrl}/post_apis/post`)
+    .post(`${baseUrl}/post_apis/post`, formData, header)
     .then((res) => {
       dispatch({
         type: ADD_POSTS,
@@ -73,11 +81,15 @@ export const addPost = (id) => async (dispatch) => {
         type: GET_ERRORS,
         payload: err.response,
       });
-      return false;
+    dispatch(setAlert('Post Created', 'success'));
+      
     });
 
   return response;
 };
+
+
+
 
 
 

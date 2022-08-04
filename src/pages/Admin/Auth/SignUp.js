@@ -124,7 +124,7 @@ const SignUp = ({ setAlert, signUp, isAuthenticated }) => {
     }
   };
   if (isAuthenticated) {
-    return <Navigate to="/" />;
+    return <Navigate to="/login" />;
   }
   const onChange = (e) =>
   setFormData({ ...formData, [e.target.name]: e.target.value });
