@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import SideBar from "../../common/SideBar";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
 import Navbar from "../../common/Navbar";
+import { createProfile } from "../../actions/profileAction";
 
 const useStyles = makeStyles((theme) => ({
   profileImage: {
@@ -100,8 +101,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 function Profile() {
   const classes = useStyles();
+  const [name, setName] = useState("");
+const [username, setUsername] = useState("");
+const [email, setEmail] = useState("");
+const [bio, setBio] = useState("");
+const [location, setLocation] = useState("");
+
+const onSubmit = async (e) => {
+  let data = {
+    name: name,
+    username: username,
+    email: email,
+    location: location,
+    bio: bio,
+  }
+  let response = await createProfile(data)
+  console.log(response)
+}
+
+
+
+
   return (
     <div>
       <div className="row">
@@ -150,24 +173,32 @@ function Profile() {
               className={classes.inputField}
               type="text"
               placeholder="Name"
+              value={name}
+    onChange={(e) => setName(e.target.value)}
             />{" "}
             <h5 className={classes.inputFieldName}>Username</h5>
             <input
               className={classes.inputField}
               type="text"
               placeholder="User Name"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />{" "}
             <h5 className={classes.inputFieldName}>Email</h5>
             <input
               className={classes.inputField}
               type="text"
               placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />{" "}
             <h5 className={classes.inputFieldName}>Location</h5>
             <input
               className={classes.inputField}
               type="text"
               placeholder="Location"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
             />{" "}
             <h5 className={classes.inputFieldName}>Bio</h5>
             <textarea
@@ -177,9 +208,11 @@ function Profile() {
               type="textarea"
               placeholder="Bio"
               style={{ paddingLeft: 10, paddingTop: 10 }}
+              value={bio}
+              onChange={(e) => setBio(e.target.value)}
             />{" "}
             <div className="d-flex justify-content-center align-items-center mt-3 mb-4 ">
-              <button className={classes.saveProfileButton}>
+              <button className={classes.saveProfileButton} onClick={onSubmit}>
                 Save Profile
               </button>
             </div>

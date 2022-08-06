@@ -10,11 +10,25 @@ const UserSchema = mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+  
+    },
+    userName: {
+      type: String,
     },
     password: {
       type: String,
       required: true,
     },
+    displayName: {
+      type: String,
+    },
+    bio:{
+      type: String,
+    },
+    location:{
+      type: String,
+    },
+
     avatar: {
       type: String,
     },

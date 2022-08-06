@@ -137,7 +137,13 @@ function WritePost({ addPost }) {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    addPost(formData);
+
+    const data = new FormData();
+    data.append('title',formData.title)
+    data.append('content',formData.content)
+    data.append('tags',formData.tags)
+    data.append('image',formData.image)
+    addPost(data);
   };
 
 
@@ -154,11 +160,7 @@ function WritePost({ addPost }) {
 
           <div
             className="col-md-10"
-            onSubmit={(e) => {
-              e.preventDefault();
-              addPost({ text });
-              setText("");
-            }}
+          
           >
             <Navbar />
             <div className="row">

@@ -2,7 +2,8 @@ import {
     GET_ALL_NEWS,
    GET_SINGLE_NEWS,
    GET_USERS_NEWS, 
-   ADD_POSTS
+   ADD_POSTS,
+   
   } from "../actions/types";
   
   const initalState = {

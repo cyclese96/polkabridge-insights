@@ -66,7 +66,8 @@ export const getUserPost = (id) => async (dispatch) => {
 
 
 export const addPost = (formData) => async (dispatch) => {
-  const header = { headers: { ...globalHeaders, "x-auth-token": localStorage.getItem('token') } }
+ 
+  const header = { headers: { ...globalHeaders,  'Content-Type': 'multipart/form-data',  "x-auth-token": localStorage.getItem('token') } }
   let response = await axios
     .post(`${baseUrl}/post_apis/post`, formData, header)
     .then((res) => {
