@@ -1,4 +1,5 @@
 import axios from "axios";
+import {UPDATE_PROFILE} from './types'
 
 export const globalHeaders = {
   "Content-Type": "application/json;charset=UTF-8",
@@ -7,7 +8,7 @@ export const globalHeaders = {
 
 
 const baseUrl = "http://localhost:5001"
-export const createProfile = async (data) => {
+export const updateProfile = (data) => async (dispatch) => {
   const header = {
     headers: {
       ...globalHeaders,
@@ -15,11 +16,17 @@ export const createProfile = async (data) => {
     },
   };
   let response = await axios
-    .post(`${baseUrl}/user_apis/user`, data, header)
-    .then((output) => {
-      return output.data;
-    })
-    .catch((err) => {});
+    .put(`${baseUrl}/user_apis/update-profile`, data, header)
+    .then((res) => {
 
-  return response;
+      dispatch({
+        type: UPDATE_PROFILE,
+        payload: res.data
+      })
+    })
+    .catch((err) => {
+      console.log('update profile action error', err);
+    });
 };
+
+

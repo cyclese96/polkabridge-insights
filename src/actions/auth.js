@@ -10,13 +10,6 @@ import {
   LOGOUT,
 } from "./types";
 
-/*
-  NOTE: we don't need a config object for axios as the
- default headers in axios are already Content-Type: application/json
- also axios stringifies and parses JSON for you, so no need for 
- JSON.stringify or JSON.parse
-*/
-
 // Load User
 export const checkUserAuthenticated = () => async (dispatch) => {
   try {
@@ -63,8 +56,6 @@ export const loadUser = (token) => async (dispatch) => {
 export const signUp = (formData) => async (dispatch) => {
   try {
     const res = await api.post("user_apis/user", formData);
-
-    console.log("singup res", res);
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data,

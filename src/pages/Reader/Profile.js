@@ -3,7 +3,7 @@ import SideBar from "../../common/SideBar";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
 import Navbar from "../../common/Navbar";
-import { createProfile } from "../../actions/profileAction";
+import { updateProfile } from "../../actions/profileAction";
 
 const useStyles = makeStyles((theme) => ({
   profileImage: {
@@ -109,8 +109,9 @@ const [username, setUsername] = useState("");
 const [email, setEmail] = useState("");
 const [bio, setBio] = useState("");
 const [location, setLocation] = useState("");
+const dispatch = useDispatch();
 
-const onSubmit = async (e) => {
+const onSubmit = () => {
   let data = {
     name: name,
     username: username,
@@ -118,12 +119,8 @@ const onSubmit = async (e) => {
     location: location,
     bio: bio,
   }
-  let response = await createProfile(data)
-  console.log(response)
+  dispatch( updateProfile(data) )
 }
-
-
-
 
   return (
     <div>
@@ -174,7 +171,7 @@ const onSubmit = async (e) => {
               type="text"
               placeholder="Name"
               value={name}
-    onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
             />{" "}
             <h5 className={classes.inputFieldName}>Username</h5>
             <input
@@ -210,7 +207,7 @@ const onSubmit = async (e) => {
               style={{ paddingLeft: 10, paddingTop: 10 }}
               value={bio}
               onChange={(e) => setBio(e.target.value)}
-            />{" "}
+            />
             <div className="d-flex justify-content-center align-items-center mt-3 mb-4 ">
               <button className={classes.saveProfileButton} onClick={onSubmit}>
                 Save Profile

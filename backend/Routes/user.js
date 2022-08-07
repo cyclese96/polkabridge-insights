@@ -235,4 +235,79 @@ router.put(
   }
 );
 
+// 1. create post not working
+// 2. list of user created post
+// 3. profile update not working
+
+
+// @route PUT /api/auth-apis/v1/user"
+// @desc UPDATE user, phone, email default fiat
+router.put("/update-profile", auth, async (req, res) => {
+  try {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const userId = req.user.id;
+
+    const { email, username, bio, location, name } = req.body;
+
+    if (Object.keys(req.body).length === 0) {
+      return res.status(400).json({
+        errors: {
+          msg: "Request body should contain only atleast one field to update",
+        },
+      });
+    }
+
+    //1 check email
+    //2 check phone
+    const updateObject = {};
+
+    const userExistWithEmail = await User.findOne({ email: email });
+
+    if (userExistWithEmail && userExistWithEmail?._id?.toString() !== userId) {
+      // different user found with same email
+      return res.status(400).json({
+        errors: {
+          msg: "different user found with same email",
+          location: "body",
+          param: "email",
+        },
+      });
+    } else {
+      updateObject.email = email;
+    }
+
+    if (name) {
+      updateObject.name = name;
+    }
+
+    if (username) {
+      updateObject.username = username;
+    }
+
+    if (bio) {
+      updateObject.bio = bio;
+    }
+    
+    if (location) {
+      updateObject.location = location;
+    }
+
+    await User.findByIdAndUpdate(userId, {
+      $set: updateObject,
+    });
+
+    const user = await User.findById(userId)
+
+    return res.status(201).send(user);
+  } catch (error) {
+    console.log("user route error ", error);
+    res.status(401).send({ errors: [{ msg: "Server error" }] });
+  }
+});
+
 module.exports = router;

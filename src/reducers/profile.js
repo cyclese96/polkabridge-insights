@@ -1,20 +1,16 @@
-import { CREATE_PROFILE } from "../actions/types";
+import { UPDATE_PROFILE } from "../actions/types";
   
   const initalState = {
-    news: [],
-    singleNews: null,
-  
+    profile: null,
   };
   
   export default function (state = initalState, action) {
     switch (action.type) {
-      case CREATE_PROFILE:
+      case UPDATE_PROFILE:
         return {
           ...state,
-          news: action.payload,
+          profile: action.payload,
         };
-
-
       default:
         return state;
     }
