@@ -8,13 +8,12 @@ const User = require("../Models/User");
 const checkObjectId = require("../middleware/checkObjectId");
 const AWS = require("aws-sdk");
 const { upload } = require("../middleware/upload");
-const PostDao =require("../Dao/postDao")
-
+const PostDao = require("../Dao/postDao");
 
 // GET - 9 recent news
 router.get("/recent/", async (req, res) => {
   try {
-    const data=await PostDao.getRecentNews();
+    const data = await PostDao.getRecentNews();
     return res.status(200).send(data);
   } catch (error) {
     console.log(error);
@@ -28,9 +27,12 @@ router.get("/posts/:category/:page_number", async (req, res) => {
     const pageNo = req.params.page_number ? req.params.page_number : 1;
     let posts;
     if (req.params.category === "all") {
-      posts= await PostDao.getNewsByPageNo(pageNo);
+      posts = await PostDao.getNewsByPageNo(pageNo);
     } else {
-      posts= await PostDao.getNewsByCategoryByPageNo(req.params.category,pageNo)
+      posts = await PostDao.getNewsByCategoryByPageNo(
+        req.params.category,
+        pageNo
+      );
     }
     res.status(200).json(posts);
   } catch (err) {
@@ -40,7 +42,7 @@ router.get("/posts/:category/:page_number", async (req, res) => {
 });
 
 // GET - Post by id
-router.get("/post/:id",  checkObjectId("id"), async (req, res) => {
+router.get("/post/:id", checkObjectId("id"), async (req, res) => {
   try {
     const post = await PostDao.getNewsById(req.params.id);
     if (!post) {
@@ -52,8 +54,6 @@ router.get("/post/:id",  checkObjectId("id"), async (req, res) => {
     res.status(500).send(err.message);
   }
 });
-
-
 
 // @route    POST api/posts
 // @desc     Create a post
@@ -70,7 +70,6 @@ router.post("/post/", auth, upload.single("image"), async (req, res) => {
       secretAccessKey: process.env.AWS_S3_SECRET_ACCESS_KEY,
     });
 
-    // console.log("req ", req.file);
     const uploadedImage = await s3
       .upload({
         Bucket: process.env.AWS_S3_BUCKET_NAME,
@@ -80,7 +79,7 @@ router.post("/post/", auth, upload.single("image"), async (req, res) => {
       })
       .promise();
 
-    // console.log("uploaded image ", uploadedImage);
+    console.log("uploaded image ", uploadedImage);
 
     const uploadedImagePath = uploadedImage?.Location;
 
@@ -92,22 +91,18 @@ router.post("/post/", auth, upload.single("image"), async (req, res) => {
       category: req.body.category,
       image: uploadedImagePath,
       readTime: req.body.readTime,
-      creator_name: req.body.creator_name,
       poster_name: req.body.poster_name,
     });
 
     const post = await newPost.save();
 
-    res.json(post);
+    res.status(201).json(post);
   } catch (err) {
     console.log("req body ", req.file);
     console.error(err.message);
     res.status(500).send("Server Error");
   }
 });
-
-
-
 
 // @route    DELETE api/posts/:id  tested
 // @desc     Delete a post
@@ -252,6 +247,5 @@ router.delete("/comment/:id/:comment_id", auth, async (req, res) => {
     return res.status(500).send("Server Error");
   }
 });
-
 
 module.exports = router;

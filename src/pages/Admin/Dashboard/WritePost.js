@@ -127,29 +127,34 @@ function WritePost({ addPost }) {
   const classes = useStyles();
   const [text, setText] = useState("");
   const [formData, setFormData] = useState({
-    title:'',
-    content:'',
-    tags:'',
-    image:'',
+    title: "",
+    content: "",
+    tags: "",
   });
-
-  const { title, content, tags, image } = formData;
+  const [imageFile, setImage] = useState(null);
+  const [imageName, setImageName] = useState("");
 
   const onSubmit = (e) => {
     e.preventDefault();
 
     const data = new FormData();
-    data.append('title',formData.title)
-    data.append('content',formData.content)
-    data.append('tags',formData.tags)
-    data.append('image',formData.image)
+    data.append("title", formData.title);
+    data.append("content", formData.content);
+    data.append("tags", formData.tags);
+    data.append("image", imageFile);
+    data.append("category", "crypto");
+    data.append("readTime", "2 mins");
     addPost(data);
   };
 
-
-  const onChange = (e) =>
+  const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    console.log(onChange)
+  };
+
+  const handleFileSelect = (event) => {
+    setImage(event.target.files[0]);
+    setImageName(event.target.files[0]?.name);
+  };
   return (
     <>
       <form className="form" onSubmit={onSubmit}>
@@ -158,15 +163,12 @@ function WritePost({ addPost }) {
             <SideBar />
           </div>
 
-          <div
-            className="col-md-10"
-          
-          >
+          <div className="col-md-10">
             <Navbar />
             <div className="row">
               <div className="d-flex justify-content-start mx-4 my-4">
-                <Link to="/" style={{textDecoration:'none'}}>
-                <h5 className={classes.myPost}>My Post</h5>
+                <Link to="/" style={{ textDecoration: "none" }}>
+                  <h5 className={classes.myPost}>My Post</h5>
                 </Link>
                 <div className={classes.line}></div>
                 <h5 className={classes.writePost} style={{ marginLeft: 20 }}>
@@ -188,7 +190,7 @@ function WritePost({ addPost }) {
                       className={classes.inputTitle}
                       type="text"
                       placeholder="Title goes here"
-                      value={title}
+                      value={formData.title}
                       onChange={onChange}
                       name="title"
                     />
@@ -238,8 +240,7 @@ function WritePost({ addPost }) {
                           label="upload file"
                           type="file"
                           name="image"
-                          value={image}
-                          onChange={onChange}
+                          onChange={handleFileSelect}
                         />
                         <div id="upload-msg"></div>
                       </form>
@@ -260,7 +261,7 @@ function WritePost({ addPost }) {
                   style={{}}
                   placeholder="Write about you blog and information you want to share"
                   name="content"
-                  value={content}
+                  value={formData.content}
                   onChange={onChange}
                 />
               </div>
@@ -268,7 +269,7 @@ function WritePost({ addPost }) {
                 <input
                   className={classes.inputTags}
                   name="tags"
-                  value={tags}
+                  value={formData.tags}
                   onChange={onChange}
                   placeholder="add atleast 5 tags"
                 />

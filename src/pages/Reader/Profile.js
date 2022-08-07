@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SideBar from "../../common/SideBar";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
 import Navbar from "../../common/Navbar";
-import { updateProfile } from "../../actions/profileAction";
+import { getProfile, updateProfile } from "../../actions/profileAction";
+import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   profileImage: {
@@ -101,26 +102,43 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 function Profile() {
   const classes = useStyles();
   const [name, setName] = useState("");
-const [username, setUsername] = useState("");
-const [email, setEmail] = useState("");
-const [bio, setBio] = useState("");
-const [location, setLocation] = useState("");
-const dispatch = useDispatch();
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [bio, setBio] = useState("");
+  const [location, setLocation] = useState("");
+  const dispatch = useDispatch();
+  const profile = useSelector((state) => state?.profile?.profile);
 
-const onSubmit = () => {
-  let data = {
-    name: name,
-    username: username,
-    email: email,
-    location: location,
-    bio: bio,
-  }
-  dispatch( updateProfile(data) )
-}
+  const onSubmit = () => {
+    let data = {
+      name: name,
+      username: username,
+      email: email,
+      location: location,
+      bio: bio,
+    };
+    console.log("handle update ", data);
+    dispatch(updateProfile(data));
+  };
+
+  useEffect(() => {
+    console.log("fetching profile ");
+    dispatch(getProfile());
+  }, []);
+
+  useEffect(() => {
+    if (!profile) {
+      return;
+    }
+    setName(profile?.name);
+    setUsername(profile?.userName);
+    setEmail(profile?.email);
+    setBio(profile?.bio);
+    setLocation(profile?.location);
+  }, [profile]);
 
   return (
     <div>

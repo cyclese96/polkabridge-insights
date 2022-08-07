@@ -239,7 +239,6 @@ router.put(
 // 2. list of user created post
 // 3. profile update not working
 
-
 // @route PUT /api/auth-apis/v1/user"
 // @desc UPDATE user, phone, email default fiat
 router.put("/update-profile", auth, async (req, res) => {
@@ -286,13 +285,13 @@ router.put("/update-profile", auth, async (req, res) => {
     }
 
     if (username) {
-      updateObject.username = username;
+      updateObject.userName = username;
     }
 
     if (bio) {
       updateObject.bio = bio;
     }
-    
+
     if (location) {
       updateObject.location = location;
     }
@@ -301,12 +300,30 @@ router.put("/update-profile", auth, async (req, res) => {
       $set: updateObject,
     });
 
-    const user = await User.findById(userId)
+    const user = await User.findById(userId);
 
     return res.status(201).send(user);
   } catch (error) {
     console.log("user route error ", error);
     res.status(401).send({ errors: [{ msg: "Server error" }] });
+  }
+});
+
+// @route   GET api/profile/test   tested
+// @desc    Tests profile route
+// @access  Public
+router.get("/profile", auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+
+    if (!user) {
+      return res.status(401).json({ message: "Profile not found" });
+    }
+
+    res.status(200).json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("server error");
   }
 });
 
