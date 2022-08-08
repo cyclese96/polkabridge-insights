@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
 import logo from "../assets/Logo.png";
 import { Link } from "react-router-dom";
+import { logout } from '../../src/actions/auth';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles((theme) => ({
   profileImage: {
@@ -56,6 +59,20 @@ const useStyles = makeStyles((theme) => ({
 
 function Navbar() {
   const classes = useStyles();
+  const [isLoggedin, setIsLoggedin] = useState(false);
+ 
+  const login = (e) => {
+    e.preventDefault();
+    localStorage.setItem('token-info', JSON.stringify());
+    setIsLoggedin(true);
+   
+  };
+ 
+  const logout =  ({ auth: { isAuthenticated }, logout })=> {
+    localStorage.removeItem('token-info');
+    setIsLoggedin(false);
+  }
+  
   return (
     <div className="row p-4">
       <div className="d-flex justify-content-end">
@@ -69,12 +86,23 @@ function Navbar() {
             <div className={classes.navText}>Connect</div>
             <span className={classes.divder} />
             </div>
-            <Link to="/" style={{ textDecoration: "none" }}>
             <div className="d-flex row justify-content-center">
-              <div className={classes.navText}>LogIn</div>
+              <div className={classes.navText}>
+              {!isLoggedin ? (
+            <Link to="/" style={{ textDecoration: "none" }}>
+                  <button type="submit" onClick={login} style={{border:"none", color:"white", backgroundColor:"transparent"}}>
+                  LogIn
+                </button>
+                </Link>
+                 ) : (
+                  <>
+                  <button onClick={logout} style={{border:"none", color:"white", backgroundColor:"transparent"}}>Logout</button>
+                </>
+              )}
+              </div>
               <span className={classes.divder} />
               </div>
-            </Link>
+            
           </div>
           <Link to="/writepost" style={{ textDecoration: "none" }}>
           <div className="d-flex row justify-content-center">
@@ -85,7 +113,14 @@ function Navbar() {
         </div>
       </div>
     </div>
-  );
-}
+  )}
+Navbar.propTypes = {
+  logout: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
 
-export default Navbar;
+const mapStateToProps = (state) => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps, { logout })(Navbar);

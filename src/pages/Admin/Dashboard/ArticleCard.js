@@ -90,7 +90,7 @@ function ArticleCard({news}) {
           <div className="col-md-2 mb-4 mt-0">
             <img
               className={classes.profileImage}
-              src=      {news.image}
+              src= {news.image}
               alt="image-logo"
             />
           </div>

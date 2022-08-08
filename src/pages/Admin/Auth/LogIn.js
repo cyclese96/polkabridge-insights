@@ -15,9 +15,11 @@ const useStyles = makeStyles((theme) => ({
   login: {
     color: " #E13D7E",
     textDecoration: "none",
+
   },
   signUp: {
     color: " white",
+    cursour: 'pointer',
   },
   divider: {
     color: " #E13D7E",
@@ -99,7 +101,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = ({ loginUser, isAuthenticated }) => {
+const Login = ({ loginUser, logout, isAuthenticated }) => {
   const classes = useStyles();
   const [formData, setFormData] = useState({
     email: "",
@@ -186,8 +188,9 @@ const Login = ({ loginUser, isAuthenticated }) => {
                 type="submit"
                 value="Login"
               >
-                Log in{" "}
+                Log in
               </button>
+              
             </div>
           </form>
         </div>

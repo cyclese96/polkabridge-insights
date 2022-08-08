@@ -130,6 +130,8 @@ function WritePost({ addPost }) {
     title: "",
     content: "",
     tags: "",
+    category:"",
+    readTime: "",
   });
   const [imageFile, setImage] = useState(null);
   const [imageName, setImageName] = useState("");
@@ -142,8 +144,8 @@ function WritePost({ addPost }) {
     data.append("content", formData.content);
     data.append("tags", formData.tags);
     data.append("image", imageFile);
-    data.append("category", "crypto");
-    data.append("readTime", "2 mins");
+    data.append("category", formData.category);
+    data.append("readTime", formData.readTime);
     addPost(data);
   };
 
@@ -253,7 +255,6 @@ function WritePost({ addPost }) {
                   </div>
                 </div>
               </div>
-
               <div className=" d-flex justify-content-start mt-4">
                 <textarea
                   type="textarea"
@@ -272,6 +273,24 @@ function WritePost({ addPost }) {
                   value={formData.tags}
                   onChange={onChange}
                   placeholder="add atleast 5 tags"
+                />
+              </div>
+              <div className="d-flex justify-content-start mt-4">
+                <input
+                  className={classes.inputTags}
+                  name="readTime"
+                  value={formData.readTime}
+                  onChange={onChange}
+                  placeholder="add read time"
+                />
+              </div>{" "}
+              <div className="d-flex justify-content-start mt-4">
+                <input
+                  className={classes.inputTags}
+                  name="category"
+                  value={formData.category}
+                  onChange={onChange}
+                  placeholder="add category"
                 />
               </div>
             </div>

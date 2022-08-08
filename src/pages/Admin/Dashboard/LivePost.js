@@ -1,6 +1,5 @@
 import React from "react";
 import { makeStyles } from "@mui/styles";
-import logo from "../../../assets/Logo.png";
 import ArticleCard from "./ArticleCard";
 import PostSideBar from "../../../common/PostSideBar";
 import Navbar from "../../../common/Navbar";
@@ -98,8 +97,7 @@ function LivePost() {
           </div>
         </div>
         <ArticleCard />
-        <ArticleCard />
-        <ArticleCard />
+
       </div>
     </div>
   );

@@ -10,7 +10,6 @@ import { Navigate } from "react-router-dom";
 import Navbar from "../../../common/Navbar";
 import { checkUserAuthenticated } from "../../../actions/auth";
 
-
 const useStyles = makeStyles((theme) => ({
   logo: {
     height: 35,
@@ -55,18 +54,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Dashboard({isAuthenticated}) {
+function Dashboard({ isAuthenticated }) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const {news} = useSelector(store=> store.news);
+  const { news } = useSelector((store) => store.news);
 
-  useEffect(async() => {
-    await dispatch(checkUserAuthenticated())
- }, [isAuthenticated])
+  useEffect(async () => {
+    await dispatch(checkUserAuthenticated());
+  }, [isAuthenticated]);
 
-  useEffect(async() => {
-     await dispatch(getUserPost())
-  }, [])
+  useEffect(async () => {
+    await dispatch(getUserPost());
+  }, []);
 
   if (!isAuthenticated) {
     return <Navigate to="/login" />;
@@ -79,21 +78,18 @@ function Dashboard({isAuthenticated}) {
       <div className="col-md-10">
         <Navbar />
         <h2 style={{ color: "#E13D7E", textAlign: "left" }}> My Post</h2>
-        <div className='row'>
-        {news.map((singleNews)=>{
-            return  <ArticleCard news={singleNews}/>
+        <div className="row">
+          {news.map((singleNews) => {
+            return <ArticleCard news={singleNews} />;
           })}
- </div>
-     
+        </div>
       </div>
     </div>
   );
 }
 
-
-
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, {  checkUserAuthenticated})(Dashboard);
+export default connect(mapStateToProps, { checkUserAuthenticated })(Dashboard);
