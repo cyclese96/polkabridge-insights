@@ -1,4 +1,5 @@
 const Posts = require("../Models/Posts");
+const mongoose = require('mongoose')
 
 const PostDao = {
 
@@ -12,6 +13,13 @@ const PostDao = {
 
   async getNewsByPageNo(page_no) {
     return await Posts.find()
+    .sort({ date: -1 })
+    .limit((page_no - 1) * 10 + 10)
+    .skip((page_no - 1) * 10).populate("user");
+  },
+
+  async getUserPostsByPageNo(userId, page_no) {
+    return await Posts.find({user: mongoose.Types.ObjectId(userId)})
     .sort({ date: -1 })
     .limit((page_no - 1) * 10 + 10)
     .skip((page_no - 1) * 10).populate("user");

@@ -43,8 +43,9 @@ export const getAllNews = () => async (dispatch) => {
 
 export const getUserPost = (id) => async (dispatch) => {
 
+  const header = { headers: { ...globalHeaders,  'Content-Type': 'multipart/form-data',  "x-auth-token": localStorage.getItem('token') } }
   let response = await axios
-    .get(`${baseUrl}/post_apis/posts/${id}`)
+    .get(`${baseUrl}/post_apis/user-posts/:page_number`, header)
     .then((res) => {
       dispatch({
         type: GET_ALL_NEWS,

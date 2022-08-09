@@ -97,7 +97,6 @@ function LivePost() {
           </div>
         </div>
         <ArticleCard />
-
       </div>
     </div>
   );

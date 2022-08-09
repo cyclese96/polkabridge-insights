@@ -41,6 +41,26 @@ router.get("/posts/:category/:page_number", async (req, res) => {
   }
 });
 
+// GET - user post by page no
+router.get("/user-posts/:page_number", auth, async (req, res) => {
+  try {
+
+    const userId = req.user.id;
+
+    const pageNo = req.params.page_number ? req.params.page_number : 1;
+    
+    const posts = await PostDao.getUserPostsByPageNo(
+      userId,
+      pageNo
+    );
+
+    res.status(200).json(posts);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send(err.message);
+  }
+});
+
 // GET - Post by id
 router.get("/post/:id", checkObjectId("id"), async (req, res) => {
   try {
