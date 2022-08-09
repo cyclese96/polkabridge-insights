@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
   },
   buttonPublish: {
-    width: "15%",
+    width: "10%",
     height: 40,
     background: "linear-gradient(110.85deg, #F98DC8 -25.63%, #E0077D 157.96%)",
     borderRadius: 10,
@@ -124,6 +124,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function WritePost({ addPost }) {
+  
   const classes = useStyles();
   const [text, setText] = useState("");
   const [formData, setFormData] = useState({
@@ -191,6 +192,7 @@ function WritePost({ addPost }) {
                     <input
                       className={classes.inputTitle}
                       type="text"
+                      key="{title}"
                       placeholder="Title goes here"
                       value={formData.title}
                       onChange={onChange}
@@ -238,10 +240,11 @@ function WritePost({ addPost }) {
                       />
                       <form>
                         <input
-                          className="fileInput"
+                          className={classes.dragText}
                           label="upload file"
                           type="file"
                           name="image"
+                          key="{image}"
                           onChange={handleFileSelect}
                         />
                         <div id="upload-msg"></div>
@@ -262,6 +265,7 @@ function WritePost({ addPost }) {
                   style={{}}
                   placeholder="Write about you blog and information you want to share"
                   name="content"
+                  key="{content}"
                   value={formData.content}
                   onChange={onChange}
                 />
@@ -272,6 +276,7 @@ function WritePost({ addPost }) {
                   name="tags"
                   value={formData.tags}
                   onChange={onChange}
+                  key="{tags}"
                   placeholder="add atleast 5 tags"
                 />
               </div>
@@ -281,6 +286,7 @@ function WritePost({ addPost }) {
                   name="readTime"
                   value={formData.readTime}
                   onChange={onChange}
+                  key="{readTime}"
                   placeholder="add read time"
                 />
               </div>{" "}
@@ -288,13 +294,16 @@ function WritePost({ addPost }) {
                 <input
                   className={classes.inputTags}
                   name="category"
+                  key="{category}"
                   value={formData.category}
                   onChange={onChange}
                   placeholder="add category"
+         
                 />
               </div>
             </div>
             <div className="d-flex justify-content-center mt-4">
+           
               <button
                 className={classes.buttonPublish}
                 type="submit"
@@ -302,6 +311,7 @@ function WritePost({ addPost }) {
               >
                 Publish
               </button>
+        
             </div>
           </div>
         </div>

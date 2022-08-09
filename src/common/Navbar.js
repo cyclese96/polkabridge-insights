@@ -79,8 +79,10 @@ function Navbar() {
         <div className={classes.navWrapper}>
           <div className={classes.topBar}>
             <div className="d-flex row justify-content-center">
+            <Link to="/" style={{ textDecoration: "none" }}>
               <div className={classes.topHome}>Home</div>
               <span className={classes.divider} />
+            </Link>
             </div>
             <div className="d-flex row justify-content-center">
             <div className={classes.navText}>Connect</div>

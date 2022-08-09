@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles } from "@mui/styles";
 import logo from "../../src/assets/Logo.png";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   logo: {
@@ -58,8 +59,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SideBar() {
+function SideBar({ profile }) {
   const classes = useStyles();
+  
   return (
     <div
       style={{
@@ -85,7 +87,9 @@ function SideBar() {
           <h4 className={classes.usersName}>Dasteen</h4>
         </Link>
         <h6 className={classes.usersEmail}>dasteen@gmail.com</h6>
+        <Link to="/" style={{ textDecoration: "none" }}>
         <h5 className={classes.sideBarActive}>My Post</h5>
+        </Link>
         <span className={classes.divider} />
         <h5 className={classes.sideBar}>Earning</h5>
         <span className={classes.divider} />

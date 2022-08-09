@@ -1,5 +1,5 @@
 import {
-    GET_ALL_NEWS,
+  GET_ALL_NEWS,
    GET_SINGLE_NEWS,
    GET_USERS_NEWS, 
    ADD_POSTS,
@@ -29,6 +29,11 @@ import {
             ...state,
            posts : action.payload
           };
+          case GET_USERS_NEWS:
+            return {
+              ...state,
+             news : action.payload
+            };
 
       default:
         return state;

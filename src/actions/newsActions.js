@@ -21,7 +21,7 @@ const baseUrl = "http://localhost:5001"
 export const getAllNews = () => async (dispatch) => {
 
   let response = await axios
-    .get(`${baseUrl}/post_apis/posts/public/all/1`)
+    .get(`${baseUrl}/post_apis/posts/:category/:page_number`)
     .then((res) => {
       dispatch({
         type: GET_ALL_NEWS,
@@ -48,7 +48,7 @@ export const getUserPost = (id) => async (dispatch) => {
     .get(`${baseUrl}/post_apis/user-posts/:page_number`, header)
     .then((res) => {
       dispatch({
-        type: GET_ALL_NEWS,
+        type: GET_USERS_NEWS,
         payload: res.data,
       });
       return res.data;

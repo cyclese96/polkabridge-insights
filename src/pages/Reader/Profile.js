@@ -140,6 +140,12 @@ function Profile() {
     setLocation(profile?.location);
   }, [profile]);
 
+  const [imageFile, setImage] = useState(null);
+  const [imageName, setImageName] = useState("");
+  const handleFileSelect = (event) => {
+    setImage(event.target.files[0]);
+    setImageName(event.target.files[0]?.name);
+  };
   return (
     <div>
       <div className="row">
@@ -177,8 +183,7 @@ function Profile() {
                 }
                 alt="image-logo"
               />
-
-              <button className={classes.buttonUpload}>
+              <button className={classes.buttonUpload} type="file" onChange={handleFileSelect} >
                 Upload New Picture
               </button>
               <button className={classes.buttonDelete}>Delete</button>

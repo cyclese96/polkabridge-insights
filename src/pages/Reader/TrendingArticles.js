@@ -248,4 +248,4 @@ function TrendingArticles() {
   );
 }
 
-export default TrendingArticles;
+export default  TrendingArticles;
