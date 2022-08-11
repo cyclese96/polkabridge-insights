@@ -26,8 +26,6 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
 
 
-
-
             <Route path="/writepost" element={<WritePost />} />
             <Route path="/livepost" element={<LivePost />} />
             <Route path="/pendingpost" element={<PendingPost />} />

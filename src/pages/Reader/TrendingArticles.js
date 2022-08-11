@@ -148,7 +148,7 @@ function TrendingArticles() {
   const { news } = useSelector((store) => store.news);
 
   useEffect(async () => {
-    await dispatch(getAllNews());
+    await dispatch(getAllNews('all', 1));
   }, []);
 
   return (

@@ -18,11 +18,12 @@ export const globalHeaders = {
 
 const baseUrl = "http://localhost:5001"
 //GET all characters of owner
-export const getAllNews = () => async (dispatch) => {
+export const getAllNews = (category, page_number) => async (dispatch) => {
 
   let response = await axios
-    .get(`${baseUrl}/post_apis/posts/:category/:page_number`)
+    .get(`${baseUrl}/post_apis/posts/${category}/${page_number}`)
     .then((res) => {
+      console.log('all news ', res.data)
       dispatch({
         type: GET_ALL_NEWS,
         payload: res.data,

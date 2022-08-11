@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import { signUp } from '../../../../src/actions/auth';
 
 const useStyles = makeStyles((theme) => ({
-  logo: {
+  image: {
     width: 915,
     height: 837,
   },
@@ -210,7 +210,7 @@ const SignUp = ({ setAlert, signUp, isAuthenticated }) => {
           </form>
         </div>
         <div className="col-md-6 mt-3">
-          <img className={classes.logo} src={polkabridge} alt="image-logo" />
+          <img className={classes.image} src={polkabridge} alt="image-logo" />
         </div>
       </div>
     </>
