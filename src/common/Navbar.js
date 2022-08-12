@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
 import logo from "../assets/Logo.png";
-import { Link } from "react-router-dom";
-import { logout } from '../../src/actions/auth';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../../src/actions/auth";
+import { connect, useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
   profileImage: {
@@ -25,9 +25,8 @@ const useStyles = makeStyles((theme) => ({
   },
   navWrapper: {
     display: "flex",
-    justifyContent:'center',
-    alignItems:'center'
-  
+    justifyContent: "center",
+    alignItems: "center",
   },
   topHome: {
     color: "#FFFFFF",
@@ -59,70 +58,87 @@ const useStyles = makeStyles((theme) => ({
 
 function Navbar() {
   const classes = useStyles();
-  const [isLoggedin, setIsLoggedin] = useState(false);
- 
-  const login = (e) => {
-    e.preventDefault();
-    localStorage.setItem('token-info', JSON.stringify());
-    setIsLoggedin(true);
-   
+
+  const isAuthenticated = useSelector((state) => state?.auth?.isAuthenticated);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const login = () => {
+    navigate("/login");
   };
- 
-  const logout =  ({ auth: { isAuthenticated }, logout })=> {
-    localStorage.removeItem('token-info');
-    setIsLoggedin(false);
-  }
-  
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   return (
     <div className="row p-4">
       <div className="d-flex justify-content-end">
         <div className={classes.navWrapper}>
           <div className={classes.topBar}>
             <div className="d-flex row justify-content-center">
-            <Link to="/" style={{ textDecoration: "none" }}>
-              <div className={classes.topHome}>Home</div>
-              <span className={classes.divider} />
-            </Link>
+              <Link to="/" style={{ textDecoration: "none" }}>
+                <div className={classes.topHome}>Home</div>
+                <span className={classes.divider} />
+              </Link>
             </div>
             <div className="d-flex row justify-content-center">
-            <div className={classes.navText}>Connect</div>
-            <span className={classes.divder} />
+              <div className={classes.navText}>Connect</div>
+              <span className={classes.divder} />
             </div>
             <div className="d-flex row justify-content-center">
               <div className={classes.navText}>
-              {!isLoggedin ? (
-            <Link to="/" style={{ textDecoration: "none" }}>
-                  <button type="submit" onClick={login} style={{border:"none", color:"white", backgroundColor:"transparent"}}>
-                  LogIn
-                </button>
-                </Link>
-                 ) : (
+                {!isAuthenticated ? (
+                  <Link to="/login" style={{ textDecoration: "none" }}>
+                    <button
+                      type="submit"
+                      onClick={login}
+                      style={{
+                        border: "none",
+                        color: "white",
+                        backgroundColor: "transparent",
+                      }}
+                    >
+                      LogIn
+                    </button>
+                  </Link>
+                ) : (
                   <>
-                  <button onClick={logout} style={{border:"none", color:"white", backgroundColor:"transparent"}}>Logout</button>
-                </>
-              )}
+                    <button
+                      onClick={handleLogout}
+                      style={{
+                        border: "none",
+                        color: "white",
+                        backgroundColor: "transparent",
+                      }}
+                    >
+                      Logout
+                    </button>
+                  </>
+                )}
               </div>
               <span className={classes.divder} />
-              </div>
-            
+            </div>
           </div>
           <Link to="/writepost" style={{ textDecoration: "none" }}>
-          <div className="d-flex row justify-content-center">
-            <button className={classes.buttonEarn}>Write and Earn</button>
-            <span className={classes.divder} />
+            <div className="d-flex row justify-content-center">
+              <button className={classes.buttonEarn}>Write and Earn</button>
+              <span className={classes.divder} />
             </div>
           </Link>
         </div>
       </div>
     </div>
-  )}
+  );
+}
 Navbar.propTypes = {
   logout: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  auth: state.auth
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { logout })(Navbar);

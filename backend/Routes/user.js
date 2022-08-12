@@ -16,7 +16,7 @@ const { getToken } = require("../config/password-service");
 // @desc     Register user
 // @access   Public tested
 router.post(
-  "/user",
+  "/signup",
   check("name", "Name is required").notEmpty(),
   check("email", "Please include a valid email").isEmail(),
   check(

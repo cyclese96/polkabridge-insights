@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@mui/styles";
 import Navbar from "../../../common/Navbar";
 import Person from "../../../assets/person.png";
 import Key from "../../../assets/key.png";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { loginUser } from "../../../actions/auth";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   logo: {
@@ -15,11 +15,10 @@ const useStyles = makeStyles((theme) => ({
   login: {
     color: " #E13D7E",
     textDecoration: "none",
-
   },
   signUp: {
     color: " white",
-    cursour: 'pointer',
+    cursour: "pointer",
   },
   divider: {
     color: " #E13D7E",
@@ -118,9 +117,16 @@ const Login = ({ loginUser, logout, isAuthenticated }) => {
     loginUser(email, password);
   };
 
-  if (isAuthenticated) {
-    return <Navigate to="/" />;
-  }
+  const token = useSelector((state) => state?.auth?.token);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!token) {
+      return;
+    }
+    navigate("/");
+  }, [token]);
+
   return (
     <>
       <div>
@@ -190,7 +196,6 @@ const Login = ({ loginUser, logout, isAuthenticated }) => {
               >
                 Log in
               </button>
-              
             </div>
           </form>
         </div>
@@ -201,7 +206,6 @@ const Login = ({ loginUser, logout, isAuthenticated }) => {
     </>
   );
 };
-
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,

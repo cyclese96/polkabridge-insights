@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
 
 function SideBar({ profile }) {
   const classes = useStyles();
-  
+
   return (
     <div
       style={{
@@ -88,7 +88,7 @@ function SideBar({ profile }) {
         </Link>
         <h6 className={classes.usersEmail}>dasteen@gmail.com</h6>
         <Link to="/" style={{ textDecoration: "none" }}>
-        <h5 className={classes.sideBarActive}>My Post</h5>
+          <h5 className={classes.sideBarActive}>My Post</h5>
         </Link>
         <span className={classes.divider} />
         <h5 className={classes.sideBar}>Earning</h5>

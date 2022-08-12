@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@mui/styles";
 import Navbar from "../../../common/Navbar";
 import polkabridge from "../../../assets/PolkaBridge.png";
 import Person from "../../../assets/person.png";
 import Key from "../../../assets/key.png";
 import Mail from "../../../assets/mail.png";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { setAlert } from "../../../actions/alert";
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { signUp } from '../../../../src/actions/auth';
+import { connect, useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
+import { loadUser, signUp } from "../../../../src/actions/auth";
 
 const useStyles = makeStyles((theme) => ({
   image: {
@@ -102,32 +102,52 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignUp = ({ setAlert, signUp, isAuthenticated }) => {
+const SignUp = ({ setAlert, signUp }) => {
   const classes = useStyles();
 
   const [formData, setFormData] = useState({
-    name: '',
-    username:'',
-    email: '',
-    password: '',
-    confirmPassword: ''
+    name: "",
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const { name, email, password, confirmPassword } = formData;
 
+  const token = useSelector((state) => state?.auth?.token);
+  const isAuthenticated = useSelector((state) => state?.auth?.isAuthenticated);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      setAlert('Passwords do not match', 'danger');
+      setAlert("Passwords do not match", "danger");
     } else {
       signUp({ name, email, password });
     }
   };
-  if (isAuthenticated) {
-    return <Navigate to="/login" />;
-  }
-  const onChange = (e) =>
-  setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const onChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // useEffect(() => {
+  //   if (!isAuthenticated) {
+  //     return;
+  //   }
+
+  //   navigate("/trending/article");
+  // }, [isAuthenticated]);
+
+  useEffect(() => {
+    if (!token) {
+      return;
+    } else {
+      navigate("/login");
+    }
+  }, [token]);
 
   return (
     <>
@@ -146,67 +166,71 @@ const SignUp = ({ setAlert, signUp, isAuthenticated }) => {
             </h5>
           </div>
           <form className="form" onSubmit={onSubmit}>
-          <div className={classes.inputWrapper}>
-            <div className={classes.para}>
-              <img src={Person} className={classes.userIcon} alt="" />
-              <input
-                className={classes.inputField}
-                type="text"
-                placeholder="UserName"
-                name="name"
-                value={name}
-                onChange={onChange}
-              />
+            <div className={classes.inputWrapper}>
+              <div className={classes.para}>
+                <img src={Person} className={classes.userIcon} alt="" />
+                <input
+                  className={classes.inputField}
+                  type="text"
+                  placeholder="UserName"
+                  name="name"
+                  value={name}
+                  onChange={onChange}
+                />
+              </div>
+              <div className={classes.para} style={{ marginTop: 10 }}>
+                <img src={Key} className={classes.keyIcon} alt="" />
+                <input
+                  className={classes.inputField}
+                  type="text"
+                  placeholder="Display Name"
+                />
+              </div>
+              <div className={classes.para} style={{ marginTop: 10 }}>
+                <img src={Mail} className={classes.keyIcon} alt="" />
+                <input
+                  className={classes.inputField}
+                  type="text"
+                  placeholder="Email"
+                  name="email"
+                  value={email}
+                  onChange={onChange}
+                />
+              </div>
+              <div className={classes.para} style={{ marginTop: 10 }}>
+                <img src={Key} className={classes.keyIcon} alt="" />
+                <input
+                  className={classes.inputField}
+                  type="text"
+                  placeholder="Password"
+                  name="password"
+                  value={password}
+                  onChange={onChange}
+                />
+              </div>
+              <div className={classes.para} style={{ marginTop: 10 }}>
+                <img src={Key} className={classes.keyIcon} alt="" />
+                <input
+                  className={classes.inputField}
+                  type="text"
+                  placeholder="Confirm Password"
+                  name="confirmPassword"
+                  value={confirmPassword}
+                  onChange={onChange}
+                />
+              </div>
             </div>
-            <div className={classes.para} style={{ marginTop: 10 }}>
-              <img src={Key} className={classes.keyIcon} alt="" />
-              <input
-                className={classes.inputField}
-                type="text"
-                placeholder="Display Name"
-              />
-            </div>
-            <div className={classes.para} style={{ marginTop: 10 }}>
-              <img src={Mail} className={classes.keyIcon} alt="" />
-              <input
-                className={classes.inputField}
-                type="text"
-                placeholder="Email"
-                name="email"
-                value={email}
-                onChange={onChange}
-              />
-            </div>
-            <div className={classes.para} style={{ marginTop: 10 }}>
-              <img src={Key} className={classes.keyIcon} alt="" />
-              <input
-                className={classes.inputField}
-                type="text"
-                placeholder="Password"
-                name="password"
-                value={password}
-                onChange={onChange}
-              />
-            </div>
-            <div className={classes.para} style={{ marginTop: 10 }}>
-              <img src={Key} className={classes.keyIcon} alt="" />
-              <input
-                className={classes.inputField}
-                type="text"
-                placeholder="Confirm Password"
-                name="confirmPassword"
-                value={confirmPassword}
-                onChange={onChange}
-              />
-            </div>
-          </div>
 
-          <div className="mt-5">
-            <button className={classes.buttonLogin} 
-            type="submit" value="SignUp" 
-            >Sign Up </button>
-             {/* <input type="submit" className="btn btn-primary" value="SignUp" /> */}
-          </div>
+            <div className="mt-5">
+              <button
+                className={classes.buttonLogin}
+                type="submit"
+                value="SignUp"
+              >
+                Sign Up{" "}
+              </button>
+              {/* <input type="submit" className="btn btn-primary" value="SignUp" /> */}
+            </div>
           </form>
         </div>
         <div className="col-md-6 mt-3">
@@ -215,15 +239,15 @@ const SignUp = ({ setAlert, signUp, isAuthenticated }) => {
       </div>
     </>
   );
-}
+};
 SignUp.propTypes = {
   setAlert: PropTypes.func.isRequired,
   signUp: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool
+  isAuthenticated: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { setAlert, signUp })(SignUp);

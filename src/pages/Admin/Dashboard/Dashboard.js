@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
 import { makeStyles } from "@mui/styles";
-import logo from "../../../assets/Logo.png";
 import ArticleCard from "./ArticleCard";
 import SideBar from "../../../common/SideBar";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserPost } from "../../../actions/newsActions";
 import { connect } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../../../common/Navbar";
-import { checkUserAuthenticated } from "../../../actions/auth";
+import { checkUserAuthenticated, loadUser } from "../../../actions/auth";
 
 const useStyles = makeStyles((theme) => ({
   logo: {
@@ -55,21 +54,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Dashboard({ isAuthenticated }) {
-  const classes = useStyles();
   const dispatch = useDispatch();
   const { news } = useSelector((store) => store.news);
 
-  useEffect(async () => {
-    await dispatch(checkUserAuthenticated());
-  }, [isAuthenticated]);
+  const token = useSelector((state) => state?.auth?.token);
+  const navigate = useNavigate();
 
   useEffect(async () => {
     await dispatch(getUserPost());
   }, []);
 
-  if (!isAuthenticated) {
-    return <Navigate to="/login" />;
-  }
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    } else {
+      dispatch(loadUser(token));
+    }
+  }, [token]);
+
   return (
     <div className="row mt-4">
       <div className="col-md-2">

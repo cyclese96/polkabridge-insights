@@ -39,8 +39,6 @@ export const loadUser = (token) => async (dispatch) => {
     const baseURL = "http://localhost:5001/user_apis/current_user";
     const res = await axios.get(baseURL, config);
 
-    console.log(res);
-
     dispatch({
       type: USER_LOADED,
       payload: res.data,
@@ -55,12 +53,11 @@ export const loadUser = (token) => async (dispatch) => {
 // Register User
 export const signUp = (formData) => async (dispatch) => {
   try {
-    const res = await api.post("user_apis/user", formData);
+    const res = await api.post("user_apis/signup", formData);
     dispatch({
       type: REGISTER_SUCCESS,
-      payload: res.data,
+      payload: res.data?.token,
     });
-    dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
     console.log("signup error ", err);
@@ -79,13 +76,14 @@ export const loginUser = (email, password) => async (dispatch) => {
   const body = { email, password };
 
   try {
+    console.log("tring logij", { email, password });
     const res = await api.post("/user_apis/login", body);
     localStorage.setItem("token", res.data.token);
 
     console.log("login res ", res.data);
     dispatch({
       type: LOGIN_SUCCESS,
-      payload: res.data,
+      payload: res.data?.token,
     });
     dispatch(loadUser(res.data.token));
   } catch (err) {
@@ -94,4 +92,10 @@ export const loginUser = (email, password) => async (dispatch) => {
 };
 
 // Logout
-export const logout = () => ({ type: LOGOUT });
+export const logout = () => async (dispatch) => {
+  try {
+    localStorage.removeItem("token");
+
+    dispatch({ type: LOGOUT, payload: null });
+  } catch (error) {}
+};
