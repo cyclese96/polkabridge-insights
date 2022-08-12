@@ -6,14 +6,10 @@ const useStyles = makeStyles((theme) => ({
   cardBody: {},
   card: {
     width: "100%",
-    height: "350px",
+    height: "fit-content",
     border: "1px solid #353535",
     borderRadius: 10,
     background: "#1B1B17",
-    // [theme.breakpoints.up('md')]: {
-    //   width: "90%",
-    // },
-
   },
   time: {
     color: "#FFFFFF",
