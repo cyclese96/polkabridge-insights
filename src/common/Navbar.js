@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@mui/styles";
 import logo from "../assets/Logo.png";
 import { Link, useNavigate } from "react-router-dom";
-import { logout } from "../../src/actions/auth";
+import { loadUser, logout } from "../../src/actions/auth";
 import { connect, useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     height: 35,
     cursor: "pointer",
+    
   },
   topBar: {
     display: "flex",
@@ -58,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Navbar() {
   const classes = useStyles();
+  const token = useSelector((state) => state?.auth?.token);
 
   const isAuthenticated = useSelector((state) => state?.auth?.isAuthenticated);
 
@@ -72,20 +74,24 @@ function Navbar() {
     dispatch(logout());
   };
 
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    } else {
+      dispatch(loadUser(token));
+    }
+  }, [token]);
+
   return (
     <div className="row p-4">
       <div className="d-flex justify-content-end">
         <div className={classes.navWrapper}>
           <div className={classes.topBar}>
             <div className="d-flex row justify-content-center">
-              <Link to="/" style={{ textDecoration: "none" }}>
+              <Link to="/trending/article" style={{ textDecoration: "none" }}>
                 <div className={classes.topHome}>Home</div>
                 <span className={classes.divider} />
               </Link>
-            </div>
-            <div className="d-flex row justify-content-center">
-              <div className={classes.navText}>Connect</div>
-              <span className={classes.divder} />
             </div>
             <div className="d-flex row justify-content-center">
               <div className={classes.navText}>

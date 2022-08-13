@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SideBar from "../../common/SideBar";
-import { makeStyles } from "@mui/styles";
+import { useTheme } from "@mui/styles";
+import { makeStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import Navbar from "../../common/Navbar";
 import { getProfile, updateProfile } from "../../actions/profileAction";
@@ -14,6 +15,11 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 22,
     marginLeft: 20,
     border: "2px solid #E0077D",
+    [theme.breakpoints.down("md")]: {
+      height: 70,
+      width: 70,
+   
+    },
   },
   topBar: {
     display: "flex",
@@ -40,6 +46,10 @@ const useStyles = makeStyles((theme) => ({
     width: 170,
     height: 50,
     marginRight: 25,
+    [theme.breakpoints.down("md")]: {
+      width: 120,
+      height: 50,
+    },
   },
   buttonDelete: {
     background: "#282826",
@@ -51,6 +61,11 @@ const useStyles = makeStyles((theme) => ({
     width: 170,
     height: 50,
     marginRight: 25,
+    [theme.breakpoints.down("md")]: {
+      width: 70,
+      height: 50,
+      fontSize: 10,
+    },
   },
   divider: {
     width: 30,

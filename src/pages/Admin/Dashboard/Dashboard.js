@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { makeStyles } from "@mui/styles";
+import { useTheme } from "@mui/styles";
+import { makeStyles } from "@material-ui/core";
 import ArticleCard from "./ArticleCard";
 import SideBar from "../../../common/SideBar";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,26 +11,12 @@ import Navbar from "../../../common/Navbar";
 import { checkUserAuthenticated, loadUser } from "../../../actions/auth";
 
 const useStyles = makeStyles((theme) => ({
-  logo: {
-    height: 35,
-    marginBottom: 40,
-    marginTop: 20,
-  },
-  profileImage: {
-    height: 80,
-    width: 80,
-    marginTop: 20,
-    borderRadius: "50%",
-  },
-  usersName: {
+  title: {
     color: "#E13D7E",
-    fontSize: 25,
-    fontWeight: 500,
-  },
-  usersEmail: {
-    color: "white",
-    fontSize: 14,
-    fontWeight: 300,
+    textAlign: "left",
+    [theme.breakpoints.down("md")]: {
+      marginLeft: 20,
+    },
   },
   sideBar: {
     color: "#E13D7E",
@@ -54,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Dashboard({ isAuthenticated }) {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const { news } = useSelector((store) => store.news);
 
@@ -79,7 +67,7 @@ function Dashboard({ isAuthenticated }) {
       </div>
       <div className="col-md-10">
         <Navbar />
-        <h2 style={{ color: "#E13D7E", textAlign: "left" }}> My Post</h2>
+        <h2 className={classes.title}> My Post</h2>
         <div className="row">
           {news.map((singleNews) => {
             return <ArticleCard news={singleNews} />;

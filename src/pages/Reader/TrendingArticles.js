@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { makeStyles } from "@mui/styles";
+import { useTheme } from "@mui/styles";
+import { makeStyles } from "@material-ui/core";
 import logo from "../../assets/Logo.png";
 import Twitter from "../../assets/twitter.png";
 import Instagram from "../../assets/instagram.png";
@@ -9,52 +10,9 @@ import ArticleCard from "../../pages/Admin/Dashboard/ArticleCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllNews } from "../../actions/newsActions";
 import Navbar from "../../common/Navbar";
+import SideBar from "../../common/SideBar";
 
 const useStyles = makeStyles((theme) => ({
-  profileImage: {
-    height: 40,
-    width: 40,
-    marginTop: 20,
-    borderRadius: "50%",
-    marginRight: 22,
-    marginLeft: 20,
-    display: "flex",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-  },
-  topBar: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    marginRight: 40,
-  },
-  topHome: {
-    color: "#FFFFFF",
-    fontSize: 18,
-    fontWeight: 600,
-    marginLeft: 15,
-    marginRight: 15,
-    marginTop: 12,
-  },
-  navText: {
-    color: "#FFFFFF",
-    fontSize: 18,
-    fontWeight: 600,
-    marginLeft: 15,
-    marginRight: 22,
-    marginTop: 12,
-  },
-  buttonEarn: {
-    background: "linear-gradient(110.85deg, #F98DC8 -25.63%, #E0077D 157.96%)",
-    color: "#212121",
-    fontSize: 16,
-    fontWeight: 600,
-    border: "none",
-    borderRadius: 3,
-    width: 170,
-    marginTop: 13,
-  },
   logo: {
     height: 35,
     marginTop: 20,
@@ -62,7 +20,12 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 40,
     display: "flex",
     justifyContent: "flex-start",
+    [theme.breakpoints.down("md")]: {
+      height: 27,
+      marginLeft: 15,
+    },
   },
+
   divider: {
     width: 30,
     height: 2,
@@ -80,6 +43,12 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "flex-start",
     marginLeft: 50,
+    [theme.breakpoints.down("md")]: {
+      display: "flex",
+      justifyContent: "flex-start",
+      marginLeft: 10,
+      fontSize: 20,
+    },
   },
   footer: {
     display: "flex",
@@ -94,6 +63,10 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 10,
     marginLeft: 40,
     color: "#DCDCDC",
+    [theme.breakpoints.down("md")]: {
+      fontSize: 13,
+      marginLeft: 15,
+    },
   },
   footerImage: {
     height: 20,
@@ -102,6 +75,10 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 40,
     display: "flex",
     justifyContent: "flex-start",
+    [theme.breakpoints.down("md")]: {
+      height: 15,
+      marginLeft: 15,
+    },
   },
   headingRight: {
     fontSize: 20,
@@ -110,6 +87,11 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "flex-start",
     marginTop: 20,
+    [theme.breakpoints.down("md")]: {
+      fontSize: 13,
+      display: "flex",
+      justifyContent: "center",
+    },
   },
   subHeadingRight: {
     fontSize: 14,
@@ -118,6 +100,11 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "flex-start",
     marginTop: 5,
+    [theme.breakpoints.down("md")]: {
+      fontSize: 10,
+      display: "flex",
+      justifyContent: "center",
+    },
   },
   copyRight: {
     color: "#FFFFFF",
@@ -138,7 +125,18 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 30,
     justifyContent: "center",
     alignContent: "center",
-    flexWrap: "wrap",
+    [theme.breakpoints.down("md")]: {
+      marginLeft: 0,
+      width: "98%",
+    },
+  },
+  footerWrapper: {
+    display: "flex",
+    justifyContent: "flex-end",
+    [theme.breakpoints.down("md")]: {
+      display: "flex",
+      justifyContent: "space-between",
+    },
   },
 }));
 
@@ -148,20 +146,27 @@ function TrendingArticles() {
   const { news } = useSelector((store) => store.news);
 
   useEffect(async () => {
-    await dispatch(getAllNews('all', 1));
+    await dispatch(getAllNews("all", 1));
   }, []);
 
   return (
     <>
-      <Navbar />
-      {console.log(news)}
-      <h2 className={classes.heading}>Trending Article</h2>
-      <hr className={classes.hrLine} />
-      <div className={classes.cardsArticle}>
-        <div className="row mt-4">
-          {news.map((singleNews) => {
-            return <ArticleCard news={singleNews} />;
-          })}
+      <div className="row mt-4">
+        <div className="col-md-2">
+          <SideBar />
+        </div>
+
+        <div className="col-md-10">
+          <Navbar />
+          <h2 className={classes.heading}>Trending Article</h2>
+          <hr className={classes.hrLine} />
+          <div className={classes.cardsArticle}>
+            <div className="row mt-4">
+              {news.map((singleNews) => {
+                return <ArticleCard news={singleNews} />;
+              })}
+            </div>
+          </div>
         </div>
       </div>
       <div className="row">
@@ -190,7 +195,7 @@ function TrendingArticles() {
         </div>
         <div className="col-md-6">
           <div className="row">
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <div className={classes.footerWrapper}>
               <div className="col-md-3">
                 <div className="footer">
                   <p className={classes.headingRight}>Category</p>
@@ -248,4 +253,4 @@ function TrendingArticles() {
   );
 }
 
-export default  TrendingArticles;
+export default TrendingArticles;

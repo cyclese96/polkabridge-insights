@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import SideBar from "../../../common/SideBar";
-import { makeStyles } from "@mui/styles";
+import { useTheme } from "@mui/styles";
+import { makeStyles } from "@material-ui/core";
 import upload from "../../../assets/upload.png";
 import propTypes from "prop-types";
 import { connect } from "react-redux";
@@ -52,7 +53,6 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
   },
   buttonPublish: {
-    width: "10%",
     height: 40,
     background: "linear-gradient(110.85deg, #F98DC8 -25.63%, #E0077D 157.96%)",
     borderRadius: 10,
@@ -60,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
     fontSize: 16,
     fontWeight: 600,
+    marginBottom:10,
   },
   writeTitle: {
     color: "white",
@@ -72,6 +73,9 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+    },
   },
   uploadImage: {
     height: 100,
@@ -99,12 +103,18 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     border: "none",
     color: "#FFFFFF",
+    [theme.breakpoints.down("md")]: {
+      width: "80%",
+      marginLeft: "10px",
+      height: "35px",
+      padding: "8px",
+    },
   },
   textArea: {
     backgroundColor: "#1B1B1B",
     border: "2px solid #353535",
     borderRadius: 10,
-    width: "90%",
+    width: "80%",
     height: "100px",
     color: "#DCDCDC",
     paddingLeft: "5px",
@@ -114,24 +124,52 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#1B1B1B",
     border: "2px solid #353535",
     borderRadius: 10,
-    width: "90%",
+    width: "80%",
     height: "50px",
     display: "flex",
     justifyContent: "center",
     color: "#DCDCDC",
     paddingLeft: "5px",
   },
+  cardMain: {
+    width: "90%",
+    backgroundColor: "#1B1B17",
+    border: "1px solid #353535",
+    borderRadius: 20,
+  },
+  cardWrapper: {
+    [theme.breakpoints.down("md")]: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+  },
+  form: {
+    height: "40px",
+    border: "2px solid #353535",
+    backgroundColor: "transparent",
+    marginRight: 10,
+    color: "white",
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+    },
+  },
+  cardImage: {
+    width: "80%",
+    backgroundColor: "#1B1B17",
+    border: "1px dotted #FFFFFF",
+    borderRadius: 20,
+  },
 }));
 
 function WritePost({ addPost }) {
-  
   const classes = useStyles();
   const [text, setText] = useState("");
   const [formData, setFormData] = useState({
     title: "",
     content: "",
     tags: "",
-    category:"",
+    category: "",
     readTime: "",
   });
   const [imageFile, setImage] = useState(null);
@@ -178,16 +216,8 @@ function WritePost({ addPost }) {
                   Write New Post
                 </h5>
               </div>
-              <div>
-                <div
-                  className="card jusitfy-content-center "
-                  style={{
-                    width: "90%",
-                    backgroundColor: "#1B1B17",
-                    border: "1px solid #353535",
-                    borderRadius: 20,
-                  }}
-                >
+              <div className={classes.cardWrapper}>
+                <div className={classes.cardMain}>
                   <div className="d-flex justify-content-center my-4">
                     <input
                       className={classes.inputTitle}
@@ -201,16 +231,7 @@ function WritePost({ addPost }) {
                     <div className="d-flex justify-content-between">
                       <div className={classes.dropdown}>
                         <h6 className={classes.writeTitle}>Catagory:</h6>
-                        <select
-                          className="form-control"
-                          style={{
-                            height: "40px",
-                            border: "2px solid #353535",
-                            backgroundColor: "transparent",
-                            marginRight: 10,
-                            color: "white",
-                          }}
-                        >
+                        <select className={classes.form}>
                           <option value="beginner">select</option>
                           <option value="beginner">Tokens</option>
                           <option value="moderator">PBR</option>
@@ -219,20 +240,8 @@ function WritePost({ addPost }) {
                       </div>
                     </div>
                   </div>
-
                   <div className="d-flex justify-content-center">
-                    <div
-                      className="card mb-3"
-                      style={{
-                        width: "80%",
-                        backgroundColor: "#1B1B17",
-                        border: "1px dotted #FFFFFF",
-                        borderRadius: 20,
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
+                    <div className={classes.cardImage}>
                       <img
                         className={classes.uploadImage}
                         src={upload}
@@ -256,62 +265,61 @@ function WritePost({ addPost }) {
                       </h6>
                     </div>
                   </div>
+                  <div className=" d-flex justify-content-center mt-4">
+                    <textarea
+                      type="textarea"
+                      className={classes.textArea}
+                      style={{}}
+                      placeholder="Write about you blog and information you want to share"
+                      name="content"
+                      key="{content}"
+                      value={formData.content}
+                      onChange={onChange}
+                    />
+                  </div>
+                  <div className="d-flex justify-content-center mt-4">
+                    <input
+                      className={classes.inputTags}
+                      name="tags"
+                      value={formData.tags}
+                      onChange={onChange}
+                      key="{tags}"
+                      placeholder="add atleast 5 tags"
+                    />
+                  </div>
+                  <div className="d-flex justify-content-center mt-4">
+                    <input
+                      className={classes.inputTags}
+                      name="readTime"
+                      value={formData.readTime}
+                      onChange={onChange}
+                      key="{readTime}"
+                      placeholder="add read time"
+                    />
+                  </div>{" "}
+                  <div className="d-flex justify-content-center mt-4">
+                    <input
+                      className={classes.inputTags}
+                      name="category"
+                      key="{category}"
+                      value={formData.category}
+                      onChange={onChange}
+                      placeholder="add category"
+                    />
+                  </div>
+                  <div className="d-flex justify-content-center mt-4">
+                    <Link to="/" style={{ textDecoration: "none" }}>
+                      <button
+                        className={classes.buttonPublish}
+                        type="submit"
+                        value="Submit"
+                      >
+                        Publish
+                      </button>
+                    </Link>
+                  </div>
                 </div>
               </div>
-              <div className=" d-flex justify-content-start mt-4">
-                <textarea
-                  type="textarea"
-                  className={classes.textArea}
-                  style={{}}
-                  placeholder="Write about you blog and information you want to share"
-                  name="content"
-                  key="{content}"
-                  value={formData.content}
-                  onChange={onChange}
-                />
-              </div>
-              <div className="d-flex justify-content-start mt-4">
-                <input
-                  className={classes.inputTags}
-                  name="tags"
-                  value={formData.tags}
-                  onChange={onChange}
-                  key="{tags}"
-                  placeholder="add atleast 5 tags"
-                />
-              </div>
-              <div className="d-flex justify-content-start mt-4">
-                <input
-                  className={classes.inputTags}
-                  name="readTime"
-                  value={formData.readTime}
-                  onChange={onChange}
-                  key="{readTime}"
-                  placeholder="add read time"
-                />
-              </div>{" "}
-              <div className="d-flex justify-content-start mt-4">
-                <input
-                  className={classes.inputTags}
-                  name="category"
-                  key="{category}"
-                  value={formData.category}
-                  onChange={onChange}
-                  placeholder="add category"
-         
-                />
-              </div>
-            </div>
-            <div className="d-flex justify-content-center mt-4">
-           
-              <button
-                className={classes.buttonPublish}
-                type="submit"
-                value="Submit"
-              >
-                Publish
-              </button>
-        
             </div>
           </div>
         </div>
