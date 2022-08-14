@@ -20,18 +20,17 @@ function App() {
       <Fragment>
         <Router>
           <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
        
             <Route path="/login" element={<LogIn />} />
             <Route path="/signup" element={<SignUp />} />
-
-
+            
             <Route path="/writepost" element={<WritePost />} />
             <Route path="/livepost" element={<LivePost />} />
             <Route path="/pendingpost" element={<PendingPost />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/admin/Dashboard" element={<SuperAdminDashboard />} />
-            <Route path="/trending/article" element={<TrendingArticles />} />
+            <Route path="/" element={<TrendingArticles />} />
           </Routes>
         </Router>
       </Fragment>

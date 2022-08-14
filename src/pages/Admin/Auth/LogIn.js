@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { makeStyles } from "@mui/styles";
+import { useTheme } from "@mui/styles";
+import { makeStyles } from "@material-ui/core";
 import Navbar from "../../../common/Navbar";
 import Person from "../../../assets/person.png";
 import Key from "../../../assets/key.png";
@@ -36,11 +37,17 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 50,
     fontWeight: 600,
     color: "white",
+    [theme.breakpoints.down("md")]: {
+      fontSize:30,
+    },
   },
   subTitle: {
     fontSize: 20,
     fontWeight: 500,
     color: "white",
+    [theme.breakpoints.down("md")]: {
+      fontSize:15,
+    },
   },
 
   buttonLogin: {
@@ -71,6 +78,11 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "flex-start",
     alignItems: "center",
+    [theme.breakpoints.down("md")]: {
+      width:"90%",
+      height:'40',
+    },
+
   },
   inputField: {
     backgroundColor: "transparent",
@@ -87,6 +99,10 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 10,
     marginTop: 10,
     outlineStyle: "none",
+    [theme.breakpoints.down("md")]: {
+      width:"100%",
+      height:'40',
+    },
   },
   userIcon: {
     width: 30,
@@ -174,17 +190,17 @@ const Login = ({ loginUser, logout, isAuthenticated }) => {
               </div>
             </div>
             <div className="d-flex justify-content-evenly mt-3">
-              <div style={{ marginLeft: 40 }}>
-                <label class="container" style={{ color: "white" }}>
+              <div>
+                <label class="container" style={{ color: "white"}}>
                   <input
                     type="checkbox"
                     checked=""
-                    style={{ marginRight: 10 }}
+                   style={{marginRight:5}}
                   />
                   Remember Me
                 </label>
               </div>
-              <div style={{ color: "white", marginRight: 60 }}>
+              <div style={{ color: "white" }}>
                 Forgot Password?
               </div>
             </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { makeStyles } from "@mui/styles";
+import { useTheme } from "@mui/styles";
+import { makeStyles } from "@material-ui/core";
 import Navbar from "../../../common/Navbar";
 import polkabridge from "../../../assets/PolkaBridge.png";
 import Person from "../../../assets/person.png";

@@ -167,7 +167,7 @@ function SideBar() {
             {[
               {
                 name: "Trending Article",
-                id: "http://localhost:3001/trending/article",
+                id: "http://localhost:3001/",
               },
             ].map((tab, index) => (
               <a href={tab.id} className={classes.mobileLink} key={index}>
@@ -193,7 +193,7 @@ function SideBar() {
     <>
       <div className={classes.topbar}>
         <div className={classes.lines}>
-          <Link to="/trending/article" style={{ textDecoration: "none" }}>
+          <Link to="/" style={{ textDecoration: "none" }}>
             <img className={classes.logo} src={logo} alt="image-logo" />
           </Link>
           <br />
@@ -206,7 +206,7 @@ function SideBar() {
             <h4 className={classes.usersName}>{profile?.name}</h4>
           </Link>
           <h6 className={classes.usersEmail}>{profile?.email}</h6>
-          <Link to="/" style={{ textDecoration: "none" }}>
+          <Link to="/dashboard" style={{ textDecoration: "none" }}>
             <h5 className={classes.sideBarActive}>My Post</h5>
           </Link>
           <span className={classes.divider} />
@@ -220,7 +220,7 @@ function SideBar() {
       </div>
       <div className={classes.sectionMobile}>
         <div>
-          <Link to="/trending/article" style={{ textDecoration: "none" }}>
+          <Link to="/" style={{ textDecoration: "none" }}>
             <img className={classes.logo} src={logo} alt="image-logo" />
           </Link>
         </div>
