@@ -7,19 +7,28 @@ import Key from "../../../assets/key.png";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { loginUser } from "../../../actions/auth";
 import { connect, useSelector } from "react-redux";
+import polkabridge from "../../../assets/PolkaBridge.png";
+
 
 const useStyles = makeStyles((theme) => ({
   logo: {
     width: "fit-content",
-    height: "837px",
+    height: "700px",
+    [theme.breakpoints.down("sm")]: {
+      display: 'none',
+    },
+    [theme.breakpoints.down("md")]: {
+      
+    },
   },
   login: {
     color: " #E13D7E",
     textDecoration: "none",
+    cursor:"pointer",
   },
   signUp: {
     color: " white",
-    cursour: "pointer",
+    cursor: "pointer",
   },
   divider: {
     color: " #E13D7E",
@@ -136,12 +145,16 @@ const Login = ({ loginUser, logout, isAuthenticated }) => {
   const token = useSelector((state) => state?.auth?.token);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!token) {
-      return;
-    }
-    navigate("/");
-  }, [token]);
+  // useEffect(() => {
+  //   if (!token) {
+  //     return;
+  //   }
+  //   navigate("/");
+  // }, [token]);
+
+  const navigateSignUp = () => {
+    navigate('/signup');
+  };
 
   return (
     <>
@@ -151,13 +164,11 @@ const Login = ({ loginUser, logout, isAuthenticated }) => {
       <div className="row">
         <div className="col-md-6">
           <div className="d-flex justify-content-center mx-4 my-4">
-            <h5 className={classes.login}>Log in</h5>
+            <h5 className={classes.login} onClick={()=>navigate('/login')}>Log in</h5>
             <div className={classes.line}></div>
-            <Link to="/signup" style={{ textDecoration: "none" }}>
-              <h5 className={classes.signUp} style={{ marginLeft: 20 }}>
+              <h5 className={classes.signUp} style={{ marginLeft: 20 }} onClick={navigateSignUp}>
                 Sign up
               </h5>
-            </Link>
           </div>
           <h1 className={classes.title}>Welcome back!</h1>
           <p className={classes.subTitle}>
@@ -215,9 +226,9 @@ const Login = ({ loginUser, logout, isAuthenticated }) => {
             </div>
           </form>
         </div>
-        {/* <div className="col-md-6 mt-3">
+        <div className="col-md-6 mt-3">
           <img className={classes.logo} src={polkabridge} alt="image-logo" />
-        </div> */}
+        </div>
       </div>
     </>
   );

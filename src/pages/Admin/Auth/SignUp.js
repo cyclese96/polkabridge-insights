@@ -14,8 +14,11 @@ import { loadUser, signUp } from "../../../../src/actions/auth";
 
 const useStyles = makeStyles((theme) => ({
   image: {
-    width: 915,
-    height: 837,
+    width: "fit-content",
+    height: "700px",
+    [theme.breakpoints.down("md")]: {
+      display: 'none',
+    },
   },
   login: {
     color: " white ",
@@ -134,21 +137,7 @@ const SignUp = ({ setAlert, signUp }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // useEffect(() => {
-  //   if (!isAuthenticated) {
-  //     return;
-  //   }
 
-  //   navigate("/trending/article");
-  // }, [isAuthenticated]);
-
-  useEffect(() => {
-    if (!token) {
-      return;
-    } else {
-      navigate("/login");
-    }
-  }, [token]);
 
   return (
     <>

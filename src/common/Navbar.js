@@ -75,12 +75,12 @@ function Navbar() {
   };
 
   useEffect(() => {
-    if (!token) {
-      navigate("/login");
+    if (!isAuthenticated) {
+      // navigate("/login");
     } else {
       dispatch(loadUser(token));
     }
-  }, [token]);
+  }, [isAuthenticated, token]);
 
   return (
     <div className="row p-4">
