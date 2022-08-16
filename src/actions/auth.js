@@ -8,6 +8,7 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGOUT,
+  UPDATE_PROFILE,
 } from "./types";
 
 // Load User
@@ -97,5 +98,6 @@ export const logout = () => async (dispatch) => {
     localStorage.removeItem("token");
 
     dispatch({ type: LOGOUT, payload: null });
+    dispatch({type: UPDATE_PROFILE, payload: {}})
   } catch (error) {}
 };

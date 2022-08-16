@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@mui/styles";
-import logo from "../assets/Logo.png";
 import { Link, useNavigate } from "react-router-dom";
-import { loadUser, logout } from "../../src/actions/auth";
+import {  loadUser, logout } from "../../src/actions/auth";
 import { connect, useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import { getProfile } from "../actions/profileAction";
 
 const useStyles = makeStyles((theme) => ({
   profileImage: {
@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#FFFFFF",
     fontSize: 18,
     fontWeight: 600,
+    cursor:'pointer',
   },
   buttonEarn: {
     background: "linear-gradient(110.85deg, #F98DC8 -25.63%, #E0077D 157.96%)",
@@ -72,15 +73,18 @@ function Navbar() {
 
   const handleLogout = () => {
     dispatch(logout());
+    navigate("/login");
   };
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      // navigate("/login");
-    } else {
-      dispatch(loadUser(token));
+    console.log("fetching profile accccccccc ");
+    if(!isAuthenticated && !localStorage.getItem('token')){
+      return
     }
-  }, [isAuthenticated, token]);
+    dispatch(loadUser(localStorage.getItem('token')))
+    dispatch(getProfile());
+    
+  }, [isAuthenticated]);
 
   return (
     <div className="row p-4">
@@ -96,7 +100,6 @@ function Navbar() {
             <div className="d-flex row justify-content-center">
               <div className={classes.navText}>
                 {!isAuthenticated ? (
-                  <Link to="/login" style={{ textDecoration: "none" }}>
                     <button
                       type="submit"
                       onClick={login}
@@ -108,7 +111,6 @@ function Navbar() {
                     >
                       LogIn
                     </button>
-                  </Link>
                 ) : (
                   <>
                     <button
@@ -127,7 +129,7 @@ function Navbar() {
               <span className={classes.divder} />
             </div>
           </div>
-          <Link to="/writepost" style={{ textDecoration: "none" }}>
+          <Link to={!isAuthenticated ? '/login' : '/writepost'} style={{ textDecoration: "none" }}>
             <div className="d-flex row justify-content-center">
               <button className={classes.buttonEarn}>Write and Earn</button>
               <span className={classes.divder} />

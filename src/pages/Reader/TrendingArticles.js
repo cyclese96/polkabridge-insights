@@ -169,7 +169,7 @@ function TrendingArticles() {
           </div>
         </div>
       </div>
-      <div className="row">
+      <div className="row mt-5">
         <div className="col-md-6">
           <div className="footer">
             <img className={classes.logo} src={logo} alt="image-logo" />

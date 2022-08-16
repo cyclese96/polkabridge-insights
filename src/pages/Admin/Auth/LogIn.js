@@ -5,8 +5,8 @@ import Navbar from "../../../common/Navbar";
 import Person from "../../../assets/person.png";
 import Key from "../../../assets/key.png";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { loginUser } from "../../../actions/auth";
-import { connect, useSelector } from "react-redux";
+import { loadUser, loginUser } from "../../../actions/auth";
+import { connect, useDispatch, useSelector } from "react-redux";
 import polkabridge from "../../../assets/PolkaBridge.png";
 
 
@@ -125,7 +125,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = ({ loginUser, logout, isAuthenticated }) => {
+const Login = ({ loginUser, logout }) => {
   const classes = useStyles();
   const [formData, setFormData] = useState({
     email: "",
@@ -140,17 +140,23 @@ const Login = ({ loginUser, logout, isAuthenticated }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     loginUser(email, password);
+    console.log('submit called')
   };
+
+  const dispatch = useDispatch();
 
   const token = useSelector((state) => state?.auth?.token);
   const navigate = useNavigate();
+  const isAuthenticated = useSelector((state) => state?.auth?.isAuthenticated);
 
-  // useEffect(() => {
-  //   if (!token) {
-  //     return;
-  //   }
-  //   navigate("/");
-  // }, [token]);
+
+  useEffect(() => {
+    console.log('isAuthen', isAuthenticated)
+    if (isAuthenticated === true) {
+      navigate('/')
+      dispatch(loadUser(token));
+    } 
+  }, [isAuthenticated, token]);
 
   const navigateSignUp = () => {
     navigate('/signup');
@@ -164,7 +170,7 @@ const Login = ({ loginUser, logout, isAuthenticated }) => {
       <div className="row">
         <div className="col-md-6">
           <div className="d-flex justify-content-center mx-4 my-4">
-            <h5 className={classes.login} onClick={()=>navigate('/login')}>Log in</h5>
+            <h5 className={classes.login}>Log In</h5>
             <div className={classes.line}></div>
               <h5 className={classes.signUp} style={{ marginLeft: 20 }} onClick={navigateSignUp}>
                 Sign up

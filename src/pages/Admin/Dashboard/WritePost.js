@@ -150,6 +150,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "transparent",
     marginRight: 10,
     color: "white",
+    borderRadius:"10px",
+    padding:'2px',
     [theme.breakpoints.down("md")]: {
       display: "none",
     },
@@ -208,7 +210,7 @@ function WritePost({ addPost }) {
             <Navbar />
             <div className="row">
               <div className="d-flex justify-content-start mx-4 my-4">
-                <Link to="/" style={{ textDecoration: "none" }}>
+                <Link to="/dashboard" style={{ textDecoration: "none" }}>
                   <h5 className={classes.myPost}>My Post</h5>
                 </Link>
                 <div className={classes.line}></div>
@@ -232,10 +234,12 @@ function WritePost({ addPost }) {
                       <div className={classes.dropdown}>
                         <h6 className={classes.writeTitle}>Catagory:</h6>
                         <select className={classes.form}>
-                          <option value="beginner">select</option>
-                          <option value="beginner">Tokens</option>
-                          <option value="moderator">PBR</option>
-                          <option value="fluent">PWAR</option>
+                          <option value="beginner">Select</option>
+                          <option value="beginner">Beginner</option>
+                          <option value="moderator">Coins & Tokens</option>
+                          <option value="fluent">Ecosystems</option>
+                          <option value="fluent">Defi Basics</option>
+                          <option value="fluent">NFT</option>
                         </select>
                       </div>
                     </div>

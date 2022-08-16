@@ -138,7 +138,6 @@ const SignUp = ({ setAlert, signUp }) => {
   };
 
 
-
   return (
     <>
       <div>
@@ -147,7 +146,7 @@ const SignUp = ({ setAlert, signUp }) => {
       <div className="row">
         <div className="col-md-6">
           <div className="d-flex justify-content-center mx-4 my-4">
-            <Link to="/" style={{ textDecoration: "none" }}>
+            <Link to="/login" style={{ textDecoration: "none" }}>
               <h5 className={classes.login}>Log in</h5>
             </Link>
             <div className={classes.line}></div>
@@ -166,6 +165,7 @@ const SignUp = ({ setAlert, signUp }) => {
                   name="name"
                   value={name}
                   onChange={onChange}
+                  
                 />
               </div>
               <div className={classes.para} style={{ marginTop: 10 }}>
@@ -216,6 +216,7 @@ const SignUp = ({ setAlert, signUp }) => {
                 className={classes.buttonLogin}
                 type="submit"
                 value="SignUp"
+               
               >
                 Sign Up{" "}
               </button>

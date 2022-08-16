@@ -52,13 +52,13 @@ function Dashboard({ isAuthenticated }) {
     await dispatch(getUserPost());
   }, []);
 
-  useEffect(() => {
-    if (!token) {
-      navigate("/login");
-    } else {
-      dispatch(loadUser(token));
-    }
-  }, [token]);
+  // useEffect(() => {
+  //   if (!token) {
+  //     navigate("/login");
+  //   } else {
+  //     dispatch(loadUser(token));
+  //   }
+  // }, [token]);
 
   return (
     <div className="row mt-4">

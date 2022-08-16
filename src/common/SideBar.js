@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useTheme } from "@mui/styles";
 import { makeStyles } from "@material-ui/core";
 import logo from "../../src/assets/Logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../actions/profileAction";
 import profile from "../reducers/profile";
@@ -67,6 +67,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 500,
     marginTop: 25,
     marginBottom: 20,
+    textDecoration:'none',
   },
   sideBarActive: {
     color: "#E13D7E",
@@ -127,11 +128,12 @@ function SideBar() {
     right: false,
   });
   const profile = useSelector((state) => state?.profile?.profile);
+  const isAuthenticated = useSelector((state) => state?.auth?.isAuthenticated);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log("fetching profile accccccccc ");
-    dispatch(getProfile());
-  }, []);
+
+
+
 
   const list = (anchor) => (
     <div
@@ -147,9 +149,9 @@ function SideBar() {
           <List>
             {[
               { name: "Home", link: "/" },
-              { name: "Profile", link: "/profile" },
+              { name: "Profile", link: !isAuthenticated ?  '/login': "/profile"  },
               { name: "Dashboard", link: "/" },
-              { name: "Create Post", link: "/writepost" },
+              { name: "Create Post", link: !isAuthenticated ? "/login" : '/writepost' },
             ].map((tab, index) => (
               <Link to={tab.link} key={index}>
                 <ListItem
@@ -197,24 +199,33 @@ function SideBar() {
             <img className={classes.logo} src={logo} alt="image-logo" />
           </Link>
           <br />
+          <Link to={!isAuthenticated ? '/login' : "/profile"} style={{ textDecoration: "none" }}>
           <img
             className={classes.profileImage}
             src={profile?.avatar}
             alt="image-logo"
           />
-          <Link to="/profile" style={{ textDecoration: "none" }}>
             <h4 className={classes.usersName}>{profile?.name}</h4>
           </Link>
           <h6 className={classes.usersEmail}>{profile?.email}</h6>
-          <Link to="/dashboard" style={{ textDecoration: "none" }}>
+          <Link to={!isAuthenticated ? '/login' : "/dashboard"} style={{ textDecoration: "none" }}>
             <h5 className={classes.sideBarActive}>My Post</h5>
           </Link>
+          <Link to={!isAuthenticated ? '/login' : "/profile"} style={{ textDecoration: "none" }}>
+            <h5 className={classes.sideBar}>My Profile</h5>
+          </Link>
           <span className={classes.divider} />
-          <h5 className={classes.sideBar}>Earning</h5>
+          <Link  to='#'> 
+          <h5 className={classes.sideBar} style={{ textDecoration: "none" }}>Earning</h5>
+          </Link>
           <span className={classes.divider} />
-          <h5 className={classes.sideBar}>My Views</h5>
+          <Link to="#">
+          <h5 className={classes.sideBar} style={{ textDecoration: "none" }}>My Views</h5>
+          </Link>
           <span className={classes.divider} />
-          <h5 className={classes.sideBar}>Saved</h5>
+          <Link to='#'>
+          <h5 className={classes.sideBar} style={{ textDecoration: "none" }}>Saved</h5>
+          </Link>
           <span className={classes.divider} />
         </div>
       </div>

@@ -28,7 +28,7 @@ function App() {
             <Route path="/writepost" element={<WritePost />} />
             <Route path="/livepost" element={<LivePost />} />
             <Route path="/pendingpost" element={<PendingPost />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="profile" element={<Profile />} />
             <Route path="/admin/Dashboard" element={<SuperAdminDashboard />} />
             <Route path="/" element={<TrendingArticles />} />
           </Routes>
