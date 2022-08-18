@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     borderTopRightRadius: "20px 20px",
     borderBottomRightRadius: "20px 20px",
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("sm")]: {
       display: "none",
     },
   },
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 40,
     marginTop: 20,
     cursor: "pointer",
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("sm")]: {
       marginLeft: "5px",
     },
   },
@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 500,
     marginTop: 25,
     marginBottom: 20,
-    textDecoration:'none',
+    textDecoration: "none",
   },
   sideBarActive: {
     color: "#E13D7E",
@@ -107,6 +107,7 @@ const useStyles = makeStyles((theme) => ({
   linkWrapper: {
     backgroundColor: "#1B1B17",
     textDecoration: "none",
+    width:'100%'
   },
   mobileLink: {
     textDecoration: "none",
@@ -131,10 +132,6 @@ function SideBar() {
   const isAuthenticated = useSelector((state) => state?.auth?.isAuthenticated);
   const navigate = useNavigate();
 
-
-
-
-
   const list = (anchor) => (
     <div
       className={clsx(classes.list, {
@@ -144,14 +141,21 @@ function SideBar() {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <div className="d-flex justify-content-between">
+      <div className="d-flex justify-content-between g-0 p-0 m-0">
         <div className={classes.linkWrapper}>
           <List>
             {[
               { name: "Home", link: "/" },
-              { name: "Profile", link: !isAuthenticated ?  '/login': "/profile"  },
+              {
+                name: "Profile",
+                link: !isAuthenticated ? "/login" : "/profile",
+              },
               { name: "Dashboard", link: "/" },
-              { name: "Create Post", link: !isAuthenticated ? "/login" : '/writepost' },
+              {
+                name: "Create Post",
+                link: !isAuthenticated ? "/login" : "/writepost",
+              },
+           
             ].map((tab, index) => (
               <Link to={tab.link} key={index}>
                 <ListItem
@@ -199,32 +203,47 @@ function SideBar() {
             <img className={classes.logo} src={logo} alt="image-logo" />
           </Link>
           <br />
-          <Link to={!isAuthenticated ? '/login' : "/profile"} style={{ textDecoration: "none" }}>
-          <img
-            className={classes.profileImage}
-            src={profile?.avatar}
-            alt="image-logo"
-          />
+          <Link
+            to={!isAuthenticated ? "/login" : "/profile"}
+            style={{ textDecoration: "none" }}
+          >
+            <img
+              className={classes.profileImage}
+              src={profile?.avatar}
+              alt="image-logo"
+            />
             <h4 className={classes.usersName}>{profile?.name}</h4>
           </Link>
           <h6 className={classes.usersEmail}>{profile?.email}</h6>
-          <Link to={!isAuthenticated ? '/login' : "/dashboard"} style={{ textDecoration: "none" }}>
+          <Link
+            to={!isAuthenticated ? "/login" : "/dashboard"}
+            style={{ textDecoration: "none" }}
+          >
             <h5 className={classes.sideBarActive}>My Post</h5>
           </Link>
-          <Link to={!isAuthenticated ? '/login' : "/profile"} style={{ textDecoration: "none" }}>
+          <Link
+            to={!isAuthenticated ? "/login" : "/profile"}
+            style={{ textDecoration: "none" }}
+          >
             <h5 className={classes.sideBar}>My Profile</h5>
           </Link>
           <span className={classes.divider} />
-          <Link  to='#'> 
-          <h5 className={classes.sideBar} style={{ textDecoration: "none" }}>Earning</h5>
+          <Link to="#" style={{textDecoration: 'none'}}>
+            <h5 className={classes.sideBar} >
+              Earning
+            </h5>
           </Link>
           <span className={classes.divider} />
-          <Link to="#">
-          <h5 className={classes.sideBar} style={{ textDecoration: "none" }}>My Views</h5>
+          <Link to="#" style={{textDecoration: 'none'}}>
+            <h5 className={classes.sideBar} >
+              My Views
+            </h5>
           </Link>
           <span className={classes.divider} />
-          <Link to='#'>
-          <h5 className={classes.sideBar} style={{ textDecoration: "none" }}>Saved</h5>
+          <Link to="#" style={{textDecoration: 'none'}}>
+            <h5 className={classes.sideBar}>
+              Saved
+            </h5>
           </Link>
           <span className={classes.divider} />
         </div>

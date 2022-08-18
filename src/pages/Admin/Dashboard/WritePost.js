@@ -198,6 +198,8 @@ function WritePost({ addPost }) {
     setImage(event.target.files[0]);
     setImageName(event.target.files[0]?.name);
   };
+  const navigate = useNavigate();
+
   return (
     <>
       <form className="form" onSubmit={onSubmit}>
@@ -311,8 +313,8 @@ function WritePost({ addPost }) {
                       placeholder="add category"
                     />
                   </div>
+                  
                   <div className="d-flex justify-content-center mt-4">
-                    <Link to="/" style={{ textDecoration: "none" }}>
                       <button
                         className={classes.buttonPublish}
                         type="submit"
@@ -320,7 +322,6 @@ function WritePost({ addPost }) {
                       >
                         Publish
                       </button>
-                    </Link>
                   </div>
                 </div>
               </div>

@@ -124,6 +124,7 @@ function Profile() {
   const [email, setEmail] = useState("");
   const [bio, setBio] = useState("");
   const [location, setLocation] = useState("");
+  const [avatar, setAvatar] = useState("")
   const dispatch = useDispatch();
   const profile = useSelector((state) => state?.profile?.profile);
 
@@ -134,6 +135,7 @@ function Profile() {
       email: email,
       location: location,
       bio: bio,
+      avatar: avatar,
     };
     console.log("handle update ", data);
     dispatch(updateProfile(data));
@@ -153,6 +155,7 @@ function Profile() {
     setEmail(profile?.email);
     setBio(profile?.bio);
     setLocation(profile?.location);
+    setAvatar(profile?.avatar)
   }, [profile]);
 
   const [imageFile, setImage] = useState(null);
@@ -201,6 +204,17 @@ function Profile() {
               <button className={classes.buttonUpload} type="file" onChange={handleFileSelect} >
                 Upload New Picture
               </button>
+              <form>
+                        <input
+                          className={classes.dragText}
+                          label="upload file"
+                          type="file"
+                          name="image"
+                          key="{image}"
+                          onChange={handleFileSelect}
+                        />
+                        <div id="upload-msg"></div>
+                      </form>
               <button className={classes.buttonDelete}>Delete</button>
             </div>
             <h5 className={classes.inputFieldName}>Name</h5>
