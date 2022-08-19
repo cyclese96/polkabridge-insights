@@ -6,8 +6,8 @@ import UserList from "./userlist";
 export default function Intro() {
     return (
         <div className="flex flex-col">
-            <div className="flex flex-col md:flex-row gap-12 justify-start my-12 md:items-start">
-                <div id="carouselIntro" className="carousel slide relative w-full md:w-3/4" data-bs-ride="carousel">
+            <div className="flex flex-col md:flex-row gap-6 justify-start mt-8 md:items-start">
+                <div id="carouselIntro" className="carousel slide relative md:w-3/4" data-bs-ride="carousel" style={{width:'80%'}}>
                     <div className="carousel-inner relative w-full overflow-hidden rounded-lg">
                         <div className="carousel-item active relative float-left w-full">
                             <img

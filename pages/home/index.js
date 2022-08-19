@@ -15,25 +15,25 @@ export default function Home() {
         <div className="flex space-x-2 md:space-x-4 justify-start">
           <Link href="/home/TodaysNews">
             <a>
-              <span className="text-white text-base md:text-2xl">Today’s News</span>
+              <span className="text-white text-base md:text-2xl" style={{fontSize:20, fontWight:600}}>Today’s News</span>
             </a>
           </Link>
           <div className="bg-gradient-to-b from-pink-300 to-pink-500 w-0.5 rounded"></div>
           <Link href="/home/TrendingArticles">
             <a>
-              <span className="text-white text-base md:text-2xl">Trending Articles</span>
+              <span className="text-white text-base md:text-2xl" style={{fontSize:20, fontWight:600}}>Trending Articles</span>
             </a>
           </Link>
           <div className="bg-gradient-to-b from-pink-300 to-pink-500 w-0.5 rounded"></div>
           <Link href="/home/DEFIBasics">
             <a>
-              <span className="text-white text-base md:text-2xl">DEFI BASICS</span>
+              <span className="text-white text-base md:text-2xl" style={{fontSize:20, fontWight:600}}>DEFI BASICS</span>
             </a>
           </Link>
           <div className="bg-gradient-to-b from-pink-300 to-pink-500 w-0.5 rounded"></div>
           <Link href="/home/WeeklyTop">
             <a>
-              <span className="text-white text-base md:text-2xl">Weekly Top</span>
+              <span className="text-white text-base md:text-2xl" style={{fontSize:20, fontWight:600}}>Weekly Top</span>
             </a>
           </Link>
         </div>
@@ -41,9 +41,9 @@ export default function Home() {
         <Intro />
 
         <div className="mb-8">
-          <div className="justify-start my-12">
-            <span className="text-white text-2xl">Latest</span>
-            <Divider />
+          <div className="justify-start my-10">
+            <span className="text-white text-2xl" style={{fontSize:'24px', fontWeight: 600 }}>Latest</span>
+            <Divider/>
           </div>
           <LatestSlide />
         </div>

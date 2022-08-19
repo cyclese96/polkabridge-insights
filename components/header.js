@@ -37,6 +37,7 @@ export default function Header() {
         </button>
 
         <ul
+        style={{fontSize:'16px', fontWeight:500}}
           className={cn(
             "md:flex flex-col md:flex-row md:items-center md:justify-center text-sm w-full md:w-auto gap-6",
             mobileMenuIsOpen ? `block` : `hidden`
@@ -53,7 +54,7 @@ export default function Header() {
             </li>
           ))}
         </ul>
-        <button className="rounded-sm py-1 px-6 bg-gradient-to-r from-pink-300 to-pink-500 md:ml-6">Write and Earn</button>
+        <button className="rounded-sm py-1 px-6 bg-gradient-to-r from-pink-300 to-pink-500 md:ml-6" style={{borderRadius:'10px'}}>Write and Earn</button>
       </div>
     </header>
   );

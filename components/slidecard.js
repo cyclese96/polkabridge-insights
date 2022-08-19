@@ -7,26 +7,26 @@ export default function SlideCard(props) {
         props.item.category = 'Coins and Tokens';
     return (
         <div className="border border-gray-800 rounded-2xl px-8 py-8 max-w-md mx-auto">
-            <img src={props.item.image} />
+            <img src={props.item.image} style={{borderRadius:8}} />
             <div className="flex my-4">
-                <span className="text-white text-sm mr-8">{props.item.category}</span>
-                <span className="text-white text-sm mr-8">·</span>
-                <span className="text-gray-400 text-sm">{props.item.monthAgo} Month Ago </span>
+                <span className="text-white text-sm mr-4" style={{fontSize:'14px', fontWeight: 500}}>{props.item.category}</span>
+                <span className="text-white text-sm mr-4">·</span>
+                <span className="text-gray-400 text-sm" style={{fontSize:'14px', fontWeight: 500, color:'#FFFFFF'}}>{props.item.monthAgo} Month Ago </span>
             </div>
-            <span className="text-white text-left text-2xl inline-block mb-4">{props.item.title}</span>
-            <span className="text-gray-400 text-left text-sm inline-block">{props.item.content}</span>
+            <span className="text-white text-left text-2xl inline-block mb-4" style={{fontSize:'24px', fontWeight: 600, color:'#FFFFFF'}}>{props.item.title}</span>
+            <div className="text-400 text-left text-sm inline-block" style={{fontSize:'15px', fontWeight: 300, color:'#FFFFFF'}}>{props.item.content}</div>
             <table className="table-auto my-4 w-full">
                 <tbody>
                     <tr>
-                        <td width='20%'>
+                        <td width='15%'>
                             <img src={props.item.user_avatar}
                                 className="block"
                                 alt="..."
                             />
                         </td>
                         <td>
-                            <span className="text-white text-sm text-left block">{props.item.user}</span>
-                            <span className="text-white text-sm text-left block">{props.item.readTime} Read</span>
+                            <span className="text-white text-sm text-left block ml-2" style={{fontSize:'19px', fontWeight:300}}>{props.item.user}</span>
+                            <span className="text-white text-sm text-left block ml-2" style={{fontSize:'16px', fontWeight:300}}>{props.item.readTime} read</span>
                         </td>
                         <td align="middle">
                             <span className="text-white text-sm block"></span>
@@ -38,7 +38,7 @@ export default function SlideCard(props) {
                                     <div className="flex items-center">
                                         <Link href={"/home/TrendingArticlesDetail?item="+JSON.stringify(props.item)}>
                                             <a>
-                                                <span className="text-white text-sm ">
+                                                <span className="text-white text-sm" style={{fontSize:'16px', fontWeight:300}}>
                                                     Read Full
                                                 </span>
                                             </a>
@@ -49,7 +49,7 @@ export default function SlideCard(props) {
                                     </div>
                                 </div>
                                 <div className="grow">
-                                    <span className="text-white text-sm text-right">See More Info</span>
+                                    <span className="text-white text-sm text-right" style={{fontSize:'15px', fontWeight:300}}>See More Info</span>
                                 </div>
                             </div>
                         </td>
